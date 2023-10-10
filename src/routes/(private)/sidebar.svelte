@@ -3,7 +3,7 @@
 	import { page } from '$app/stores'
 	import { goto } from '$app/navigation'
 
-	const appName = import.meta.env.VITE_APP_NAME
+	const appName = 'Scout Manager'
 
 	$: changeLink = (link: any) => {
 		closeSideMenu()
