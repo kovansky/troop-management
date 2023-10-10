@@ -9,14 +9,18 @@
 		const params = new URLSearchParams(window.location.hash);
 		formData.append('token', params.get('#access_token'));
 		formData.append('refresh_token', params.get('#refresh_token'));
-		console.log(formData);
+		if (formData.get('password') !== formData.get('password1')) {
+			toast.error('Hasła nie są takie same!');
+			return;
+		}
+		toast.loading('Nadawanie dostępu...');
 		const res = await fetch(`/api/auth/change_password`, {
 			method: 'POST',
 			body: formData
 		}).then((res) => res.json());
 		const { status, body } = res;
 		if (status === 200) {
-			toast.success('Zapisano!');
+			toast.success('Dostęp nadany!');
 			goto('/');
 		} else if (status === 400) {
 			toast.error('Błędne dane! - ' + body);
@@ -41,6 +45,7 @@
 						class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 						value=""
 						placeholder="Wprowadź hasło"
+						required
 					/>
 				</div>
 			</div>
@@ -53,6 +58,7 @@
 					class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 					value=""
 					placeholder="Wprowadź hasło ponownie"
+					required
 				/>
 			</div>
 			<button
