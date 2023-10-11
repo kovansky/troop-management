@@ -61,7 +61,7 @@
 		{/if}
 
 		<div class="flex flex-col flex-1 w-full">
-			<Header {user} />
+			<Header {data} />
 
 			<slot />
 		</div>
