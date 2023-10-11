@@ -2,25 +2,38 @@
 	import toast from 'svelte-french-toast';
 	import type { PageData } from './$types';
 	import { goto } from '$app/navigation';
+	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
 	export let data: PageData;
+
+	onMount(() => {
+		console.log(window.location.hash, $page.url.searchParams);
+		const params = new URLSearchParams(window.location.hash);
+		if ((params.get('#access_token') && params.get('#refresh_token')) || !params.get('#token')) {
+			toast.error('Brak tokenów!');
+			goto('/');
+		}
+	});
 
 	const handleClick = async (event) => {
 		const formData = new FormData(event.target);
 		const params = new URLSearchParams(window.location.hash);
-		formData.append('token', params.get('#access_token'));
+		formData.append('access_token', params.get('#access_token'));
 		formData.append('refresh_token', params.get('#refresh_token'));
+		formData.append('token', params.get('#token'));
 		if (formData.get('password') !== formData.get('password1')) {
 			toast.error('Hasła nie są takie same!');
 			return;
 		}
-		toast.loading('Nadawanie dostępu...');
+		toast.loading('Zmienianie hasła...');
 		const res = await fetch(`/api/auth/change_password`, {
 			method: 'POST',
 			body: formData
 		}).then((res) => res.json());
 		const { status, body } = res;
+		toast.dismiss();
 		if (status === 200) {
-			toast.success('Dostęp nadany!');
+			toast.success('Hasło zmienione!');
 			goto('/');
 		} else if (status === 400) {
 			toast.error('Błędne dane! - ' + body);
