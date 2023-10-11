@@ -6,6 +6,10 @@ import {
     PUBLIC_SUPABASE_ANON_KEY,
 } from '$env/static/public'
 
+import {
+    PRIVATE_SUPABASE_SERVICE_ROLE_KEY,
+} from '$env/static/private'
+
 const privateRoutePrefix = "/(private)"
 
 export const handle: Handle = async ({ event, resolve }) => {
@@ -19,10 +23,23 @@ export const handle: Handle = async ({ event, resolve }) => {
         event,
     })
 
+    event.locals.supabaseService = createSupabaseServerClient({
+        supabaseUrl: PUBLIC_SUPABASE_URL,
+        supabaseKey: PRIVATE_SUPABASE_SERVICE_ROLE_KEY,
+        event,
+    })
+
     event.locals.getSession = async () => {
         const {
             data: { session },
         } = await event.locals.supabase.auth.getSession()
+        return session
+    }
+
+    event.locals.getServiceSession = async () => {
+        const {
+            data: { session },
+        } = await event.locals.supabaseService.auth.getSession()
         return session
     }
 
