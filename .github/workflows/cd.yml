@@ -2,7 +2,7 @@ name: Deploy
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, version/mvp ]
 
 jobs:
 
@@ -16,6 +16,8 @@ jobs:
         node-version: 20
         cache: 'npm'
     - run: npm ci
+    - name: Add environmental 
+      run: echo "PUBLIC_SUPABASE_URL=${{ secrets.PUBLIC_SUPABASE_URL }}\nPUBLIC_SUPABASE_ANON_KEY=${{ secrets.PUBLIC_SUPABASE_ANON_KEY }}\nPRIVATE_SUPABASE_SERVICE_ROLE_KEY=${{ secrets.PRIVATE_SUPABASE_SERVICE_ROLE_KEY }}" > .env 
     - run: npm run build
     - name: Configure SSH
       run: |
