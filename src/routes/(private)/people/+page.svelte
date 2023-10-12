@@ -69,7 +69,7 @@
 										</div>
 										<div>
 											<p class="font-semibold">{capitalizeEveryWord(person.name)}</p>
-											<p class="text-xs text-gray-600 dark:text-gray-400">{person.join_year}</p>
+											<p class="text-xs text-gray-600 dark:text-gray-400">{person.join_year || ''}</p>
 										</div>
 									</div>
 								</td>

@@ -122,7 +122,7 @@
 												{capitalizeEveryWord(person.people_name || 'Błąd')}
 											</p>
 											<p class="text-xs text-gray-600 dark:text-gray-400">
-												{person.people_join_year}
+												{person.people_join_year || ''}
 											</p>
 										</div>
 									</div>
