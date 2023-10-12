@@ -28,7 +28,6 @@
 		return () => subscription.unsubscribe();
 	});
 
-	const user = data.session?.user;
 </script>
 
 
@@ -61,7 +60,7 @@
 		{/if}
 
 		<div class="flex flex-col flex-1 w-full">
-			<Header {data} />
+			<Header {data}/>
 
 			<slot />
 		</div>

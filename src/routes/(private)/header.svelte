@@ -1,7 +1,29 @@
 <script lang="ts">
+	import { toggleSideMenu } from '../../helpers/menu';
+	import { clickOutside } from '$lib/ioevents/click';
+	import { keydownEscape } from '$lib/ioevents/keydown';
+	import { onMount, setContext } from 'svelte';
+	import { themeChange } from 'theme-change';
 	import { capitalizeEveryWord } from '$lib/utils/text-utils';
+
 	export let data: any;
-	export let withSearch = true;
+	export let withSearch = false;
+	export let searchValue = '';
+	export let placeholder = '';
+
+	const handleSearch = async (event: KeyboardEvent) => {
+		const input = event.target as HTMLInputElement;
+		const query = input.value;
+	};
+
+	const debounce = (callback: Function, wait = 300) => {
+		let timeout: ReturnType<typeof setTimeout>;
+
+		return (...args: any[]) => {
+			clearTimeout(timeout);
+			timeout = setTimeout(() => callback(...args), wait);
+		};
+	};
 </script>
 
 <header class="z-10 py-4 bg-base-100 shadow-md">
@@ -39,8 +61,9 @@
 					<input
 						class="w-full pl-8 pr-2 py-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
 						type="text"
-						placeholder="Search for Profiles (uid / email / username)"
+						placeholder={placeholder}
 						aria-label="Search"
+						on:keyup={debounce(handleSearch)}
 					/>
 				</div>
 			</div>
