@@ -9,7 +9,6 @@
 	import Header from './header.svelte';
 
 	import type { LayoutData } from './$types';
-	import Shell from '$lib/components/shell/Shell.svelte';
 
 	export let data: LayoutData;
 	$: ({ supabase, session } = data);

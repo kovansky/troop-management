@@ -4,8 +4,8 @@ import '../app.postcss';
 </script>
 
 <svelte:head>
-	<title>SuKit</title>
-	<meta name="description" content="An experiment with SvelteKit" />
+	<title>Scout Manager</title>
+	<meta name="description" content="System zarządzania jednostką" />
 </svelte:head>
 
 <Toaster />
