@@ -12,13 +12,6 @@
 	let selected = [];
 
 	onMount(() => {
-		const urlParams = new URLSearchParams(window.location.search);
-		const toastQuery = urlParams.get('toast');
-		if (toastQuery) {
-			toast.success('Operacja zakończona pomyślnie!');
-			urlParams.delete('toasts');
-			window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`);
-		}
 		if (data.group_person == true)
 			selected = data.group_person.map((group_p) => group_p.fk_person_id);
 	});

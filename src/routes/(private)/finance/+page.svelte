@@ -4,7 +4,6 @@
 	import type { PageData } from './$types';
 
 	import ColorTag from '../../../lib/components/ColorTag.svelte';
-	import { toast } from 'svelte-french-toast';
 	import { onMount } from 'svelte';
 	import Chart from 'chart.js/auto';
 	export let data: PageData;
@@ -16,13 +15,6 @@
 	$: isMobile = innerWidth < 640;
 
 	onMount(() => {
-		const urlParams = new URLSearchParams(window.location.search);
-		const toastQuery = urlParams.get('toast');
-		if (toastQuery) {
-			toast.success('Operacja zakończona pomyślnie!');
-			urlParams.delete('toasts');
-			window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`);
-		}
 		renderChart();
 	});
 
@@ -123,6 +115,7 @@
 								class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
 							>
 								<th class="px-4 py-3">Nazwa</th>
+								<th class="px-4 py-3">Data</th>
 								<th class="px-4 py-3">Kategoria</th>
 								<th class="px-4 py-3">Kwota</th>
 							</tr>
@@ -151,6 +144,7 @@
 											</div>
 										</div>
 									</td>
+									<td class="px-4 py-3">{operation.date}</td>
 									<ColorTag
 										color={operation.finance_categories?.color || (operation.fk_fee == null ? 'grey' : 'green')}
 										title={
