@@ -1,22 +1,10 @@
 <script lang="ts">
-	import type { PageData } from './$types';
-
-	import { capitalizeEveryWord } from '../../../lib/utils/text-utils';
-	import ColorTag from '../../../lib/components/ColorTag.svelte';
-	import { page } from '$app/stores';
-	import { goto } from '$app/navigation';
-	import { toast } from 'svelte-french-toast';
-	import { onMount } from 'svelte';
 	export let value: string;
 	export let text: string;
 	export let baseColor: string;
 	export let textColor: string;
-
 </script>
 
-<!-- rectangular big card -->
-<!-- <div class="xl:w-1/4 pr-4 pl-4 md:w-1/2"> -->
-	<!-- write same thing, but better -->
 <div class="w-1/2 pr-4 pl-4 md:w-1/4">
 	<div
 		class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300"
