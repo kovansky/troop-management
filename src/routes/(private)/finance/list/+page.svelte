@@ -13,7 +13,6 @@
 
 <main class="h-full pb-16 overflow-y-auto">
 	<div class="container grid px-6 mx-auto">
-		
 		<div class="flex justify-between items-center">
 			<div>
 				<h2 class="mt-6 mb-4 text-2xl font-semibold text-gray-700 dark:text-gray-200">Książka finansowa</h2>
@@ -22,7 +21,7 @@
 				</h4>
 			</div>
 			<button class="px-4 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-green-600 rounded-md hover:bg-green-500 focus:outline-none focus:bg-green-500"
-				on:click={() => goto(`${$page.url}/person_details`)}>
+				on:click={() => goto('/finance/finance_details')}>
 				Dodaj wpis
 			</button>
 		</div>
@@ -42,7 +41,8 @@
                     </thead>
                     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                         {#each data.operations as operation}
-                            <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 cursor-pointer">
+                            <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 cursor-pointer"
+                            on:click={() => goto(`/finance/finance_details?id=${operation.id}`)}>
                                 <td class="px-4 py-3">
                                     <div class="flex items-center text-sm">
                                         <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
