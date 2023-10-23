@@ -7,6 +7,7 @@
 	import { onMount } from 'svelte';
 	import Chart from 'chart.js/auto';
 	import { goto } from '$app/navigation';
+	import { toast } from 'svelte-french-toast';
 	export let data: PageData;
 
 	let isMobile;
@@ -37,7 +38,6 @@
 						data: data.categories_chart.map((category) => {
 							return category.percent > 0 ? category.percent : 0;
 						}),
-						// random colors
 						backgroundColor: data.categories_chart.map((category) => {
 							if (category.fee) return 'green';
 							return category.color || 'grey';
@@ -57,6 +57,12 @@
 			options: {}
 		});
 	}
+	const handleClick = (operation) => {
+		if (operation.fk_fee != null)
+			return toast.error('Nie można edytować składek z poziomu tego widoku!\nUżyj modułu składek.');
+		if (!operation.id) return toast.error('Nie można edytować tej operacji - brak ID!');
+		goto(`/finance/finance_details?id=${operation.id}`);
+	};
 </script>
 
 <svelte:window bind:innerWidth />
@@ -130,7 +136,10 @@
 						</thead>
 						<tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
 							{#each data.last_operations as operation}
-								<tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 cursor-pointer">
+								<tr
+									class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 cursor-pointer"
+									on:click={() => handleClick(operation)}
+								>
 									<td class="px-4 py-3">
 										<div class="flex items-center text-sm">
 											<div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">

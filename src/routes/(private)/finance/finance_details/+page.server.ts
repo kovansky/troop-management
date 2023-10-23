@@ -8,6 +8,7 @@ async function getFinance(finance_id: string | null, supabase) {
         .eq('id', parseInt(finance_id));
     if (error) throw error;
     if (!finance || finance.length === 0) return null;
+    if (finance[0].fk_fee) return null;
     return finance[0];
 }
 
