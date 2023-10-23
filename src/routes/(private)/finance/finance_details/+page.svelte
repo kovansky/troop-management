@@ -92,9 +92,10 @@
 										</div>
 										<input
 											type="text"
+											name="amount"
 											id="amount"
 											class="block pl-11 h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-											value="{data.finance?.amount || ''}"
+											value="{Math.abs(data.finance?.amount) || ''}"
 											placeholder="21,37"
 										/>
 									</div>
@@ -148,25 +149,6 @@
 										required
 									/>
 								</div>
-
-								<!-- Row -->
-								<!-- <div class="md:col-span-2">
-									<label for="group">Zastęp</label>
-									<select
-										name="group"
-										id="group"
-										class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-									>
-										{#each data.streamed.groups as group}
-											<option value={group.id} selected={person?.fk_small_group_id === group.id}>
-												{group.name}
-											</option>
-										{/each}
-										<option value="" selected={!person?.fk_small_group_id}> Brak zastępu </option>
-									</select>
-								</div> -->
-
-								<!-- row -->
 								<div class="inline-flex float-right pt-4">
 									<div class="px-2">
 										<div class="inline-flex">
