@@ -9,15 +9,7 @@
 	import { onMount } from 'svelte';
 	export let data: PageData;
 
-	onMount(() => {
-		const urlParams = new URLSearchParams(window.location.search);
-		const toastQuery = urlParams.get('toast');
-		if (toastQuery) {
-			toast.success('Operacja zakończona pomyślnie!');
-			urlParams.delete('toasts');
-			window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`);
-		}
-	})
+
 </script>
 
 <svelte:head>

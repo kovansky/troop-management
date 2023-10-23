@@ -57,6 +57,13 @@
 			]
 		},
 		{
+			name: 'Książka finansowa',
+			url: '/finance',
+			svg: [
+				'M4 6h16M4 10h16M4 14h16M4 18h16'
+			],
+		},
+		{
 			name: 'Użytkownicy',
 			url: '/authorized',
 			svg: [

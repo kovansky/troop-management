@@ -274,7 +274,7 @@ export interface Database {
           fk_degree_id?: number | null
           fk_role_id?: number | null
           fk_small_group_id?: number | null
-          fk_team_id: number
+          fk_team_id?: number
           fk_user_id?: string | null
           id?: number
           join_year?: string | null
@@ -438,8 +438,24 @@ export interface Database {
           }
         ]
       }
+      finance_summary: {
+        Row: {
+          name: string | null
+          percent: number | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
+      calculate_finance_summary: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          name: string
+          color: string
+          percent: number
+          fee: boolean
+        }[]
+      }
       changefeestatus: {
         Args: {
           fee_type_id: number
@@ -479,6 +495,10 @@ export interface Database {
             }
             Returns: string
           }
+      get_year_count: {
+        Args: Record<PropertyKey, never>
+        Returns: number
+      }
       get_year_earnings: {
         Args: Record<PropertyKey, never>
         Returns: number
