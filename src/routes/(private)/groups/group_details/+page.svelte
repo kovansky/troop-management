@@ -12,8 +12,7 @@
 	let selected = [];
 
 	onMount(() => {
-		if (data.group_person == true)
-			selected = data.group_person.map((group_p) => group_p.fk_person_id);
+		selected = data.group_person ? data.group_person.map((group_p) => group_p.fk_person_id) : [];
 	});
 
 	const handleCheck = (id) => {
