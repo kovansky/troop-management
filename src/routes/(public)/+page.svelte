@@ -7,16 +7,16 @@
 	$: ({ supabase } = data);
 	const handleClick = async (event) => {
 		const formData = new FormData(event.target);
-		console.log(formData);
 		const username = formData.get('username');
 		const password = formData.get('password');
-		console.log(username, password);
 		toast.loading('Logowanie...');
 		const { data, error } = await supabase.auth.signInWithPassword({
 			email: username?.toString(),
 			password: password?.toString()
 		});
+		toast.dismiss();
 		if (error) {
+			console.log('Error:', error);
 			toast.error(error.message);
 		} else {
 			toast.success('Zalogowano!');

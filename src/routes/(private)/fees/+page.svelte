@@ -2,37 +2,51 @@
 	import ColorTag from '$lib/components/ColorTag.svelte';
 	import { capitalizeEveryWord } from '$lib/utils/text-utils';
 	import type { PageData } from './$types';
-	
+
 	import { page } from '$app/stores';
 	import { goto, invalidateAll } from '$app/navigation';
 	import Modal from '$lib/components/Modal.svelte';
 	import { redirect } from '@sveltejs/kit';
 	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
+	import toast from 'svelte-french-toast';
 
 	export let data: PageData;
 
-	let { supabase } = data
-  $: ({ supabase } = data)
+	let { supabase } = data;
+	$: ({ supabase } = data);
 
 	let showModal = false;
 	let personIdFee: number | null = null;
 
 	if (data.fees_types && data.fees_types.length > 0 && !$page.url.searchParams.get('id')) {
-			onMount(() => {
-				if (data.fees_types && data.fees_types.length > 0) {
-					goToGroup(data.fees_types[0].small_groups?.id);
-				}
-			});
+		onMount(() => {
+			if (data.fees_types && data.fees_types.length > 0) {
+				goToGroup(data.fees_types[0].small_groups?.id);
+			}
+		});
 	}
 
 	const changeStatus = async () => {
 		if (personIdFee) {
-				let fees_types_id = data.fees_types?.find((fee_type) => fee_type.small_groups?.id.toString() === $page.url.searchParams.get('id'))?.id;
-				await supabase.rpc("changefeestatus", {fee_type_id: fees_types_id, person_id: personIdFee});
+			toast.loading('Zmienianie statusu...');
+			let fees_types_id = data.fees_types?.find(
+				(fee_type) => fee_type.small_groups?.id.toString() === $page.url.searchParams.get('id')
+			)?.id;
+			const { error } = await supabase.rpc('changefeestatus', {
+				fee_type_id: fees_types_id,
+				person_id: personIdFee
+			});
+			toast.dismiss();
+			if (error) {
+				toast.error('Wystąpił błąd! - ' + error.message);
+				console.log('Error:', error);
+			} else {
+				toast.success('Zmieniono status!');
 				invalidateAll();
 			}
-	}
+		}
+	};
 
 	function getPaidStatus(payment_date: string | null): string {
 		if (payment_date) {
