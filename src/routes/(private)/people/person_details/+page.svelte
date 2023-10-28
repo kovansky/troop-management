@@ -38,7 +38,7 @@
 		}
 	};
 
-	const deletePerson = async (event) => {
+	const deletePerson = async () => {
 		if (!$page.url.searchParams.get('id')) {
 			goto('/people');
 			return;
@@ -139,8 +139,8 @@
 						</div>
 					{:then person}
 						<div class="lg:col-span-2">
-							<form on:submit|preventDefault={savePerson}>
-								<div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
+							<div class="grid gap-2">
+								<form on:submit|preventDefault={savePerson} id="person-form" class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
 									<div class="md:col-span-5">
 										<label for="full_name">Imię i nazwisko</label>
 										<input
@@ -241,9 +241,7 @@
 													{group.name}
 												</option>
 											{/each}
-											<option value="" selected={!person?.fk_small_group_id}>
-												Brak zastępu
-											</option>
+											<option value="" selected={!person?.fk_small_group_id}> Brak zastępu </option>
 										</select>
 									</div>
 									<div class="md:col-span-2">
@@ -258,9 +256,7 @@
 													{role.name}
 												</option>
 											{/each}
-											<option value="" selected={!person?.fk_role_id}>
-												Brak funkcji
-											</option>
+											<option value="" selected={!person?.fk_role_id}> Brak funkcji </option>
 										</select>
 									</div>
 									<div class="md:col-span-1">
@@ -275,46 +271,45 @@
 													{degree.name}
 												</option>
 											{/each}
-											<option value="" selected={!person?.fk_degree_id}>
-												Brak stopnia
-											</option>
+											<option value="" selected={!person?.fk_degree_id}> Brak stopnia </option>
 										</select>
 									</div>
-									<!-- row -->
-									<div class="inline-flex float-right pt-4">
-										<div class="px-2">
-											<div class="inline-flex">
-												<!-- invoke delete -->
-												<button
-													on:click|preventDefault={deletePerson}
-													class="bg-red-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
-													>Usuń</button
-												>
-											</div>
+								</form>
+								<!-- row -->
+								<div class="inline-flex float-right pt-4">
+									<div class="px-2">
+										<div class="inline-flex">
+											<!-- invoke delete -->
+											<button
+												on:click|preventDefault={deletePerson}
+												class="bg-red-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
+												>Usuń</button
+											>
 										</div>
+									</div>
 
-										<div class="px-2">
-											<div class="inline-flex">
-												<button
-													on:click|preventDefault={() => goto(returnPath)}
-													class="bg-gray-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
-													>Anuluj</button
-												>
-											</div>
+									<div class="px-2">
+										<div class="inline-flex">
+											<button
+												on:click|preventDefault={() => goto(returnPath)}
+												class="bg-gray-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
+												>Anuluj</button
+											>
 										</div>
+									</div>
 
-										<div class="px-2">
-											<div class="inline-flex">
-												<button
-													type="submit"
-													class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
-													>Zapisz</button
-												>
-											</div>
+									<div class="px-2">
+										<div class="inline-flex">
+											<button
+												form="person-form"
+												type="submit"
+												class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
+												>Zapisz</button
+											>
 										</div>
 									</div>
 								</div>
-							</form>
+							</div>
 						</div>
 					{/await}
 				</div>
