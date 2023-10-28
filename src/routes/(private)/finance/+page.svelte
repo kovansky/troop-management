@@ -93,7 +93,7 @@
 			<div class="flex flex-wrap gap-y-8 mb-4">
 				<!-- 4 cards with icon, text1 and text2 -->
 				<FinanceCard
-					value="{data.team_money} PLN"
+					value="{data.team_money || 0} PLN"
 					text={isMobile ? 'Budżet' : 'Aktualny budżet'}
 					textColor="text-yellow-500"
 					baseColor="bg-yellow-500"
