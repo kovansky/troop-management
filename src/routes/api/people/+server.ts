@@ -13,14 +13,19 @@ function isValidPesel(pesel) {
 }
 
 function validatePesel(pesel) {
-    if (!/^\d{11}$/.test(pesel)) return json({ status: 400, body: 'Pesel jest zbyt krótki lub składa się nie tylko z cyfr' });
+    if (pesel.length > 11) return json({ status: 400, body: 'Pesel jest zbyt długi' });
+    if (pesel.length < 11) return json({ status: 400, body: 'Pesel jest zbyt krótki' });
+    if (!/^\d+$/.test(pesel)) return json({ status: 400, body: 'Pesel zawiera niepoprawne znaki' });
     if (!isValidPesel(pesel)) return json({ status: 400, body: 'Pesel jest niepoprawny' });
     return null;
 }
 
 function validatePerson(body) {
     if (!body.full_name) return json({ status: 400, body: 'Imię i nazwisko jest wymagane' });
-    validatePesel(body.pesel);
+    if (body.pesel) {
+        const peselValidation = validatePesel(body.pesel);
+        if (peselValidation) return peselValidation;
+    }
     if (body.parent_phone && !/^\d{9}$/.test(body.parent_phone)) return json({ status: 400, body: 'Numer telefonu rodzica jest niepoprawny' });
     if (body.parent_email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(body.parent_email)) return json({ status: 400, body: 'Email rodzica jest niepoprawny' });
     return null;
