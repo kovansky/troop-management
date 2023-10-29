@@ -67,8 +67,12 @@
 						<p>Wypełnij pola obowiązkowe</p>
 					</div>
 					<div class="lg:col-span-2">
-						<form on:submit|preventDefault={savePerson}>
-							<div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
+						<div class="grid gap-2">
+							<form
+								on:submit|preventDefault={savePerson}
+								class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5"
+								id="finance-form"
+							>
 								<div class="md:col-span-5">
 									<label for="name">Nazwa</label>
 									<input
@@ -95,7 +99,7 @@
 											name="amount"
 											id="amount"
 											class="block pl-11 h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-											value="{Math.abs(data.finance?.amount) || ''}"
+											value={Math.abs(data.finance?.amount) || ''}
 											placeholder="21,37"
 										/>
 									</div>
@@ -118,11 +122,16 @@
 										id="category"
 										class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 									>
-										<option value="" selected={data.finance.fk_finance_category_id === null}>Brak</option>
+										<option value="" selected={data.finance.fk_finance_category_id === null}
+											>Brak</option
+										>
 										{#each data.categories as category}
-											<option value={category.id} selected={data.finance.fk_finance_category_id === category.id}>	
+											<option
+												value={category.id}
+												selected={data.finance.fk_finance_category_id === category.id}
+											>
 												{category.name}
-											</option>										
+											</option>
 										{/each}
 									</select>
 								</div>
@@ -149,40 +158,38 @@
 										required
 									/>
 								</div>
-								<div class="inline-flex float-right pt-4">
-									<div class="px-2">
-										<div class="inline-flex">
-											<!-- invoke delete -->
-											<button
-												on:click|preventDefault={deletePerson}
-												class="bg-red-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
-												>Usuń</button
-											>
-										</div>
+							</form>
+							<div class="inline-flex float-right pt-4">
+								<div class="px-2">
+									<div class="inline-flex">
+										<button
+											on:click|preventDefault={deletePerson}
+											class="bg-red-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
+											>Usuń</button
+										>
 									</div>
-
-									<div class="px-2">
-										<div class="inline-flex">
-											<button
-												on:click|preventDefault={() => goto(returnPath)}
-												class="bg-gray-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
-												>Anuluj</button
-											>
-										</div>
+								</div>
+								<div class="px-2">
+									<div class="inline-flex">
+										<button
+											on:click|preventDefault={() => goto(returnPath)}
+											class="bg-gray-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
+											>Anuluj</button
+										>
 									</div>
-
-									<div class="px-2">
-										<div class="inline-flex">
-											<button
-												type="submit"
-												class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
-												>Zapisz</button
-											>
-										</div>
+								</div>
+								<div class="px-2">
+									<div class="inline-flex">
+										<button
+											type="submit"
+											form="finance-form"
+											class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
+											>Zapisz</button
+										>
 									</div>
 								</div>
 							</div>
-						</form>
+						</div>
 					</div>
 				</div>
 			</div>
