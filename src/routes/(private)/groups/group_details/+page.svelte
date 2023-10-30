@@ -45,7 +45,6 @@
 		for (let i = 0; i < selected.length; i++) {
 			formData.append('people', selected[i].toString());
 		}
-		console.log(formData);
 
 		const { status, body } = await ($page.url.searchParams.get('id')
 			? existingGroup(formData)
