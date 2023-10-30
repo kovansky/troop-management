@@ -7,7 +7,6 @@
 	export let data: PageData;
 
 	onMount(() => {
-		console.log(window.location.hash, $page.url.searchParams);
 		const params = new URLSearchParams(window.location.hash);
 		if ((params.get('#access_token') && params.get('#refresh_token')) || !params.get('#token')) {
 			toast.error('Brak tokenów!');
