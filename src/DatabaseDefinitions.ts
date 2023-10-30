@@ -78,10 +78,10 @@ export interface Database {
           amount: number | null
           count_finance: boolean
           created_at: string | null
-          deadline: string | null
-          fk_small_group_id: number
+          fk_small_group_id: number | null
           fk_team_id: number
           id: number
+          is_formal: boolean
           name: string
           start_date: string
         }
@@ -89,10 +89,10 @@ export interface Database {
           amount?: number | null
           count_finance?: boolean
           created_at?: string | null
-          deadline?: string | null
-          fk_small_group_id: number
+          fk_small_group_id?: number | null
           fk_team_id: number
           id?: number
+          is_formal?: boolean
           name: string
           start_date?: string
         }
@@ -100,10 +100,10 @@ export interface Database {
           amount?: number | null
           count_finance?: boolean
           created_at?: string | null
-          deadline?: string | null
-          fk_small_group_id?: number
+          fk_small_group_id?: number | null
           fk_team_id?: number
           id?: number
+          is_formal?: boolean
           name?: string
           start_date?: string
         }
@@ -146,7 +146,7 @@ export interface Database {
       finance_history: {
         Row: {
           amount: number
-          created_at: string | null
+          created_at: string
           date: string
           description: string | null
           fk_category_id: number | null
@@ -158,19 +158,19 @@ export interface Database {
         }
         Insert: {
           amount: number
-          created_at?: string | null
+          created_at?: string
           date?: string
           description?: string | null
           fk_category_id?: number | null
           fk_fee?: number | null
-          fk_team_id: number
+          fk_team_id?: number
           id?: number
           invoice_number?: string | null
           name: string
         }
         Update: {
           amount?: number
-          created_at?: string | null
+          created_at?: string
           date?: string
           description?: string | null
           fk_category_id?: number | null
@@ -418,6 +418,7 @@ export interface Database {
     Views: {
       fees_people: {
         Row: {
+          fee_type_id: number | null
           fees_id: number | null
           fees_payment_date: string | null
           group_person_group_id: number | null
@@ -431,19 +432,18 @@ export interface Database {
         }
         Relationships: [
           {
+            foreignKeyName: "fees_fk_fee_type_id_fkey"
+            columns: ["fee_type_id"]
+            referencedRelation: "fees_types"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "group_person_fk_small_group_id_fkey"
             columns: ["group_person_group_id"]
             referencedRelation: "small_groups"
             referencedColumns: ["id"]
           }
         ]
-      }
-      finance_summary: {
-        Row: {
-          name: string | null
-          percent: number | null
-        }
-        Relationships: []
       }
     }
     Functions: {
