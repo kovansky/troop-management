@@ -128,7 +128,7 @@
 										{#each data.categories as category}
 											<option
 												value={category.id}
-												selected={data.finance.fk_finance_category_id === category.id}
+												selected={data.finance.fk_category_id === category.id}
 											>
 												{category.name}
 											</option>
@@ -142,11 +142,10 @@
 										name="doc_number"
 										id="doc_number"
 										class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-										value={data.finance?.description || ''}
+										value={data.finance?.invoice_number || ''}
 										placeholder="FV 123/2021"
 									/>
 								</div>
-								<!-- Date -->
 								<div class="md:col-span-2">
 									<label for="date">Data</label>
 									<input
