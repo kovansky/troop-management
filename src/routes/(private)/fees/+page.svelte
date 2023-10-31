@@ -23,7 +23,7 @@
 				</h4>
 			</div>
 			<button class="px-4 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-green-600 rounded-md hover:bg-green-500 focus:outline-none focus:bg-green-500"
-				on:click={() => goto(`${$page.url}/group_details`)}>
+				on:click={() => goto(`${$page.url}/fee_edit`)}>
 				Dodaj składkę/opłatę
 			</button>
 		</div>
