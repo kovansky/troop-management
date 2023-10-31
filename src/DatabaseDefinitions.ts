@@ -115,6 +115,12 @@ export interface Database {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "fees_types_fk_small_group_id_fkey"
+            columns: ["fk_small_group_id"]
+            referencedRelation: "fees_people"
+            referencedColumns: ["small_group_query_id"]
+          },
+          {
             foreignKeyName: "fees_types_fk_team_id_fkey"
             columns: ["fk_team_id"]
             referencedRelation: "teams"
@@ -244,6 +250,12 @@ export interface Database {
             columns: ["fk_small_group_id"]
             referencedRelation: "small_groups"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "group_person_fk_small_group_id_fkey"
+            columns: ["fk_small_group_id"]
+            referencedRelation: "fees_people"
+            referencedColumns: ["small_group_query_id"]
           }
         ]
       }
@@ -320,6 +332,12 @@ export interface Database {
             columns: ["fk_small_group_id"]
             referencedRelation: "small_groups"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "people_fk_small_group_id_fkey"
+            columns: ["fk_small_group_id"]
+            referencedRelation: "fees_people"
+            referencedColumns: ["small_group_query_id"]
           },
           {
             foreignKeyName: "people_fk_team_id_fkey"
@@ -427,7 +445,7 @@ export interface Database {
           people_name: string | null
           roles_color: string | null
           roles_name: string | null
-          small_group_name: string | null
+          small_group_query_id: number | null
           small_groups_name: string | null
         }
         Relationships: [
@@ -442,6 +460,12 @@ export interface Database {
             columns: ["group_person_group_id"]
             referencedRelation: "small_groups"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "group_person_fk_small_group_id_fkey"
+            columns: ["group_person_group_id"]
+            referencedRelation: "fees_people"
+            referencedColumns: ["small_group_query_id"]
           }
         ]
       }

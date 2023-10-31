@@ -1,14 +1,49 @@
+import { redirect } from '@sveltejs/kit';
 
-export async function load({ locals: { supabase } }) {
-  const { data: fees_types, error: db_error1 } = await supabase
-    .from("fees_types").select(`
-  id, name, amount, small_groups (id, name)`);
-  if (db_error1) throw db_error1;
+async function getFeesType(fee_type_id, supabase) {
+  const { data: fees_types, error } = await supabase
+    .from('fees_types')
+    .select('fk_small_group_id, name, amount, count_finance, start_date, is_formal')
+    .eq('id', parseInt(fee_type_id));
+  if (error) throw error;
+  if (!fees_types || fees_types.length === 0) return null;
+  return fees_types[0];
+}
 
-    const { data: people, error: db_error } = await supabase
-      .from("fees_people")
-      .select(`*`);
-      if (db_error) throw db_error; 
+async function getFees(supabase, fee_type_id) {
+  const { data: fees, error } = await supabase
+      .from('fees')
+      .select('*').eq('fk_fees_types_id', parseInt(fee_type_id));
+  if (error) throw error;
+  return fees || [];
+}
 
-  return { people, fees_types };
+async function getPeople(supabase) {
+  const { data: people, error } = await supabase
+      .from('people')
+      .select('id, name, color');
+  if (error) throw error;
+  return people || [];
+}
+
+async function getGroupPerson(supabase, group_id) {
+  //Implement
+  return [];
+}
+
+export async function load({ locals: { supabase }, url }) {
+  if (!url.searchParams.has('id')) {
+    return redirect(302, '/fees');
+  }
+  let people = await getPeople(supabase);
+
+  const fee_type = await getFeesType(url.searchParams.get('id'), supabase);
+  if (fee_type.fk_small_group_id) {
+    const group_person = await getGroupPerson(supabase, fee_type.fk_small_group_id);
+    people = people.filter(person => group_person.includes(person.id));
+  }
+
+  const fees = await getFees(supabase, url.searchParams.get('id'));
+
+  return { fee_type, people, fees };
 }
