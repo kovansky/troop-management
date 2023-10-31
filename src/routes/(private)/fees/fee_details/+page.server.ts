@@ -13,7 +13,7 @@ async function getFeesType(fee_type_id, supabase) {
 async function getFees(supabase, fee_type_id) {
   const { data: fees, error } = await supabase
       .from('fees')
-      .select('*').eq('fk_fees_types_id', parseInt(fee_type_id));
+      .select('*').eq('fk_fee_type_id', parseInt(fee_type_id));
   if (error) throw error;
   return fees || [];
 }
@@ -21,14 +21,19 @@ async function getFees(supabase, fee_type_id) {
 async function getPeople(supabase) {
   const { data: people, error } = await supabase
       .from('people')
-      .select('id, name, color');
+      .select('id, name, join_year, roles (name, color), degrees (name, color), small_groups (name)');
   if (error) throw error;
   return people || [];
 }
 
-async function getGroupPerson(supabase, group_id) {
-  //Implement
-  return [];
+async function getGroupPerson(group_id: string | null, supabase) {
+  if (!group_id) return {};
+  const { data: group_person, error } = await supabase
+      .from('group_person')
+      .select('*')
+      .eq('fk_small_group_id', group_id);
+  if (error) throw error;
+  return group_person || [];
 }
 
 export async function load({ locals: { supabase }, url }) {
@@ -39,7 +44,7 @@ export async function load({ locals: { supabase }, url }) {
 
   const fee_type = await getFeesType(url.searchParams.get('id'), supabase);
   if (fee_type.fk_small_group_id) {
-    const group_person = await getGroupPerson(supabase, fee_type.fk_small_group_id);
+    const group_person = await getGroupPerson(fee_type.fk_small_group_id, supabase);
     people = people.filter(person => group_person.includes(person.id));
   }
 
