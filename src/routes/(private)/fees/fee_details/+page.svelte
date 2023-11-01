@@ -1,13 +1,12 @@
 <script lang="ts">
 	import ColorTag from '$lib/components/ColorTag.svelte';
 	import { capitalizeEveryWord } from '$lib/utils/text-utils';
-	import type { PageData } from '../$types';
 
 	import { page } from '$app/stores';
 	import { invalidateAll } from '$app/navigation';
 	import Modal from '$lib/components/Modal.svelte';
 	import toast from 'svelte-french-toast';
-
+	import type { PageData } from './$types';	
 	export let data: PageData;
 
 	let { supabase } = data;
