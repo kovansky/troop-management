@@ -4,11 +4,8 @@
 	import type { PageData } from '../$types';
 
 	import { page } from '$app/stores';
-	import { goto, invalidateAll } from '$app/navigation';
+	import { invalidateAll } from '$app/navigation';
 	import Modal from '$lib/components/Modal.svelte';
-	import { redirect } from '@sveltejs/kit';
-	import { browser } from '$app/environment';
-	import { onMount } from 'svelte';
 	import toast from 'svelte-french-toast';
 
 	export let data: PageData;
@@ -20,17 +17,10 @@
 	let personIdFee: number | null = null;
 	let selectedFeeType: number | null = null;
 
-	onMount(() => {
-		console.log('data', data);
-	});
-
-
 	const changeStatus = async () => {
 		if (personIdFee) {
 			toast.loading('Zmienianie statusu...');
-			let fees_types_id = data.fees_types?.find(
-				(fee_type) => fee_type.small_groups?.id.toString() === $page.url.searchParams.get('id')
-			)?.id;
+			let fees_types_id = $page.url.searchParams.get('id');
 			const { error } = await supabase.rpc('changefeestatus', {
 				fee_type_id: fees_types_id,
 				person_id: personIdFee
@@ -52,15 +42,6 @@
 		}
 		return 'Nie zapłacono.';
 	}
-
-	// async function goToGroup(id: number | undefined) {
-	// 	if (id) {
-	// 		const newUrl = new URL($page.url);
-	// 		newUrl?.searchParams?.set('id', id.toString());
-	// 		if (browser) return await goto(newUrl);
-	// 		else throw redirect(302, newUrl);
-	// 	}
-	// }
 </script>
 
 <svelte:head>
@@ -69,30 +50,12 @@
 
 <main class="h-full pb-16 overflow-y-auto">
 	<div class="container grid px-6 mx-auto">
-		<h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">Ewidencja harcerzy</h2>
-		<!-- <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
-			{data.fees_types?z.length > 0 ? data.fees_types[0].name : 'Brak składek'}
-		</h4> -->
-		<!-- Dropdown -->
-		<!-- row -->
-		<select class="py-2 px-3 w-full">
-			{#if !data.fees_types || data.fees_types.length === 0}
-				<option value="0">Brak składek</option>
-			{:else}
-				<!-- {#each data.fees_types as fee_type}
-					<option
-						value={fee_type.id}
-						selected={fee_type.id.toString() === $page.url.searchParams.get('id')}
-						on:click={() => {
-							// goToGroup(fee_type.small_groups?.id);
-						}}
-					>
-						{fee_type.name}
-					</option>
-				{/each} -->
-			{/if}
-		</select>
-
+		<div>
+			<h2 class="mt-6 mb-4 text-2xl font-semibold text-gray-700 dark:text-gray-200">Lista składek i opłat</h2>
+			<h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
+				Wybrana składka: {data.fee_type?.name || 'Błąd'}
+			</h4>
+		</div>
 		<div class="w-full mb-8 mt-4 overflow-hidden rounded-lg shadow-xs">
 			<div class="w-full overflow-x-auto">
 				<table class="w-full whitespace-no-wrap">
@@ -113,7 +76,7 @@
 							<tr
 								class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600"
 								on:click={() => {
-									personIdFee = person.people_id;
+									personIdFee = person.id;
 									showModal = true;
 								}}
 							>
@@ -131,21 +94,18 @@
 										</div>
 										<div>
 											<p class="font-semibold">
-												{capitalizeEveryWord(person.people_name || 'Błąd')}
+												{capitalizeEveryWord(person?.name || 'Błąd')}
 											</p>
 											<p class="text-xs text-gray-600 dark:text-gray-400">
-												{person.people_join_year || ''}
+												{person?.join_year || ''}
 											</p>
 										</div>
 									</div>
 								</td>
-								<ColorTag
-									color={person.roles_color || undefined}
-									title={person.roles_name || undefined}
-								/>
+								<ColorTag color={person.roles?.color} title={person.roles?.name} />
 								<td class="px-4 py-3 text-sm">{person.small_groups_name || 'Brak zastępu'}</td>
-								<td class="px-4 py-3 text-sm">
-									{getPaidStatus(person.fees_payment_date)}
+								<td class="px-4 py-3 text-sm w-1/4">
+									{getPaidStatus(data.fees.find((fee) => fee.fk_person_id === person.id)?.payment_date)}
 								</td>
 								<td class="px-4 py-3">
 									<div class="flex items-center space-x-4 text-sm">
@@ -176,9 +136,9 @@
 </main>
 <Modal bind:showModal clickAction={changeStatus}>
 	<h2 class="text-xl font-semibold text-gray-700 dark:text-gray-200">
-		Czy na pewno chcesz zmienić status składki na {data.people.find(
-			(person) => person.people_id === personIdFee
-		)?.fees_payment_date
+		Czy na pewno chcesz zmienić status składki na {data.fees.find(
+			(fee) => fee.fk_person_id === personIdFee
+		)?.payment_date
 			? 'NIEZAPŁACONE'
 			: 'ZAPŁACONE'}?
 	</h2>
