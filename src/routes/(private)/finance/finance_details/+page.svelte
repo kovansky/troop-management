@@ -79,7 +79,6 @@
 										type="text"
 										name="name"
 										id="name"
-										class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 										value={data.finance?.name || ''}
 										placeholder="Chusty harcerskie"
 										minlength="3"
@@ -98,7 +97,7 @@
 											type="text"
 											name="amount"
 											id="amount"
-											class="block pl-11 h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+											class="block pl-11"
 											value={Math.abs(data.finance?.amount) || ''}
 											placeholder="21,37"
 										/>
@@ -141,7 +140,6 @@
 										type="text"
 										name="doc_number"
 										id="doc_number"
-										class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 										value={data.finance?.invoice_number || ''}
 										placeholder="FV 123/2021"
 									/>
@@ -152,7 +150,6 @@
 										type="date"
 										name="date"
 										id="date"
-										class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 										value={data.finance?.date || ''}
 										required
 									/>

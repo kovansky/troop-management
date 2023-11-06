@@ -140,14 +140,17 @@
 					{:then person}
 						<div class="lg:col-span-2">
 							<div class="grid gap-2">
-								<form on:submit|preventDefault={savePerson} id="person-form" class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
+								<form
+									on:submit|preventDefault={savePerson}
+									id="person-form"
+									class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5"
+								>
 									<div class="md:col-span-5">
 										<label for="full_name">Imię i nazwisko</label>
 										<input
 											type="text"
 											name="full_name"
 											id="full_name"
-											class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 											value={person?.name ? capitalizeEveryWord(person?.name) : ''}
 											placeholder="Jan Kowalski"
 											minlength="3"
@@ -161,7 +164,6 @@
 											type="number"
 											name="pesel"
 											id="pesel"
-											class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 											value={person?.pesel || ''}
 											placeholder="12345678901"
 											minlength="11"
@@ -175,7 +177,6 @@
 											type="text"
 											name="address"
 											id="address"
-											class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 											value={person?.address || ''}
 											placeholder="Główna 1"
 										/>
@@ -187,7 +188,6 @@
 											type="text"
 											name="city"
 											id="city"
-											class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 											value={person?.city || ''}
 											placeholder="Gdańsk"
 										/>
@@ -199,7 +199,6 @@
 											type="text"
 											name="parent_name"
 											id="paren_name"
-											class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 											value={person?.parent_name || ''}
 											placeholder="Andrzej Kowalski"
 										/>
@@ -211,7 +210,6 @@
 											type="email"
 											name="email"
 											id="email"
-											class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 											value={person?.email || ''}
 											placeholder="jan.kowalski@example.com"
 										/>
@@ -223,7 +221,6 @@
 											type="tel"
 											name="phone"
 											id="phone"
-											class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 											value={person?.phone || ''}
 											placeholder="123456789"
 										/>

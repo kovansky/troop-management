@@ -19,9 +19,11 @@
 
 	const saveFeeType = async (event) => {
 		const formData = new FormData(event.target);
-		
+
 		const method = $page.url.searchParams.get('id') ? 'PUT' : 'POST';
-		const url = $page.url.searchParams.get('id') ? `/api/fees/types/` + $page.url.searchParams.get('id') : `/api/fees/types/`;
+		const url = $page.url.searchParams.get('id')
+			? `/api/fees/types/` + $page.url.searchParams.get('id')
+			: `/api/fees/types/`;
 		const { status, body } = await fetch(url, {
 			method,
 			body: formData
@@ -81,7 +83,6 @@
 										type="text"
 										name="name"
 										id="name"
-										class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 										value={data.fee_type?.name || ''}
 										placeholder="Składka roczna RH2023/2024"
 										minlength="3"
@@ -100,7 +101,6 @@
 											type="text"
 											name="amount"
 											id="amount"
-											class="block pl-11 h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 											value={Math.abs(data.fee_type?.amount) || ''}
 											placeholder="21,37"
 										/>
@@ -132,7 +132,6 @@
 										type="date"
 										name="date"
 										id="date"
-										class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 										value={data.fee_type?.start_date || ''}
 										required
 									/>
@@ -152,14 +151,15 @@
 								<div class="md:col-span-3">
 									<label class="inline-flex items-center">
 										Opłata okazjonalna
-										<div class="ml-3"/>
+										<div class="ml-3" />
 										<input
 											type="checkbox"
 											name="is_formal"
 											id="is_formal"
 											class="toggle toggle-primary"
-											checked={data.fee_type?.is_formal || false}>
-											<div class="mr-3"/>
+											checked={data.fee_type?.is_formal || false}
+										/>
+										<div class="mr-3" />
 										Składka roczna
 									</label>
 								</div>

@@ -92,7 +92,6 @@
 				type="text"
 				name="name"
 				id="name"
-				class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 				value={data.group?.name || ''}
 				placeholder="Dym"
 				minlength="3"
@@ -106,7 +105,6 @@
 				type="text"
 				name="desc"
 				id="desc"
-				class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 				value={data.group?.description || ''}
 				placeholder="Zastęp z naboru RH2022/23"
 			/>
