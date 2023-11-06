@@ -3,10 +3,11 @@
 	import { capitalizeEveryWord } from '$lib/utils/text-utils';
 
 	import { page } from '$app/stores';
-	import { invalidateAll } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 	import Modal from '$lib/components/Modal.svelte';
 	import toast from 'svelte-french-toast';
 	import type { PageData } from './$types';	
+	import { onMount } from 'svelte';
 	export let data: PageData;
 
 	let { supabase } = data;
@@ -41,6 +42,12 @@
 		}
 		return 'Nie zapłacono.';
 	}
+
+	onMount(() => {
+		if (!$page.url.searchParams.has('id')) {
+			goto(`${$page.url}/fees`);
+		}
+	});
 </script>
 
 <svelte:head>
@@ -49,11 +56,17 @@
 
 <main class="h-full pb-16 overflow-y-auto">
 	<div class="container grid px-6 mx-auto">
-		<div>
-			<h2 class="mt-6 mb-4 text-2xl font-semibold text-gray-700 dark:text-gray-200">Lista składek i opłat</h2>
-			<h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
-				Wybrana składka: {data.fee_type?.name || 'Błąd'}
-			</h4>
+		<div class="flex justify-between items-center">
+			<div>
+				<h2 class="mt-6 mb-4 text-2xl font-semibold text-gray-700 dark:text-gray-200">Lista składek i opłat</h2>
+				<h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
+					Wybrana składka: {data.fee_type?.name || 'Błąd'}
+				</h4>
+			</div>
+			<button class="px-4 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-green-600 rounded-md hover:bg-green-500 focus:outline-none focus:bg-green-500"
+				on:click={() => goto(`/fees/fee_edit?id=${$page.url.searchParams.get('id')}&return=${$page.url.pathname + $page.url.search}`)}>
+				Edytuj składkę/opłatę
+			</button>
 		</div>
 		<div class="w-full mb-8 mt-4 overflow-hidden rounded-lg shadow-xs">
 			<div class="w-full overflow-x-auto">

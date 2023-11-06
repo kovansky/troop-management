@@ -84,7 +84,7 @@ export interface Database {
           count_finance?: boolean
           created_at?: string | null
           fk_small_group_id?: number | null
-          fk_team_id: number
+          fk_team_id?: number
           id?: number
           is_formal?: boolean
           name: string
