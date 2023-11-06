@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { goto, invalidate } from '$app/navigation';
-	import { sideMenuState, closeSideMenu } from '../../helpers/menu'
-	import SideBar from './sidebar.svelte'
+	import { sideMenuState, closeSideMenu } from '../../helpers/menu';
+	import SideBar from './sidebar.svelte';
 
-	import { clickOutside } from '../../lib/ioevents/click'
-	import { keydownEscape } from '../../lib/ioevents/keydown'
+	import { clickOutside } from '../../lib/ioevents/click';
+	import { keydownEscape } from '../../lib/ioevents/keydown';
 	import Header from './header.svelte';
 
 	import type { LayoutData } from './$types';
@@ -25,21 +25,17 @@
 
 		return () => subscription.unsubscribe();
 	});
-
 </script>
-
 
 <!-- OLD -->
 
 <section id="body">
 	<div class="flex h-screen bg-base-200" class:overflow-hidden={$sideMenuState}>
 		<!-- Desktop sidebar -->
-		<aside
-			class="z-20 hidden w-64 overflow-y-auto bg-base-100 md:block flex-shrink-0"
-		>
+		<aside class="z-20 hidden w-64 overflow-y-auto bg-base-100 md:block flex-shrink-0">
 			<SideBar />
 		</aside>
-		
+
 		<!-- Mobile sidebar -->
 		<!-- Backdrop -->
 		{#if $sideMenuState}
@@ -58,9 +54,12 @@
 		{/if}
 
 		<div class="flex flex-col flex-1 w-full">
-			<Header {data}/>
-
-			<slot />
+			<Header {data} />
+			<main class="h-full pb-16 overflow-y-auto">
+				<div class="container grid px-6 mx-auto">
+					<slot />
+				</div>
+			</main>
 		</div>
 	</div>
 </section>
