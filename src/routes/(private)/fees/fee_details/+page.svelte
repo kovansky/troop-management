@@ -10,21 +10,20 @@
 	import { onMount } from 'svelte';
 	export let data: PageData;
 
-	let { supabase } = data;
-	$: ({ supabase } = data);
-
 	let showModal = false;
 	let personIdFee: number | null = null;
-	let selectedFeeType: number | null = null;
 
 	const changeStatus = async () => {
 		if (personIdFee) {
 			toast.loading('Zmienianie statusu...');
 			let fees_types_id = $page.url.searchParams.get('id');
-			const { error } = await supabase.rpc('changefeestatus', {
-				fee_type_id: fees_types_id,
-				person_id: personIdFee
-			});
+			const { status, error } = await fetch(`/api/fees/${personIdFee}`, {
+				method: 'PUT',
+				body: JSON.stringify({
+					fees_types_id,
+					personIdFee
+				})
+			}).then((res) => res.json());
 			toast.dismiss();
 			if (error) {
 				toast.error('Wystąpił błąd! - ' + error.message);

@@ -1,15 +1,15 @@
 import { json } from "@sveltejs/kit";
 
-function validation(body) {
+function validation(body, amount) {
     if (!body) return json({ status: 400, body: 'Błąd wewnętrzny - żądanie jest puste' });
     if (!body.name) return json({ status: 400, body: 'Nazwa jest wymagana' });
     if (!body.date) return json({ status: 400, body: 'Data jest wymagana' });
     if (body.is_formal === 'on' && body.small_group !== '') return json({ status: 400, body: 'Składka roczna nie może być przypisana do grupy' });
-    if (body.count_finance === 'on' && body.amount !== '') return json({ status: 400, body: 'Kwota jest wymagana' });
+    if (body.count_finance === 'on' && isNaN(amount)) return json({ status: 400, body: 'Kwota jest wymagana' });
     return null;
 }
 
-export async function handleTypes(formData:Promise<FormData>) {
+export async function handleTypes(formData: Promise<FormData>) {
     const formData1 = await formData;
     let body;
     try {
@@ -20,10 +20,13 @@ export async function handleTypes(formData:Promise<FormData>) {
         return json({ status: 400, body: 'Błąd wewnętrzny - żądanie jest puste lub błędne.' });
     }
 
-    const validated = validation(body);
+    const amount = parseFloat(body.amount.toString().replace(',', '.'));
+    console.log('amount', amount, body.amount, body.amount != '');
+    if (isNaN(amount) && body.amount != '') return json({ status: 400, body: 'Kwota jest nieprawidłowa' });
+
+    const validated = validation(body, amount);
     if (validated) return validated;
 
-    const amount = parseFloat(body.amount.toString().replace(',', '.'));
 
     const data = {
         name: body.name.toString(),

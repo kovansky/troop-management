@@ -49,7 +49,7 @@
 		const { status, body } = res;
 		if (status === 204) {
 			toast.success('Usunięto!');
-			goto(returnPath, { invalidateAll: true });
+			goto('/fees', { invalidateAll: true });
 		} else {
 			toast.error('Wystąpił błąd! - ' + res);
 			console.log('Error:', status, body);
