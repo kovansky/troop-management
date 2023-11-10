@@ -4,7 +4,7 @@ export async function load({ locals: { supabase } }) {
     const { data: team_money } = await supabase.rpc('get_team_money');
     const { data: year_count } = await supabase.rpc('get_year_count');
     const { data: last_operations } = await supabase.from("finance_history").select(
-        `id, name, amount, finance_categories (name, color), fk_fee, date`).limit(4).order('created_at', { ascending: false });
+        `id, name, amount, finance_categories (name, color), fk_fee, date`).limit(4).order('date', { ascending: false });
     const { data: categories_chart } = await supabase.rpc('calculate_finance_summary');
 
 
