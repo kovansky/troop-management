@@ -15,7 +15,6 @@ export async function POST({ request, params, locals: { supabase } }): Promise<{
     const body = Object.fromEntries(formData.entries());
     if (!body) return json({ status: 400, body: 'Błąd wewnętrzny - żądanie jest puste' });
     const file = body.file_to_upload;
-    console.log(body);
     if (!(file as File).name
         || (file as File).name === 'undefined') {
         return json({ status: 400, body: 'Błąd - nie wybrano pliku' });

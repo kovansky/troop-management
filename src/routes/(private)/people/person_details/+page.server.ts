@@ -41,14 +41,33 @@ async function getRoles(supabase) {
     return roles || [];
 }
 
+async function getPersonTeam(person_id: string | null, supabase) {
+    const {data, error} = await supabase.from('people').select("fk_team_id").eq('id', person_id);
+    if (error) throw error;
+    if (!data || data.length == 0) return [];
+    return data[0].fk_team_id;
+}
+
+async function getPicture(person_id: string | null, supabase) {
+    if (!person_id) return null;
+    const team_id = await getPersonTeam(person_id, supabase);
+    const { data: picture, error } = await supabase
+        .storage
+        .from('avatars')
+        .download(`${team_id}/${person_id}.png`);
+    if (error) throw error;
+    return picture;
+}
+
 export async function load({ url, locals: { supabase } }) {
     const person_id = url.searchParams.get('id');
     const person = await getPerson(person_id, supabase);
     const groups = await getGroups(supabase);
     const degrees = await getDegrees(supabase);
+    const picture = await getPicture(person_id, supabase);
     const roles = await getRoles(supabase);
     if (!person && person_id) {
         throw redirect(302, '/people');
     }
-    return { streamed: { person, groups, degrees, roles } };
+    return { streamed: { person, groups, degrees, roles, picture } };
 }

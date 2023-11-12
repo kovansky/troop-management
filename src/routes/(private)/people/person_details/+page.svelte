@@ -62,13 +62,16 @@
 			goto('/people');
 			return;
 		}
+		toast.loading('Usuwanie profilowego...');
 		const res = await fetch(`/api/people/` + $page.url.searchParams.get('id') + '/avatar', {
 			method: 'DELETE'
 		}).then((res) => res.json());
 		const { status, body } = res;
+		toast.dismiss();
 		if (status === 204) {
 			toast.success('Usunięto!');
 			invalidateAll();
+			closeDialog();
 		} else {
 			toast.error('Wystąpił błąd! - ' + res);
 			console.log('Error:', status, body);
@@ -82,15 +85,21 @@
 		}
 		const formData = new FormData();
 		formData.append('file_to_upload', event.target.file.files[0]);
-		console.log(event.target.file);
+		if (!event.target.file.files[0]) {
+			toast.error('Nie wybrano pliku!');
+			return;
+		}
+		toast.loading('Wysyłanie nowego profilowego...');
 		const res = await fetch(`/api/people/` + $page.url.searchParams.get('id') + '/avatar', {
 			method: 'POST',
 			body: formData
 		}).then((res) => res.json());
 		const { status, body } = res;
+		toast.dismiss();
 		if (status === 200) {
 			toast.success('Zapisano!');
 			invalidateAll();
+			closeDialog();
 		} else if (status === 400) {
 			toast.error('Błędne dane! - ' + body);
 		} else {
@@ -146,6 +155,7 @@
 								</button>
 								<button
 									class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex"
+									on:click={deleteAvatar}
 								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
