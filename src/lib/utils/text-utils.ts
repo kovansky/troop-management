@@ -3,5 +3,6 @@ export function capitalizeEveryWord(str: string): string {
 }
 
 export function getFirstLetters(str: string): string {
-    return str.match(/\b(\w)/g).join('').toLocaleUpperCase();
+    const str_parts = str.split(' ');
+    return str_parts.map((part) => part[0]).join('').toLocaleUpperCase();
 }
