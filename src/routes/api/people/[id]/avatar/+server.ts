@@ -1,11 +1,17 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { json } from "@sveltejs/kit";
+import Jimp from "jimp";
 
 async function getPersonTeam(person_id, supabase: SupabaseClient): Promise<number | Response> {
     const {data, error} = await supabase.from('people').select("fk_team_id").eq('id', person_id);
     if (error) return json({status: 400, body: 'Błąd - nie można znaleźć jednostki użytkownika'})
     if (!data || data.length == 0) return json({status: 400, body: 'Błąd - nie można znaleźć jednostki użytkownika'})
     return data[0].fk_team_id;
+}
+
+async function parseToJPG(image: Buffer): Promise<Buffer> {
+    const img = await Jimp.read(image);
+    return await img.getBufferAsync(Jimp.MIME_JPEG);
 }
 
 export async function POST({ request, params, locals: { supabase } }): Promise<{ status: number, body }> {
@@ -20,10 +26,11 @@ export async function POST({ request, params, locals: { supabase } }): Promise<{
         return json({ status: 400, body: 'Błąd - nie wybrano pliku' });
     }
     const team_id = await getPersonTeam(person_id, supabase);
+    const fileToUpload = await parseToJPG(Buffer.from(await (file as File).arrayBuffer()));
     const { error } = await supabase
         .storage
         .from('avatars')
-        .upload(`${team_id}/${person_id}.${(file as File).name.split('.').pop()}`, file, {
+        .upload(`${team_id}/${person_id}.jpg`, fileToUpload, {
             cacheControl: '3600',
             upsert: true,
             contentType: (file as File).type,
@@ -39,7 +46,7 @@ export async function DELETE({ params, locals: { supabase } }): Promise<{ status
     const { error } = await supabase
         .storage
         .from('avatars')
-        .remove([`${team_id}/${person_id}.*`])
+        .remove([`${team_id}/${person_id}.jpg`])
     if (error) return json({status: 500, body: error})
     return json({ status: 204 })
 }

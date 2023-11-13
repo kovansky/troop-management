@@ -1,3 +1,4 @@
+import type { SupabaseClient } from '@supabase/supabase-js';
 import { redirect } from '@sveltejs/kit';
 
 async function getPerson(person_id: string | null, supabase) {
@@ -48,15 +49,18 @@ async function getPersonTeam(person_id: string | null, supabase) {
     return data[0].fk_team_id;
 }
 
-async function getPicture(person_id: string | null, supabase) {
+async function getPicture(person_id: string | null, supabase: SupabaseClient) {
     if (!person_id) return null;
     const team_id = await getPersonTeam(person_id, supabase);
     const { data: picture, error } = await supabase
         .storage
         .from('avatars')
-        .download(`${team_id}/${person_id}.png`);
+        .createSignedUrl(`${team_id}/${person_id}.jpg`, 60);
+    if (error?.message == 'Object not found') return null;
     if (error) throw error;
-    return picture;
+    const testUrl = await fetch(picture.signedUrl);
+    if (testUrl.status == 404) return null;
+    return picture.signedUrl;
 }
 
 export async function load({ url, locals: { supabase } }) {
