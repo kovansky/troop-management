@@ -20,7 +20,6 @@ async function getFeesType(fee_type_id, supabase) {
 }
 
 export async function load({ url, locals: { supabase } }) {
-    console.log('url', url);
     const fee_type = await getFeesType(url.searchParams.get('id'), supabase);
     const small_groups = await getSmallGroups(supabase);
     if (!fee_type) {
