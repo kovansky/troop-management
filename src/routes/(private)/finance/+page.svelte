@@ -137,7 +137,7 @@
 						<tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
 							{#each data.last_operations as operation}
 								<tr
-									class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 cursor-pointer"
+									class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 cursor-pointer dark:hover:bg-gray-700"
 									on:click={() => handleClick(operation)}
 								>
 									<td class="px-4 py-3">

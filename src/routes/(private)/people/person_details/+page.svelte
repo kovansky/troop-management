@@ -117,22 +117,23 @@
   	};
 </script>
 
-<main class="h-screen p-6 bg-gray-100 flex items-center justify-center">
+<main class="h-screen p-6 bg-gray-100 flex items-center justify-center dark:bg-gray-900">
 	<div class="container max-w-screen-lg mx-auto">
 		<div>
-			<h2 class="font-semibold text-xl text-gray-600 pb-4">Edytuj dane harcerza</h2>
+			<h2 class="font-semibold text-xl text-gray-600 dark:text-gray-300 pb-4">Edytuj dane harcerza</h2>
 
-			<div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
+			<div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6 dark:bg-gray-800">
 				<div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
 					<div>
-						<div class="text-gray-600">
+						<div class="text-gray-600 dark:text-gray-400">
 							<p class="font-medium text-lg">Dane osobowe</p>
 							<p>Wypełnij pola obowiązkowe</p>
 						</div>
 
 						<div class="flex w-3/4 mt-4 relative z-0">
 							<div
-								class="absolute rounded z-10 hover:bg-neutral-focus items-center flex-col gap-y-2 flex w-3/4 h-full opacity-0 hover:opacity-100 justify-center"
+								class="absolute rounded z-10 hover:bg-neutral-focus items-center flex-col gap-y-2 flex w-3/4 h-full opacity-0 hover:opacity-100 justify-center
+								dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:opacity-100"
 							>
 								<button
 									class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex"
@@ -263,7 +264,8 @@
 								<form
 									on:submit|preventDefault={savePerson}
 									id="person-form"
-									class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5"
+									class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5 dark:text-gray-200
+									"
 								>
 									<div class="md:col-span-5">
 										<label for="full_name">Imię i nazwisko</label>
@@ -271,7 +273,6 @@
 											type="text"
 											name="full_name"
 											id="full_name"
-											class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 											value={person?.name ? capitalizeEveryWord(person?.name) : ''}
 											placeholder="Jan Kowalski"
 											minlength="3"
@@ -285,8 +286,7 @@
 											type="number"
 											name="pesel"
 											id="pesel"
-											class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-											value={person?.pesel || ''}
+    										value={person?.pesel || ''}
 											placeholder="12345678901"
 											minlength="11"
 											maxlength="11"
@@ -299,7 +299,6 @@
 											type="text"
 											name="address"
 											id="address"
-											class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 											value={person?.address || ''}
 											placeholder="Główna 1"
 										/>
@@ -311,7 +310,6 @@
 											type="text"
 											name="city"
 											id="city"
-											class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 											value={person?.city || ''}
 											placeholder="Gdańsk"
 										/>
@@ -323,7 +321,6 @@
 											type="text"
 											name="parent_name"
 											id="paren_name"
-											class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 											value={person?.parent_name || ''}
 											placeholder="Andrzej Kowalski"
 										/>
@@ -335,7 +332,6 @@
 											type="email"
 											name="email"
 											id="email"
-											class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 											value={person?.email || ''}
 											placeholder="jan.kowalski@example.com"
 										/>
@@ -347,7 +343,6 @@
 											type="tel"
 											name="phone"
 											id="phone"
-											class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 											value={person?.phone || ''}
 											placeholder="123456789"
 										/>
@@ -358,7 +353,6 @@
 										<select
 											name="group"
 											id="group"
-											class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 										>
 											{#each data.streamed.groups as group}
 												<option value={group.id} selected={person?.fk_small_group_id === group.id}>
@@ -373,7 +367,6 @@
 										<select
 											name="role"
 											id="role"
-											class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 										>
 											{#each data.streamed.roles as role}
 												<option value={role.id} selected={person?.fk_role_id === role.id}>
@@ -388,7 +381,6 @@
 										<select
 											name="degree"
 											id="degree"
-											class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 										>
 											{#each data.streamed.degrees as degree}
 												<option value={degree.id} selected={person?.fk_degree_id === degree.id}>

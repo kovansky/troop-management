@@ -47,7 +47,7 @@
 					</thead>
 					<tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
 						{#each data.people as person}
-							<tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 cursor-pointer" on:click={() => goto(`${$page.url}/person_details?id=${person.id}`)}>
+							<tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 cursor-pointer dark:hover:bg-gray-700" on:click={() => goto(`${$page.url}/person_details?id=${person.id}`)}>
 								<td class="px-4 py-3">
 									<div class="flex items-center text-sm">
 										<!-- Avatar with inset shadow -->

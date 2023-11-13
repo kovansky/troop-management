@@ -46,12 +46,12 @@
 
 <div class="flex flex-col w-full h-screen gap-6">
 	<div class="flex flex-col items-center justify-center w-full h-full">
-		<h1 class="text-3xl font-bold mb-4">Login</h1>
+		<h1 class="text-3xl font-bold mb-4 dark:text-gray-200">Login</h1>
 		<form class="w-full max-w-sm" on:submit|preventDefault={handleClick}>
 			<div class="mb-4">
-				<label class="block text-gray-700 font-bold mb-2" for="username"> Adres E-Mail </label>
+				<label class="block text-gray-700 font-bold mb-2 dark:text-gray-200" for="username"> Adres E-Mail </label>
 				<input
-					class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+					class="appearance-none border rounded w-full py-2 px-3 dark:text-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 					id="username"
 					type="email"
 					name="username"
@@ -60,9 +60,9 @@
 				/>
 			</div>
 			<div class="mb-6">
-				<label class="block text-gray-700 font-bold mb-2" for="password"> Hasło </label>
+				<label class="block text-gray-700 font-bold mb-2 dark:text-gray-200" for="password"> Hasło </label>
 				<input
-					class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+					class="appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
 					id="password"
 					type="password"
 					placeholder="Hasło"
@@ -142,7 +142,6 @@
 					type="email"
 					name="email"
 					id="email"
-					class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 					placeholder="jan.kowalski@example.com"
 					required
 				/>

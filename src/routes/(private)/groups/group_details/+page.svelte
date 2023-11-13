@@ -94,7 +94,6 @@
 						type="text"
 						name="name"
 						id="name"
-						class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 						value={data.group?.name || ''}
 						placeholder="Dym"
 						minlength="3"
@@ -108,7 +107,6 @@
 						type="text"
 						name="desc"
 						id="desc"
-						class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 						value={data.group?.description || ''}
 						placeholder="Zastęp z naboru RH2022/23"
 					/>
@@ -149,7 +147,7 @@
 					<tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
 						{#each data.people as person}
 							<tr
-								class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 cursor-pointer"
+								class="text-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 hover:bg-gray-100 cursor-pointer"
 								on:click={() => handleCheck(person.id)}
 							>
 								<!-- checkbox daisyui -->

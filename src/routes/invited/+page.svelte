@@ -54,7 +54,6 @@
 						type="password"
 						name="password"
 						id="password"
-						class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 						value=""
 						placeholder="Wprowadź hasło"
 						required
@@ -67,7 +66,6 @@
 					type="password"
 					name="password1"
 					id="password1"
-					class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 					value=""
 					placeholder="Wprowadź hasło ponownie"
 					required

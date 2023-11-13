@@ -48,7 +48,7 @@
                     </thead>
                     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                         {#each data.operations as operation}
-                            <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 cursor-pointer"
+                            <tr class="text-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 hover:bg-gray-100 cursor-pointer"
                             on:click={() => handleClick(operation)}>
                                 <td class="px-4 py-3">
                                     <div class="flex items-center text-sm">
