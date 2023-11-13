@@ -51,15 +51,6 @@ export const handle: Handle = async ({ event, resolve }) => {
         }
     }
 
-    if (event.request.headers.get('x-forwarded-proto') === 'http' && process.env.NODE_ENV === 'production') {
-        return {
-            status: 301,
-            headers: {
-                location: `https://${event.request.headers.get('host')}${event.request.url}`,
-            },
-        }
-    }
-
     return resolve(event, {
         filterSerializedResponseHeaders(name) {
             return name === 'content-range'
