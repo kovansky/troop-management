@@ -10,6 +10,7 @@ async function getCurrentUserTeam(supabase, getSession) {
 async function getPicturesList(supabase, getSession) {
   const team_id = await getCurrentUserTeam(supabase, getSession);
   const { data: pictures, error } = await supabase.storage.from("avatars").list(team_id.toString());
+  if (pictures.length == 0) return [];
   if (error) throw error;
 
   const { data: urls, error: urls_error } = await supabase.storage.from("avatars").createSignedUrls(pictures.map(picture => team_id+'/'+picture.name), 60);
