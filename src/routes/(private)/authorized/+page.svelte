@@ -69,7 +69,7 @@
 				<table class="w-full whitespace-no-wrap">
 					<thead>
 						<tr
-							class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
+							class="text-xs font-semibold dark:hover:bg-gray-700 tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
 						>
 							<th class="px-4 py-3">Imię i Nazwisko</th>
 							<th class="px-4 py-3">Funkcja</th>
@@ -201,7 +201,6 @@
 						type="email"
 						name="email"
 						id="email"
-						class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 						placeholder="jan.kowalski@example.com"
 						required
 					/>

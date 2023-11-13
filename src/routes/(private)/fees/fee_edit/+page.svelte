@@ -81,7 +81,6 @@
 										type="text"
 										name="name"
 										id="name"
-										class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 										value={data.fee_type?.name || ''}
 										placeholder="Składka roczna RH2023/2024"
 										minlength="3"
@@ -100,7 +99,7 @@
 											type="text"
 											name="amount"
 											id="amount"
-											class="block pl-11 h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+											class="block pl-11"
 											value={Math.abs(data.fee_type?.amount) || ''}
 											placeholder="21,37"
 										/>
@@ -132,7 +131,6 @@
 										type="date"
 										name="date"
 										id="date"
-										class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 										value={data.fee_type?.start_date || ''}
 										required
 									/>

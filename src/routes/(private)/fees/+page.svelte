@@ -43,13 +43,13 @@
 					</thead>
 					<tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
 						{#each data.fees_types as fee_type}
-							<tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 cursor-pointer" on:click={() =>goto(`${$page.url}/fee_details?id=${fee_type.id}`)}>
+							<tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 cursor-pointer dark:hover:bg-gray-700" on:click={() =>goto(`${$page.url}/fee_details?id=${fee_type.id}`)}>
 								<td class="px-4 py-3">
 									<div class="flex items-center text-sm">
 										<!-- Avatar with inset shadow -->
 										<div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
 											<div class="w-0 h-0 rounded-full shadow-inner scale-50">
-												<svg>
+												<svg class="dark:fill-gray-300">
 													<defs id="defs1328" />
 													<path
 														style="opacity:1;stroke:none;stroke-width:259.50698853;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
