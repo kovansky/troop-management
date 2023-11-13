@@ -7,7 +7,7 @@ export async function DELETE({ params, locals: { supabase } }) {
     if (error) return json({ status: 500, body: error });
     return json({ status: 204 });
 }
-//PUT
+
 export async function PUT({ request, params, locals: { getSession, supabase } }) {
 
     const session = await getSession();

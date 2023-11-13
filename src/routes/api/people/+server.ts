@@ -1,8 +1,31 @@
 import { json } from "@sveltejs/kit";
 
+function isValidPesel(pesel) {
+    const  weight = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3];
+    let sum = 0;
+    const controlNumber = parseInt(pesel.substring(10, 11));
+
+    for (let i = 0; i < weight.length; i++) {
+        sum += (parseInt(pesel.substring(i, i + 1)) * weight[i]);
+    }
+    sum = sum % 10;
+    return (10 - sum) % 10 === controlNumber;
+}
+
+function validatePesel(pesel) {
+    if (pesel.length > 11) return json({ status: 400, body: 'Pesel jest zbyt długi' });
+    if (pesel.length < 11) return json({ status: 400, body: 'Pesel jest zbyt krótki' });
+    if (!/^\d+$/.test(pesel)) return json({ status: 400, body: 'Pesel zawiera niepoprawne znaki' });
+    if (!isValidPesel(pesel)) return json({ status: 400, body: 'Pesel jest niepoprawny' });
+    return null;
+}
+
 function validatePerson(body) {
     if (!body.full_name) return json({ status: 400, body: 'Imię i nazwisko jest wymagane' });
-    if (body.pesel && !/^\d{11}$/.test(body.pesel)) return json({ status: 400, body: 'Pesel jest niepoprawny' });
+    if (body.pesel) {
+        const peselValidation = validatePesel(body.pesel);
+        if (peselValidation) return peselValidation;
+    }
     if (body.parent_phone && !/^\d{9}$/.test(body.parent_phone)) return json({ status: 400, body: 'Numer telefonu rodzica jest niepoprawny' });
     if (body.parent_email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(body.parent_email)) return json({ status: 400, body: 'Email rodzica jest niepoprawny' });
     return null;

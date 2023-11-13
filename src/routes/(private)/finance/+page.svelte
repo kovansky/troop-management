@@ -93,7 +93,7 @@
 			<div class="flex flex-wrap gap-y-8 mb-4">
 				<!-- 4 cards with icon, text1 and text2 -->
 				<FinanceCard
-					value="{data.team_money} PLN"
+					value="{data.team_money || 0} PLN"
 					text={isMobile ? 'Budżet' : 'Aktualny budżet'}
 					textColor="text-yellow-500"
 					baseColor="bg-yellow-500"
@@ -137,7 +137,7 @@
 						<tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
 							{#each data.last_operations as operation}
 								<tr
-									class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 cursor-pointer"
+									class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 cursor-pointer dark:hover:bg-gray-700"
 									on:click={() => handleClick(operation)}
 								>
 									<td class="px-4 py-3">

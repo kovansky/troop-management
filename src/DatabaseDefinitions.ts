@@ -64,12 +64,6 @@ export interface Database {
             columns: ["fk_person_id"]
             referencedRelation: "people"
             referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "fees_fk_person_id_fkey"
-            columns: ["fk_person_id"]
-            referencedRelation: "fees_people"
-            referencedColumns: ["people_id"]
           }
         ]
       }
@@ -78,10 +72,10 @@ export interface Database {
           amount: number | null
           count_finance: boolean
           created_at: string | null
-          deadline: string | null
-          fk_small_group_id: number
+          fk_small_group_id: number | null
           fk_team_id: number
           id: number
+          is_formal: boolean
           name: string
           start_date: string
         }
@@ -89,10 +83,10 @@ export interface Database {
           amount?: number | null
           count_finance?: boolean
           created_at?: string | null
-          deadline?: string | null
-          fk_small_group_id: number
-          fk_team_id: number
+          fk_small_group_id?: number | null
+          fk_team_id?: number
           id?: number
+          is_formal?: boolean
           name: string
           start_date?: string
         }
@@ -100,10 +94,10 @@ export interface Database {
           amount?: number | null
           count_finance?: boolean
           created_at?: string | null
-          deadline?: string | null
-          fk_small_group_id?: number
+          fk_small_group_id?: number | null
           fk_team_id?: number
           id?: number
+          is_formal?: boolean
           name?: string
           start_date?: string
         }
@@ -146,7 +140,7 @@ export interface Database {
       finance_history: {
         Row: {
           amount: number
-          created_at: string | null
+          created_at: string
           date: string
           description: string | null
           fk_category_id: number | null
@@ -158,19 +152,19 @@ export interface Database {
         }
         Insert: {
           amount: number
-          created_at?: string | null
+          created_at?: string
           date?: string
           description?: string | null
           fk_category_id?: number | null
           fk_fee?: number | null
-          fk_team_id: number
+          fk_team_id?: number
           id?: number
           invoice_number?: string | null
           name: string
         }
         Update: {
           amount?: number
-          created_at?: string | null
+          created_at?: string
           date?: string
           description?: string | null
           fk_category_id?: number | null
@@ -192,12 +186,6 @@ export interface Database {
             columns: ["fk_fee"]
             referencedRelation: "fees"
             referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "finance_history_fk_fee_fkey"
-            columns: ["fk_fee"]
-            referencedRelation: "fees_people"
-            referencedColumns: ["fees_id"]
           },
           {
             foreignKeyName: "finance_history_fk_team_id_fkey"
@@ -232,12 +220,6 @@ export interface Database {
             columns: ["fk_person_id"]
             referencedRelation: "people"
             referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "group_person_fk_person_id_fkey"
-            columns: ["fk_person_id"]
-            referencedRelation: "fees_people"
-            referencedColumns: ["people_id"]
           },
           {
             foreignKeyName: "group_person_fk_small_group_id_fkey"
@@ -416,35 +398,7 @@ export interface Database {
       }
     }
     Views: {
-      fees_people: {
-        Row: {
-          fees_id: number | null
-          fees_payment_date: string | null
-          group_person_group_id: number | null
-          people_id: number | null
-          people_join_year: string | null
-          people_name: string | null
-          roles_color: string | null
-          roles_name: string | null
-          small_group_name: string | null
-          small_groups_name: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "group_person_fk_small_group_id_fkey"
-            columns: ["group_person_group_id"]
-            referencedRelation: "small_groups"
-            referencedColumns: ["id"]
-          }
-        ]
-      }
-      finance_summary: {
-        Row: {
-          name: string | null
-          percent: number | null
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Functions: {
       calculate_finance_summary: {
