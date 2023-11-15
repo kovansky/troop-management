@@ -7,7 +7,7 @@ module.exports = {
         HOST: '0.0.0.0',
         PORT: '30300'
       }, 
-      development_env:{
+      env_development:{
         NODE_ENV: 'development',
         HOST: '0.0.0.0',
         PORT: '20300'
