@@ -8,6 +8,8 @@ export async function GET({ request, locals: { getSession, supabase } }): Promis
 
     const { data: operations, error } = await supabase.from("finance_history").select(
         `name, amount, finance_categories (name), date`).order('date', { ascending: true });
+    const { data: team_money } = await supabase.rpc('get_team_money');
+
     if (error) return json({ status: 500, body: error });
-    return json({ status: 200, body: operations });
+    return json({ status: 200, body: {operations, team_money} });
   }

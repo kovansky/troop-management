@@ -1,82 +1,113 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import printPDF from './src/print';
+	import * as html2pdf from 'html2pdf.js';
+	import toast from 'svelte-french-toast';
+	import logo from './logo.png';
 
-	// async
-	const handlePrint = async () => {
-		// fetch /api/report
+	let data = [];
+	let loaded = false;
+	let teamMoney;
+
+	async function loadFinanceList() {
+		toast.loading('Ładowanie listy finansów');
 		const res = await fetch(`/api/report`).then((res) => res.json());
-		console.log('res', res);
 
-		let data = [];
-		const body = res.body;
+		const body = res.body.operations;
+		teamMoney = res.body.team_money;
+		const temp_data = [];
 		for (let i = 0; i < body.length; i++) {
-			console.log('body[i]', body[i]);
-			data.push({
+			temp_data.push({
 				date: body[i].date,
 				name: body[i].name,
 				category: body[i].finance_categories?.name || 'Brak kategorii',
 				type: body[i].amount > 0 ? 'Przychód' : 'Wydatek',
-				amount: body[i].amount
+				amount: Math.abs(body[i].amount).toFixed(2).toString()
 			});
 		}
-		console.log('data', data);
+		data = temp_data;
+		toast.dismiss();
+		toast.success('Raport finansowy został wygenerowany');
+		loaded = true;
+	}
 
-		const basePrintData = {
-			addressSender: {
-				person: 'André Kelling',
-				street: 'Brückenstraße 3',
-				city: '12439 Berlin',
-				email: 'kontakt@andrekelling.de',
-				phone: '+49 (0) 178 1 / 751 157'
-			},
-			address: {
-				company: 'Johnlands',
-				person: 'Jona Jonaldo',
-				street: 'Jonestreet 123',
-				city: '12345 Jenese Joplin'
-			},
-			personalInfo: {
-				website: 'https://andrekelling.de',
-				bank: {
-					person: 'André Kelling',
-					name: 'Noris Bank',
-					IBAN: 'DE12 3456 7890 1234 5678 90'
-				},
-				taxoffice: {
-					name: 'Stowarzyszenie Harcerskie, ul. Hoża 57, 00-681 Warszawa',
-					number: 'mail: sh@sh.org.pl | www.sh.org.pl | tel.: 508 266 782',
-					third_line:
-						'NIP: 526 170 6256 | REGON: 011 918 353 | KRS: 000 0160 636 | nr rachunku bankowego: 84 1500 1777 1217 7001 1433 0000'
-				}
-			},
-			label: {
-				invoicenumber: 'Invoice No.',
-				invoice: 'Invoice for',
-				tableItems: 'Items',
-				tableQty: 'Qty',
-				tableSinglePrice: 'Price',
-				tableSingleTotal: 'Total',
-				totalGrand: 'Grand Total',
-				contact: 'Kontaktdetails',
-				bank: 'Bankverbindung',
-				taxinfo: 'Steuernummer'
-			}
-		};
-		const shortPrintData = {
-			invoice: {
-				number: '2018-15738',
-				date: '28.06.2018',
-				subject: 'https://andrekelling.de',
-				total: '2.838,00 €',
-				text: 'Etiam quis quam. Nullam at arcu a est sollicitudin euismod. Nulla quis diam. Etiam neque. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut\nal ex ea commodi consequatur? Fusce tellus. Maecenas fermentum, sem in pharetra pellentesque, velit turpis volutpat ante, in pharetra metus odio a lectus. Phasellus enim erat,\nvestibulum vel, aliquam a, posuere eu, velit. Integer vulputate sem a nibh rutrum consequat. Mauris metus. Phasellus faucibus molestie nisl. Suspendisse sagittis ultrices augue. Integer imperdiet lectus quis justo.'
-			},
-			items: data
+	async function printPdf() {
+		const element = document.getElementById('html_report');
+		var opt = {
+			image: { type: 'jpg', quality: 0.98 },
+			filename: `raport_finansowy-${(new Date().toLocaleDateString()).replaceAll('.','_')}.pdf`,
+			jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+			html2canvas: { useCORS: true }
 		};
 
-		printPDF(Object.assign(basePrintData, shortPrintData));
-	};
+        html2pdf().set(opt).from(element).save();
+    }
+
+	onMount(() => {
+		loadFinanceList();
+	});
 </script>
 
-<!-- button -->
-<button class="btn btn-primary" on:click={handlePrint}>Print</button>
+<main class="h-full pb-16 overflow-y-auto w-full flex flex-col">
+	<button
+		class="bg-green-400 hover:bg-green-500 text-white font-bold py-2 px-4 rounded"
+		on:click={printPdf}>Zapisz</button
+	>
+	{#if loaded == true}
+	<div class="self-center w-[210mm] bg-white flex flex-col items-center pb-40" id="html_report">
+		<div class="w-4/5 flex flex-col">
+			<img
+				src={logo}
+				alt=""
+				class="w-[45mm] self-center"
+			/>
+			<div class="flex justify-between">
+				<p class="text-xl font-medium self-start">Raport finansowy</p>
+				<p class="text-xl font-light self-end">Wygenerowano {new Date().toLocaleDateString()}</p>
+			</div>
+			<p class="text-xl font-light self-start">
+				264 Chotomowska Drużyna Harcerzy <br /> "Żagiew" im. Stefana Krasińskiego
+			</p>
+			<div class="flex-grow border-t border-green-400 mt-5" />
+			<table class="w-full">
+				<thead>
+					<tr>
+						<th class="text-left">Data</th>
+						<th class="text-left">Nazwa</th>
+						<th class="text-left">Kategoria</th>
+						<th class="text-left">Rodzaj</th>
+						<th class="text-right">Kwota [PLN]</th>
+					</tr>
+				</thead>
+				<tbody>
+					{#each data as finance}
+						<tr>
+							<td class="text-left">{finance.date}</td>
+							<td class="text-left">{finance.name}</td>
+							<td class="text-left">{finance.category}</td>
+							<td class="text-left">{finance.type}</td>
+							<td class="text-right">{finance.amount}</td>
+						</tr>
+					{/each}
+				</tbody>
+			</table>
+			<div class="flex-grow border-t border-green-400 mt-5" />
+			<p class="text-xl font-normal self-end mt-5 pb-5">
+				Aktualny budżet: &emsp; <span
+					class="font-semibold decoration-double underline underline-offset-4 decoration-2 decoration-green-400"
+					>{teamMoney} PLN</span
+				>
+			</p>
+		</div>
+	</div>
+	{/if}
+</main>
+
+
+<style lang="postcss">
+	th {
+		@apply py-1 px-1 font-normal;
+	}
+	td {
+		@apply py-1 px-1 font-light;
+	}
+</style>
