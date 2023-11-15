@@ -82,12 +82,22 @@
 					Podsumowanie stanu finansów w drużynie
 				</h4>
 			</div>
-			<button
-				class="px-4 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-green-600 rounded-md hover:bg-green-500 focus:outline-none focus:bg-green-500"
-				on:click={() => goto('/finance/finance_details')}
-			>
-				Dodaj wpis
-			</button>
+			<div>
+				<!-- different color -->
+				<button
+					class="px-4 py-2 text-sm font-medium tracking-wide text-green-600 capitalize transition-colors duration-200 transform border border-green-600
+					 rounded-md hover:bg-green-500 focus:outline-none focus:bg-green-500"
+					on:click={() => goto('/report')}
+				>
+					Generuj raport
+				</button>
+				<button
+					class="px-4 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-green-600 rounded-md hover:bg-green-500 focus:outline-none focus:bg-green-500"
+					on:click={() => goto('/finance/finance_details')}
+				>
+					Dodaj wpis
+				</button>
+			</div>
 		</div>
 		<div class="w-full mb-8 overflow-hidden rounded-lg shadow-xs">
 			<div class="flex flex-wrap gap-y-8 mb-4">
