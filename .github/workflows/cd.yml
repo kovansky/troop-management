@@ -8,6 +8,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
+    environment: production
     steps:
     - uses: actions/checkout@v3
     - name: Build with Node.js 20
@@ -23,6 +24,52 @@ jobs:
         echo PUBLIC_SUPABASE_ANON_KEY=${{ secrets.PUBLIC_SUPABASE_ANON_KEY }} >> .env
         echo PRIVATE_SUPABASE_SERVICE_ROLE_KEY=${{ secrets.PRIVATE_SUPABASE_SERVICE_ROLE_KEY }} >> .env
         echo ORIGIN=${{ secrets.ORIGIN }} >> .env
+    - run: npm run build
+    - name: Configure SSH
+      run: |
+        mkdir -p ~/.ssh/
+        echo "$SSH_KEY" > ~/.ssh/staging.key
+        chmod 600 ~/.ssh/staging.key
+        cat >>~/.ssh/config <<END
+        Host prod_server
+            HostName $SSH_HOST
+            User $SSH_USER
+            Port $SSH_PORT
+            IdentityFile ~/.ssh/staging.key
+            StrictHostKeyChecking no
+        END
+      env:
+        SSH_USER: ${{ secrets.USERNAME }}
+        SSH_KEY: ${{ secrets.SSH_KEY }}
+        SSH_HOST: ${{ secrets.HOSTNAME }}
+        SSH_PORT: ${{ secrets.PORT }}     
+    - name: Deploy to VPS with SSH
+      run: rsync -avrzh --update --delete ./ ${{ secrets.USERNAME }}@prod_server:${{ secrets.DEPLOY_DIR }}
+      # git remote set-url origin git@github.com:RMaster121/scout-panel-svelte.git
+    - name: Change origin to SSH
+      run: git remote set-url origin git@github.com:RMaster121/scout-panel-svelte.git
+    - name: Restart server
+      run: ssh ${{ secrets.USERNAME }}@prod_server "cd ${{ secrets.DEPLOY_DIR }} && pm2 reload ecosystem.config.cjs --env production"
+
+  deployDev:
+    runs-on: ubuntu-latest
+    environment: development
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build with Node.js 20
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20
+        cache: 'npm'
+    - run: npm ci
+    - name: Add environmental
+      run: |
+        touch .env
+        echo PUBLIC_SUPABASE_URL=${{ secrets.PUBLIC_SUPABASE_URL }} >> .env
+        echo PUBLIC_SUPABASE_ANON_KEY=${{ secrets.PUBLIC_SUPABASE_ANON_KEY }} >> .env
+        echo PRIVATE_SUPABASE_SERVICE_ROLE_KEY=${{ secrets.PRIVATE_SUPABASE_SERVICE_ROLE_KEY }} >> .env
+        echo ORIGIN=${{ secrets.ORIGIN }} >> .env
+    - run: mv src/routes/(public)/page_demo.svelte src/routes/(public)/+page.svelte
     - run: npm run build
     - name: Configure SSH
       run: |
