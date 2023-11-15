@@ -7,6 +7,7 @@ on:
 jobs:
 
   deploy:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment: production
     steps:
@@ -52,6 +53,7 @@ jobs:
       run: ssh ${{ secrets.USERNAME }}@prod_server "cd ${{ secrets.DEPLOY_DIR }} && pm2 reload ecosystem.config.cjs --env production"
 
   deployDev:
+    if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment: development
     steps:
