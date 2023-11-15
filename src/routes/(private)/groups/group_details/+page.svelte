@@ -12,15 +12,7 @@
 	let selected = [];
 
 	onMount(() => {
-		const urlParams = new URLSearchParams(window.location.search);
-		const toastQuery = urlParams.get('toast');
-		if (toastQuery) {
-			toast.success('Operacja zakończona pomyślnie!');
-			urlParams.delete('toasts');
-			window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`);
-		}
-		if (data.group_person == true)
-			selected = data.group_person.map((group_p) => group_p.fk_person_id);
+		selected = data.group_person ? data.group_person.map((group_p) => group_p.fk_person_id) : [];
 	});
 
 	const handleCheck = (id) => {
@@ -53,7 +45,6 @@
 		for (let i = 0; i < selected.length; i++) {
 			formData.append('people', selected[i].toString());
 		}
-		console.log(formData);
 
 		const { status, body } = await ($page.url.searchParams.get('id')
 			? existingGroup(formData)
@@ -103,7 +94,6 @@
 						type="text"
 						name="name"
 						id="name"
-						class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 						value={data.group?.name || ''}
 						placeholder="Dym"
 						minlength="3"
@@ -117,7 +107,6 @@
 						type="text"
 						name="desc"
 						id="desc"
-						class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 						value={data.group?.description || ''}
 						placeholder="Zastęp z naboru RH2022/23"
 					/>
@@ -158,7 +147,7 @@
 					<tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
 						{#each data.people as person}
 							<tr
-								class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 cursor-pointer"
+								class="text-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 hover:bg-gray-100 cursor-pointer"
 								on:click={() => handleCheck(person.id)}
 							>
 								<!-- checkbox daisyui -->

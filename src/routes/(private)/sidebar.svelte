@@ -57,6 +57,13 @@
 			]
 		},
 		{
+			name: 'Książka finansowa',
+			url: '/finance',
+			svg: [
+				'M4 6h16M4 10h16M4 14h16M4 18h16'
+			],
+		},
+		{
 			name: 'Użytkownicy',
 			url: '/authorized',
 			svg: [
@@ -66,7 +73,7 @@
 	]
 </script>
 
-<div class="py-4 text-gray-500">
+<div class="py-4 text-gray-500 dark:text-gray-400">
 	{#if withTitle}
 		<a class="ml-6 text-lg font-bold text-base-content" href="/">{appName}</a>
 	{/if}

@@ -6,6 +6,8 @@
     export let data: PageData;
 
     onMount(() => {
-        goto('/people');
+        // goto('/people');
     });
 </script>
+
+<img src="https://i.makeagif.com/media/2-12-2017/OZ5nrH.gif" alt="Pijany papież tańczy hardbass">

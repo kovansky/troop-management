@@ -144,7 +144,7 @@
 						on:click={logout}
 					>
 						<svg
-							fill="#000000"
+							class="dark:fill-gray-300 fill-black"
 							height="24"
 							width="24"
 							version="1.1"

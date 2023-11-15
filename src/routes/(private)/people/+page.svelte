@@ -7,17 +7,10 @@
 	import { goto } from '$app/navigation';
 	import { toast } from 'svelte-french-toast';
 	import { onMount } from 'svelte';
+	import { split } from 'postcss/lib/list';
 	export let data: PageData;
 
-	onMount(() => {
-		const urlParams = new URLSearchParams(window.location.search);
-		const toastQuery = urlParams.get('toast');
-		if (toastQuery) {
-			toast.success('Operacja zakończona pomyślnie!');
-			urlParams.delete('toasts');
-			window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`);
-		}
-	})
+
 </script>
 
 <svelte:head>
@@ -54,17 +47,26 @@
 					</thead>
 					<tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
 						{#each data.people as person}
-							<tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 cursor-pointer" on:click={() => goto(`${$page.url}/person_details?id=${person.id}`)}>
+							<tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 cursor-pointer dark:hover:bg-gray-700" on:click={() => goto(`${$page.url}/person_details?id=${person.id}`)}>
 								<td class="px-4 py-3">
 									<div class="flex items-center text-sm">
 										<!-- Avatar with inset shadow -->
 										<div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+											{#await data.streamed.picturesList}
 											<img
 												class="object-cover w-full h-full rounded-full"
-												src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+												src='https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'
+												alt=""
+												loading="lazy"
+											/>	
+											{:then picturesList} 
+											<img
+												class="object-cover w-full h-full rounded-full"
+												src={picturesList.find(picture => person.id.toString() == picture.name.split('.')[0].toString())?.url?.signedUrl || 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'}
 												alt=""
 												loading="lazy"
 											/>
+											{/await}
 											<div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true" />
 										</div>
 										<div>
