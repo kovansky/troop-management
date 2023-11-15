@@ -7,6 +7,7 @@ on:
 jobs:
 
   deploy:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment: production
     steps:
@@ -52,6 +53,7 @@ jobs:
       run: ssh ${{ secrets.USERNAME }}@prod_server "cd ${{ secrets.DEPLOY_DIR }} && pm2 reload ecosystem.config.cjs --env production"
 
   deployDev:
+    if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment: development
     steps:
@@ -69,7 +71,7 @@ jobs:
         echo PUBLIC_SUPABASE_ANON_KEY=${{ secrets.PUBLIC_SUPABASE_ANON_KEY }} >> .env
         echo PRIVATE_SUPABASE_SERVICE_ROLE_KEY=${{ secrets.PRIVATE_SUPABASE_SERVICE_ROLE_KEY }} >> .env
         echo ORIGIN=${{ secrets.ORIGIN }} >> .env
-    - run: mv src/routes/(public)/page_demo.svelte src/routes/(public)/+page.svelte
+    - run: mv src/routes/\(public\)/page_demo.svelte src/routes/\(public\)/+page.svelte
     - run: npm run build
     - name: Configure SSH
       run: |
