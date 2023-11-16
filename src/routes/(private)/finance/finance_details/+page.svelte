@@ -17,7 +17,7 @@
 		}
 	});
 
-	const savePerson = async (event) => {
+	const saveOperation = async (event) => {
 		const formData = new FormData(event.target);
 		formData.append('id', $page.url.searchParams.get('id'));
 		const res = await fetch(`/api/finance`, {
@@ -36,7 +36,7 @@
 		}
 	};
 
-	const deletePerson = async (event) => {
+	const deleteOperation = async (event) => {
 		if (!$page.url.searchParams.get('id')) {
 			goto('/finance');
 			return;
@@ -53,12 +53,18 @@
 			console.log('Error:', status, body);
 		}
 	};
+
+	function closeDeleteDialog() {
+		(document.getElementById('delete_operation_modal') as HTMLFormElement).close();
+	}
 </script>
 
 <div class="h-screen p-6 bg-gray-100 flex items-center justify-center dark:bg-gray-900">
 	<div class="container max-w-screen-lg mx-auto">
 		<div>
-			<h2 class="font-semibold text-xl text-gray-600 pb-4 dark:text-gray-400">Edytuj wpis finansowy</h2>
+			<h2 class="font-semibold text-xl text-gray-600 pb-4 dark:text-gray-400">
+				Edytuj wpis finansowy
+			</h2>
 
 			<div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6 dark:bg-gray-800">
 				<div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
@@ -69,7 +75,7 @@
 					<div class="lg:col-span-2">
 						<div class="grid gap-2">
 							<form
-								on:submit|preventDefault={savePerson}
+								on:submit|preventDefault={saveOperation}
 								class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5"
 								id="finance-form"
 							>
@@ -98,27 +104,21 @@
 											name="amount"
 											id="amount"
 											class="block pl-11"
-											value={Math.abs(data.finance?.amount) || ''}
+											value={Math.abs(data.finance?.amount).toFixed(2) || ''}
 											placeholder="21,37"
 										/>
 									</div>
 								</div>
 								<div class="md:col-span-1">
 									<label for="type">Rodzaj transakcji</label>
-									<select
-										name="type"
-										id="type"
-									>
+									<select name="type" id="type">
 										<option value="expense" selected={data.finance.amount < 0}>Wydatek</option>
 										<option value="income" selected={data.finance.amount > 0}>Przychód</option>
 									</select>
 								</div>
 								<div class="md:col-span-2">
 									<label for="category">Kategoria</label>
-									<select
-										name="category"
-										id="category"
-									>
+									<select name="category" id="category">
 										<option value="" selected={data.finance.fk_finance_category_id === null}
 											>Brak</option
 										>
@@ -157,7 +157,9 @@
 								<div class="px-2">
 									<div class="inline-flex">
 										<button
-											on:click|preventDefault={deletePerson}
+											on:click|preventDefault={() => {
+												document.getElementById('delete_operation_modal').showModal();
+											}}
 											class="bg-red-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
 											>Usuń</button
 										>
@@ -190,3 +192,68 @@
 		</div>
 	</div>
 </div>
+
+<dialog id="delete_operation_modal" class="modal">
+	<!-- svelte-ignore a11y-click-events-have-key-events -->
+	<!-- svelte-ignore a11y-no-static-element-interactions -->
+	<div class="modal-backdrop" on:click|stopPropagation={closeDeleteDialog} />
+	<div class="border rounded-lg shadow relative max-w-2xl modal-box">
+		<div class="flex justify-end p-2">
+			<button
+				type="button"
+				class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+				on:click={closeDeleteDialog}
+			>
+				<svg
+					class="w-5 h-5"
+					fill="currentColor"
+					viewBox="0 0 20 20"
+					xmlns="http://www.w3.org/2000/svg"
+					><path
+						fill-rule="evenodd"
+						d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+						clip-rule="evenodd"
+					/></svg
+				>
+			</button>
+		</div>
+
+		<div class="p-6 pt-0 text-center">
+			<svg
+				class="w-60 h-20 text-red-600 mx-auto"
+				fill="none"
+				stroke="currentColor"
+				viewBox="0 0 24 24"
+				xmlns="http://www.w3.org/2000/svg"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+				/>
+			</svg>
+			<h2 class="mb-2 text-2xl font-semibold text-gray-700 dark:text-gray-200">Usuń transakcję</h2>
+			<p class="text-xl font-semibold text-gray-700 dark:text-gray-200">
+				Czy na pewno chcesz usunąć transakcję <b>{data.finance?.name}</b>?
+			</p>
+			<p class="text-gray-600 text-lg font-semibold dark:text-gray-400">Tego nie można cofnąć.</p>
+			<div class="flex justify-center mt-5">
+				<button
+					form="email-form"
+					class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2 text-center mr-2"
+					on:click={deleteOperation}
+				>
+					Tak, usuń
+				</button>
+				<form method="dialog" on:submit={closeDeleteDialog}>
+					<button
+						class="text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-cyan-200 border border-gray-200 font-medium inline-flex items-center rounded-lg text-base px-3 py-2 text-center"
+					>
+						Nie, anuluj
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</dialog>
