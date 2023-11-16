@@ -1,6 +1,7 @@
 module.exports = {
     apps : [{
       script: 'build/index.js',
+      append_env_to_name: true,
       watch: 'build',
       env: {
         NODE_ENV: 'production',
