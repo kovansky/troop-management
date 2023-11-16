@@ -156,10 +156,6 @@
 										type="checkbox"
 										checked={selected.indexOf(person.id) !== -1}
 										class="checkbox checkbox-primary"
-										on:click|preventDefault={() =>
-											selected.indexOf(person.id) === -1
-												? selected.push(person.id)
-												: selected.splice(selected.indexOf(person.id), 1)}
 									/>
 								</td>
 
