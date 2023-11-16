@@ -44,7 +44,7 @@
 		"deno": "^0.1.1",
 		"dotenv": "^16.3.1",
 		"html2pdf.js": "^0.10.1",
-		"jimp": "^0.3.5",
+		"jimp": "^0.22.10",
 		"postcss-load-config": "^4.0.1",
 		"svelte-french-toast": "^1.2.0",
 		"svelte-preprocess": "^5.0.4",
