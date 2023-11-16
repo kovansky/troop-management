@@ -1,11 +1,15 @@
 <script lang="ts">
-	export let showModal: boolean; // boolean
+	export let showModal: boolean;
 
 	export let clickAction: () => void;
 
-	let dialog: HTMLDialogElement; // HTMLDialogElement
+	export let confirmText: string;
+	export let cancelText: string;
+
+	let dialog: HTMLDialogElement;
 
 	$: if (dialog && showModal) dialog.showModal();
+	
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
@@ -60,13 +64,13 @@
 					}}
 					class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2 text-center mr-2"
 				>
-					Tak, zmień
+					{confirmText}
 				</button>
 				<button
 					on:click={() => dialog.close()}
 					class="text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-cyan-200 border border-gray-200 font-medium inline-flex items-center rounded-lg text-base px-3 py-2 text-center"
 				>
-					Nie, anuluj
+					{cancelText}
 				</button>
 			</div>
 		</div>

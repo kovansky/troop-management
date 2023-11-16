@@ -154,7 +154,7 @@
 		</div>
 	</div>
 </main>
-<Modal bind:showModal clickAction={changeStatus}>
+<Modal bind:showModal clickAction={changeStatus} confirmText='Tak, zmień' cancelText='Nie, anuluj'>
 	<h2 class="text-xl font-semibold text-gray-700 dark:text-gray-200">
 		Czy na pewno chcesz zmienić status składki na {data.fees.find(
 			(fee) => fee.fk_person_id === personIdFee
