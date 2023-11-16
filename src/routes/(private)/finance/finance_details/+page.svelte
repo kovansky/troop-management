@@ -55,14 +55,14 @@
 	};
 </script>
 
-<div class="h-screen p-6 bg-gray-100 flex items-center justify-center">
+<div class="h-screen p-6 bg-gray-100 flex items-center justify-center dark:bg-gray-900">
 	<div class="container max-w-screen-lg mx-auto">
 		<div>
-			<h2 class="font-semibold text-xl text-gray-600 pb-4">Edytuj wpis finansowy</h2>
+			<h2 class="font-semibold text-xl text-gray-600 pb-4 dark:text-gray-400">Edytuj wpis finansowy</h2>
 
-			<div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
+			<div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6 dark:bg-gray-800">
 				<div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
-					<div class="text-gray-600">
+					<div class="text-gray-600 dark:text-gray-400">
 						<p class="font-medium text-lg">Szczegóły transakcji</p>
 						<p>Wypełnij pola obowiązkowe</p>
 					</div>
@@ -108,7 +108,6 @@
 									<select
 										name="type"
 										id="type"
-										class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 									>
 										<option value="expense" selected={data.finance.amount < 0}>Wydatek</option>
 										<option value="income" selected={data.finance.amount > 0}>Przychód</option>
@@ -119,7 +118,6 @@
 									<select
 										name="category"
 										id="category"
-										class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
 									>
 										<option value="" selected={data.finance.fk_finance_category_id === null}
 											>Brak</option
