@@ -87,9 +87,9 @@
 		{/if}
 
 		<div class:w-full={!withSearch}>
-			<ul class="flex justify-end items-center flex-shrink-0 space-x-6">
+			<ul class="flex justify-end items-center flex-shrink-0 space-x-4">
 				<!-- name and role below -->
-				<div class="flex flex-col ml-2 mr-2 items-end">
+				<div class="flex flex-col ml-2 items-end">
 					<div class="text-lg font-medium leading-none text-gray-600 dark:text-gray-300">
 						{capitalizeEveryWord(data.user?.name || '')}
 					</div>
@@ -138,7 +138,7 @@
 				</div>
 				<li class="relative">
 					<button
-						class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
+						class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none ml-2"
 						aria-label="Account"
 						aria-haspopup="true"
 						on:click={logout}

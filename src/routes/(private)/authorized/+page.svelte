@@ -82,7 +82,7 @@
 					<tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
 						{#each data.people as person}
 							<tr
-								class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 cursor-pointer"
+								class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 cursor-pointer dark:hover:bg-gray-700"
 								on:click={() => {
 									document.getElementById('person_modal').showModal();
 									selectedPerson = person;

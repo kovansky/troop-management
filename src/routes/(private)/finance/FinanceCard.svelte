@@ -7,7 +7,7 @@
 
 <div class="w-1/2 pr-4 pl-4 md:w-1/4">
 	<div
-		class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300"
+		class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 dark:border-gray-800 dark:bg-gray-700"
 	>
 		<div class="card-block md:p-5 p-3">
 			<div class="flex flex-wrap items-center">

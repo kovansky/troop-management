@@ -53,7 +53,7 @@ jobs:
       run: ssh ${{ secrets.USERNAME }}@prod_server "cd ${{ secrets.DEPLOY_DIR }} && pm2 reload ecosystem.config.cjs --env production"
 
   deployDev:
-    if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/develop'
     runs-on: ubuntu-latest
     environment: development
     steps:
@@ -97,4 +97,4 @@ jobs:
     - name: Change origin to SSH
       run: git remote set-url origin git@github.com:RMaster121/scout-panel-svelte.git
     - name: Restart server
-      run: ssh ${{ secrets.USERNAME }}@prod_server "cd ${{ secrets.DEPLOY_DIR }} && pm2 reload ecosystem.config.cjs --env production"
+      run: ssh ${{ secrets.USERNAME }}@prod_server "cd ${{ secrets.DEPLOY_DIR }} && pm2 reload ecosystem.config.cjs --env development"
