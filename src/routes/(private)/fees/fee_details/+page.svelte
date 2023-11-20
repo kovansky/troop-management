@@ -53,8 +53,8 @@
 <MainPage
 	title="Lista składek i opłat"
 	subtitle="Wybrana składka: {data.fee_type?.name || 'Błąd'}"
-	gotoUrl="/fees/fee_edit?id=${$page.url.searchParams.get('id')}&return=${$page.url.pathname +
-		$page.url.search}"
+	gotoUrl={`/fees/fee_edit?id=${$page.url.searchParams.get('id')}&return=${$page.url.pathname +
+		$page.url.search}`}
 	buttonName="Edytuj składkę/opłatę"
 >
 	<TableView labelList={['Imię i Nazwisko', 'Funkcja', 'Zastęp', 'Czy zapłacono?', 'Akcja']}>
