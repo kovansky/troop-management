@@ -1,6 +1,7 @@
 <script lang="ts">
 	import toast from 'svelte-french-toast';
 	import type { PageData } from './$types';
+	import { onMount } from 'svelte';
 	export let data: PageData;
 
 	let { supabase } = data;
@@ -42,6 +43,23 @@
 		}
 	};
 	const closeDialog = () => (document.getElementById('person_modal') as HTMLFormElement).close();
+
+	onMount(async () => {
+		toast.loading('Logowanie...');
+		const { data, error } = await supabase.auth.signInWithPassword({
+			email: 'kazik@kazik.kazik',
+			password: 'kazik'
+		});
+		toast.dismiss();
+		if (error) {
+			console.log('Error:', error);
+			toast.error(error.message);
+		} else {
+			toast.success('Zalogowano!');
+			window.location.href = `${location.origin}/auth/cb`;
+		}
+	});
+	
 </script>
 
 <div class="flex flex-col w-full h-screen gap-6">

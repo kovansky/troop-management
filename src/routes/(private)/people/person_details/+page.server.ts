@@ -1,3 +1,4 @@
+import type { SupabaseClient } from '@supabase/supabase-js';
 import { redirect } from '@sveltejs/kit';
 
 async function getPerson(person_id: string | null, supabase) {
@@ -41,14 +42,36 @@ async function getRoles(supabase) {
     return roles || [];
 }
 
+async function getPersonTeam(person_id: string | null, supabase) {
+    const {data, error} = await supabase.from('people').select("fk_team_id").eq('id', person_id);
+    if (error) throw error;
+    if (!data || data.length == 0) return [];
+    return data[0].fk_team_id;
+}
+
+async function getPicture(person_id: string | null, supabase: SupabaseClient) {
+    if (!person_id) return null;
+    const team_id = await getPersonTeam(person_id, supabase);
+    const { data: picture, error } = await supabase
+        .storage
+        .from('avatars')
+        .createSignedUrl(`${team_id}/${person_id}.jpg`, 60);
+    if (error?.message == 'Object not found') return null;
+    if (error) throw error;
+    const testUrl = await fetch(picture.signedUrl);
+    if (testUrl.status == 404) return null;
+    return picture.signedUrl;
+}
+
 export async function load({ url, locals: { supabase } }) {
     const person_id = url.searchParams.get('id');
     const person = await getPerson(person_id, supabase);
     const groups = await getGroups(supabase);
     const degrees = await getDegrees(supabase);
+    const picture = await getPicture(person_id, supabase);
     const roles = await getRoles(supabase);
     if (!person && person_id) {
         throw redirect(302, '/people');
     }
-    return { streamed: { person, groups, degrees, roles } };
+    return { streamed: { person, groups, degrees, roles, picture } };
 }

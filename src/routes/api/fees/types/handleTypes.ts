@@ -13,7 +13,6 @@ export async function handleTypes(formData: Promise<FormData>) {
     const formData1 = await formData;
     let body;
     try {
-        console.log('formData', formData1);
         body = Object.fromEntries(formData1.entries());
     } catch (error) {
         console.log(error);
@@ -21,7 +20,6 @@ export async function handleTypes(formData: Promise<FormData>) {
     }
 
     const amount = parseFloat(body.amount.toString().replace(',', '.'));
-    console.log('amount', amount, body.amount, body.amount != '');
     if (isNaN(amount) && body.amount != '') return json({ status: 400, body: 'Kwota jest nieprawidłowa' });
 
     const validated = validation(body, amount);

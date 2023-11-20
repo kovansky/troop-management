@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Toaster } from 'svelte-french-toast';
-import '../app.postcss';
+	import '../app.postcss';
 </script>
 
 <svelte:head>

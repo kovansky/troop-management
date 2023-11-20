@@ -1,6 +1,6 @@
 import { json } from "@sveltejs/kit";
 
-export async function POST({ request, locals: {supabase} }): Promise<{ status: number, body }> {
+export async function PUT({ request, locals: {supabase} }): Promise<{ status: number, body }> {
 
     const body = await request.json();
     if (!body) return json({ status: 400, body: 'Błąd wewnętrzny - żądanie jest puste' });
