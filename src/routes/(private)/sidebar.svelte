@@ -1,32 +1,32 @@
 <script lang="ts">
-	import { closeSideMenu, pageMenu, togglePageMenu, toggleSideMenu } from '../../helpers/menu'
-	import { page } from '$app/stores'
-	import { goto } from '$app/navigation'
+	import { closeSideMenu, pageMenu, togglePageMenu, toggleSideMenu } from '../../helpers/menu';
+	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
 
-	const appName = 'Scout Manager'
+	const appName = 'Scout Manager';
 
 	$: changeLink = (link: any) => {
-		closeSideMenu()
-		goto(link.url)
-	}
+		closeSideMenu();
+		goto(link.url);
+	};
 
 	$: isMainLink = (link: any) => {
 		if (!link.url) {
-			return false
+			return false;
 		}
-		return link.url === activeUrl.pathname
-	}
+		return link.url === activeUrl.pathname;
+	};
 
 	$: isChildLink = (link: any) => {
 		if (!link.url) {
-			return false
+			return false;
 		}
-		return activeUrl.pathname.indexOf(link.url, 0) >= 0
-	}
+		return activeUrl.pathname.indexOf(link.url, 0) >= 0;
+	};
 
-	$: activeUrl = $page.url
+	$: activeUrl = $page.url;
 
-	export let withTitle = true
+	export let withTitle = true;
 	export let links = [
 		{
 			name: 'Strona główna',
@@ -59,9 +59,7 @@
 		{
 			name: 'Książka finansowa',
 			url: '/finance',
-			svg: [
-				'M4 6h16M4 10h16M4 14h16M4 18h16'
-			],
+			svg: ['M4 6h16M4 10h16M4 14h16M4 18h16']
 		},
 		{
 			name: 'Użytkownicy',
@@ -70,7 +68,7 @@
 				'M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z'
 			]
 		}
-	]
+	];
 </script>
 
 <div class="py-4 text-gray-500 dark:text-gray-400">
@@ -93,8 +91,8 @@
 							'text-base-content'} inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-base-content"
 						href={link.url}
 						on:click={(e) => {
-							e.preventDefault()
-							changeLink(link)
+							e.preventDefault();
+							changeLink(link);
 						}}
 					>
 						{#if link.svg}

@@ -57,13 +57,22 @@
 	<div class="container grid px-6 mx-auto">
 		<div class="flex justify-between items-center">
 			<div>
-				<h2 class="mt-6 mb-4 text-2xl font-semibold text-gray-700 dark:text-gray-200">Lista składek i opłat</h2>
+				<h2 class="mt-6 mb-4 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+					Lista składek i opłat
+				</h2>
 				<h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
 					Wybrana składka: {data.fee_type?.name || 'Błąd'}
 				</h4>
 			</div>
-			<button class="px-4 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-green-600 rounded-md hover:bg-green-500 focus:outline-none focus:bg-green-500"
-				on:click={() => goto(`/fees/fee_edit?id=${$page.url.searchParams.get('id')}&return=${$page.url.pathname + $page.url.search}`)}>
+			<button
+				class="px-4 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-green-600 rounded-md hover:bg-green-500 focus:outline-none focus:bg-green-500"
+				on:click={() =>
+					goto(
+						`/fees/fee_edit?id=${$page.url.searchParams.get('id')}&return=${
+							$page.url.pathname + $page.url.search
+						}`
+					)}
+			>
 				Edytuj składkę/opłatę
 			</button>
 		</div>
@@ -96,19 +105,23 @@
 										<!-- Avatar with inset shadow -->
 										<div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
 											{#await data.streamed.picturesList}
-											<img
-												class="object-cover w-full h-full rounded-full"
-												src='https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'
-												alt=""
-												loading="lazy"
-											/>	
-											{:then picturesList} 
-											<img
-												class="object-cover w-full h-full rounded-full"
-												src={picturesList.find(picture => person.id.toString() == picture.name.split('.')[0].toString())?.url?.signedUrl || 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'}
-												alt=""
-												loading="lazy"
-											/>
+												<img
+													class="object-cover w-full h-full rounded-full"
+													src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+													alt=""
+													loading="lazy"
+												/>
+											{:then picturesList}
+												<img
+													class="object-cover w-full h-full rounded-full"
+													src={picturesList.find(
+														(picture) =>
+															person.id.toString() == picture.name.split('.')[0].toString()
+													)?.url?.signedUrl ||
+														'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'}
+													alt=""
+													loading="lazy"
+												/>
 											{/await}
 											<div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true" />
 										</div>
@@ -125,7 +138,9 @@
 								<ColorTag color={person.roles?.color} title={person.roles?.name} />
 								<td class="px-4 py-3 text-sm">{person.small_groups_name || 'Brak zastępu'}</td>
 								<td class="px-4 py-3 text-sm w-1/4">
-									{getPaidStatus(data.fees.find((fee) => fee.fk_person_id === person.id)?.payment_date)}
+									{getPaidStatus(
+										data.fees.find((fee) => fee.fk_person_id === person.id)?.payment_date
+									)}
 								</td>
 								<td class="px-4 py-3">
 									<div class="flex items-center space-x-4 text-sm">
@@ -154,7 +169,7 @@
 		</div>
 	</div>
 </main>
-<Modal bind:showModal clickAction={changeStatus} confirmText='Tak, zmień' cancelText='Nie, anuluj'>
+<Modal bind:showModal clickAction={changeStatus} confirmText="Tak, zmień" cancelText="Nie, anuluj">
 	<h2 class="text-xl font-semibold text-gray-700 dark:text-gray-200">
 		Czy na pewno chcesz zmienić status składki na {data.fees.find(
 			(fee) => fee.fk_person_id === personIdFee

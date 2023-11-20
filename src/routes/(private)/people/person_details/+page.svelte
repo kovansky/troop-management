@@ -112,19 +112,21 @@
 		(document.getElementById('delete_person_modal') as HTMLFormElement).close();
 	}
 
-	const loadFile = function(event) {
-    	var output = document.getElementById('form-avatar') as HTMLFormElement;
-    	output.src = URL.createObjectURL(event.target.files[0]);
-    	output.onload = function() {
-      		URL.revokeObjectURL(output.src)
-    	}
-  	};
+	const loadFile = function (event) {
+		var output = document.getElementById('form-avatar') as HTMLFormElement;
+		output.src = URL.createObjectURL(event.target.files[0]);
+		output.onload = function () {
+			URL.revokeObjectURL(output.src);
+		};
+	};
 </script>
 
 <main class="h-screen p-6 bg-gray-100 flex items-center justify-center dark:bg-gray-900">
 	<div class="container max-w-screen-lg mx-auto">
 		<div>
-			<h2 class="font-semibold text-xl text-gray-600 dark:text-gray-300 pb-4">Edytuj dane harcerza</h2>
+			<h2 class="font-semibold text-xl text-gray-600 dark:text-gray-300 pb-4">
+				Edytuj dane harcerza
+			</h2>
 
 			<div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6 dark:bg-gray-800">
 				<div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
@@ -185,7 +187,7 @@
 							<div class="avatar {data.streamed.picture ? '' : 'placeholder'} w-3/4 z-0">
 								<div class="bg-neutral-content text-neutral-focus rounded w-full">
 									{#if data.streamed.picture && data.streamed.picture !== ''}
-										<img class="text-3xl" src={data.streamed.picture} alt='' />
+										<img class="text-3xl" src={data.streamed.picture} alt="" />
 									{:else}
 										<span class="text-3xl">{getFirstLetters(data.streamed.person.name || '')}</span>
 									{/if}
@@ -290,7 +292,7 @@
 											type="number"
 											name="pesel"
 											id="pesel"
-    										value={person?.pesel || ''}
+											value={person?.pesel || ''}
 											placeholder="12345678901"
 											minlength="11"
 											maxlength="11"
@@ -354,10 +356,7 @@
 									<!-- Row -->
 									<div class="md:col-span-2">
 										<label for="group">Zastęp</label>
-										<select
-											name="group"
-											id="group"
-										>
+										<select name="group" id="group">
 											{#each data.streamed.groups as group}
 												<option value={group.id} selected={person?.fk_small_group_id === group.id}>
 													{group.name}
@@ -368,10 +367,7 @@
 									</div>
 									<div class="md:col-span-2">
 										<label for="role">Funkcja</label>
-										<select
-											name="role"
-											id="role"
-										>
+										<select name="role" id="role">
 											{#each data.streamed.roles as role}
 												<option value={role.id} selected={person?.fk_role_id === role.id}>
 													{role.name}
@@ -382,10 +378,7 @@
 									</div>
 									<div class="md:col-span-1">
 										<label for="degree">Stopień</label>
-										<select
-											name="degree"
-											id="degree"
-										>
+										<select name="degree" id="degree">
 											{#each data.streamed.degrees as degree}
 												<option value={degree.id} selected={person?.fk_degree_id === degree.id}>
 													{degree.name}
@@ -401,9 +394,9 @@
 										<div class="inline-flex">
 											<!-- invoke delete -->
 											<button
-											on:click|preventDefault={() => {
-												document.getElementById('delete_person_modal').showModal();
-											}}
+												on:click|preventDefault={() => {
+													document.getElementById('delete_person_modal').showModal();
+												}}
 												class="bg-red-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
 												>Usuń</button
 											>
@@ -485,9 +478,18 @@
 				Zdjęcie profilowe harcerza
 			</h2>
 			<div class="mt-4">
-				<form on:submit|preventDefault={uploadAvatar} id="avatar-form" class="flex flex-col items-center">
+				<form
+					on:submit|preventDefault={uploadAvatar}
+					id="avatar-form"
+					class="flex flex-col items-center"
+				>
 					<!-- if image is in form show it -->
-					<input name="file" type="file" class="file-input file-input-bordered w-full max-w-xs" on:change={loadFile} />
+					<input
+						name="file"
+						type="file"
+						class="file-input file-input-bordered w-full max-w-xs"
+						on:change={loadFile}
+					/>
 					<img id="form-avatar" class="mt-4 w-1/2" alt="" />
 					<div class="md:col-span-5">
 						<button
@@ -530,33 +532,27 @@
 
 		{#await data.streamed.person}
 			Poczekaj, trwa ładowanie...
-		{:then person} 
-		<div class="p-6 pt-0 text-center">
-			<svg
-				class="w-60 h-20 text-red-600 mx-auto"
-				fill="none"
-				stroke="currentColor"
-				viewBox="0 0 24 24"
-				xmlns="http://www.w3.org/2000/svg"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-				/>
-			</svg>
-			<h2 class="mb-2 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-				Usuń harcerza
-			</h2>
+		{:then person}
+			<div class="p-6 pt-0 text-center">
+				<svg
+					class="w-60 h-20 text-red-600 mx-auto"
+					fill="none"
+					stroke="currentColor"
+					viewBox="0 0 24 24"
+					xmlns="http://www.w3.org/2000/svg"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+					/>
+				</svg>
+				<h2 class="mb-2 text-2xl font-semibold text-gray-700 dark:text-gray-200">Usuń harcerza</h2>
 				<p class="text-xl font-semibold text-gray-700 dark:text-gray-200">
-					Czy na pewno chcesz usunąć harcerza <b
-						>{capitalizeEveryWord(person?.name || '')}</b
-					>?
+					Czy na pewno chcesz usunąć harcerza <b>{capitalizeEveryWord(person?.name || '')}</b>?
 				</p>
-				<p class="text-gray-600 text-lg font-semibold dark:text-gray-400">
-					Tego nie można cofnąć.
-				</p>
+				<p class="text-gray-600 text-lg font-semibold dark:text-gray-400">Tego nie można cofnąć.</p>
 				<div class="flex justify-center mt-5">
 					<button
 						form="email-form"
@@ -573,7 +569,7 @@
 						</button>
 					</form>
 				</div>
-		</div>
+			</div>
 		{/await}
 	</div>
 </dialog>

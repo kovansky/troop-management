@@ -13,16 +13,19 @@
 
 <main class="h-full pb-16 overflow-y-auto">
 	<div class="container grid px-6 mx-auto">
-		
 		<div class="flex justify-between items-center">
 			<div>
-				<h2 class="mt-6 mb-4 text-2xl font-semibold text-gray-700 dark:text-gray-200">Lista składek i opłat</h2>
+				<h2 class="mt-6 mb-4 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+					Lista składek i opłat
+				</h2>
 				<h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
 					Lista składek rocznych i okazjonalnych opłat w jednostce
 				</h4>
 			</div>
-			<button class="px-4 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-green-600 rounded-md hover:bg-green-500 focus:outline-none focus:bg-green-500"
-				on:click={() => goto(`${$page.url}/fee_edit`)}>
+			<button
+				class="px-4 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-green-600 rounded-md hover:bg-green-500 focus:outline-none focus:bg-green-500"
+				on:click={() => goto(`${$page.url}/fee_edit`)}
+			>
 				Dodaj składkę/opłatę
 			</button>
 		</div>
@@ -42,7 +45,10 @@
 					</thead>
 					<tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
 						{#each data.fees_types as fee_type}
-							<tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 cursor-pointer dark:hover:bg-gray-700" on:click={() =>goto(`${$page.url}/fee_details?id=${fee_type.id}`)}>
+							<tr
+								class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 cursor-pointer dark:hover:bg-gray-700"
+								on:click={() => goto(`${$page.url}/fee_details?id=${fee_type.id}`)}
+							>
 								<td class="px-4 py-3">
 									<div class="flex items-center text-sm">
 										<!-- Avatar with inset shadow -->
@@ -70,12 +76,17 @@
 										</div>
 										<div>
 											<p class="font-semibold">{fee_type?.name || 'Brak nazwy'}</p>
-											<p class="text-xs text-gray-600 dark:text-gray-400">{fee_type.is_formal ? 'Składka roczna' : 'Opłata okazjonalna'}</p>
+											<p class="text-xs text-gray-600 dark:text-gray-400">
+												{fee_type.is_formal ? 'Składka roczna' : 'Opłata okazjonalna'}
+											</p>
 										</div>
 									</div>
 								</td>
-								<td class="px-4 py-3 text-sm">{fee_type?.small_groups?.name || 'Cała jednostka'}</td>
-								<td class="px-4 py-3 text-sm">{fee_type?.amount ? (fee_type.amount + ' PLN') : 'Nie podano'}</td>
+								<td class="px-4 py-3 text-sm">{fee_type?.small_groups?.name || 'Cała jednostka'}</td
+								>
+								<td class="px-4 py-3 text-sm"
+									>{fee_type?.amount ? fee_type.amount + ' PLN' : 'Nie podano'}</td
+								>
 								<td class="px-4 py-3 w-1/6 text-sm">{fee_type?.count_finance ? 'Tak' : 'Nie'}</td>
 								<td class="px-4 py-3 text-sm">{fee_type?.start_date || 'Błąd'}</td>
 							</tr>

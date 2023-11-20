@@ -49,7 +49,9 @@
 		<h1 class="text-3xl font-bold mb-4 dark:text-gray-200">Login</h1>
 		<form class="w-full max-w-sm" on:submit|preventDefault={handleClick}>
 			<div class="mb-4">
-				<label class="block text-gray-700 font-bold mb-2 dark:text-gray-200" for="username"> Adres E-Mail </label>
+				<label class="block text-gray-700 font-bold mb-2 dark:text-gray-200" for="username">
+					Adres E-Mail
+				</label>
 				<input
 					class="appearance-none border rounded w-full py-2 px-3 dark:text-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 					id="username"
@@ -60,7 +62,9 @@
 				/>
 			</div>
 			<div class="mb-6">
-				<label class="block text-gray-700 font-bold mb-2 dark:text-gray-200" for="password"> Hasło </label>
+				<label class="block text-gray-700 font-bold mb-2 dark:text-gray-200" for="password">
+					Hasło
+				</label>
 				<input
 					class="appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
 					id="password"
@@ -80,7 +84,10 @@
 				</button>
 				<!-- svelte-ignore a11y-no-static-element-interactions -->
 				<!-- svelte-ignore a11y-click-events-have-key-events -->
-				<div class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800 cursor-pointer" on:click={() => document.getElementById('person_modal').showModal()}>
+				<div
+					class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800 cursor-pointer"
+					on:click={() => document.getElementById('person_modal').showModal()}
+				>
 					Zapomniałeś hasła?
 				</div>
 			</div>
@@ -133,8 +140,7 @@
 				Zapomniane hasło?
 			</h2>
 			<p class="text-xl mb-3 font-semibold text-gray-700 dark:text-gray-200">
-				Wprowadź adres email, na który zostało założone konto, a my wyślemy Ci link do
-				zmiany hasła.
+				Wprowadź adres email, na który zostało założone konto, a my wyślemy Ci link do zmiany hasła.
 			</p>
 			<form id="email-form" method="dialog" on:submit={resetPassword}>
 				<label for="email">Adres email użytkownika</label>

@@ -113,10 +113,7 @@
 								</div>
 								<div class="md:col-span-2">
 									<label for="small_group">Kogo dotyczy</label>
-									<select
-										name="small_group"
-										id="small_group"
-									>
+									<select name="small_group" id="small_group">
 										<option value="" selected={data.fee_type.fk_small_group_id === null}
 											>Cała jednostka</option
 										>
@@ -172,9 +169,9 @@
 								<div class="px-2">
 									<div class="inline-flex">
 										<button
-										on:click|preventDefault={() => {
-											document.getElementById('delete_fee_modal').showModal();
-										}}
+											on:click|preventDefault={() => {
+												document.getElementById('delete_fee_modal').showModal();
+											}}
 											class="bg-red-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
 											>Usuń</button
 										>
@@ -248,13 +245,18 @@
 					d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
 				/>
 			</svg>
-			<h2 class="mb-2 text-2xl font-semibold text-gray-700 dark:text-gray-200">Usuń {data.fee_type?.is_formal ? 'składkę' : 'opłatę'}</h2>
+			<h2 class="mb-2 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+				Usuń {data.fee_type?.is_formal ? 'składkę' : 'opłatę'}
+			</h2>
 			<p class="text-xl font-semibold text-gray-700 dark:text-gray-200">
-				Czy na pewno chcesz usunąć {data.fee_type?.is_formal ? 'składkę' : 'opłatę'} <b>{data.fee_type?.name}</b>?
+				Czy na pewno chcesz usunąć {data.fee_type?.is_formal ? 'składkę' : 'opłatę'}
+				<b>{data.fee_type?.name}</b>?
 			</p>
 			<p class="text-gray-600 text-lg font-semibold dark:text-gray-400">Tego nie można cofnąć.</p>
 			{#if data.fee_type?.count_finance}
-			<p class="text-gray-600 text-lg font-semibold dark:text-gray-400">Usunięcie {data.fee_type?.is_formal ? 'składki' : 'opłaty'} nie wpłynie na wpisy finansowe.</p>
+				<p class="text-gray-600 text-lg font-semibold dark:text-gray-400">
+					Usunięcie {data.fee_type?.is_formal ? 'składki' : 'opłaty'} nie wpłynie na wpisy finansowe.
+				</p>
 			{/if}
 			<div class="flex justify-center mt-5">
 				<button

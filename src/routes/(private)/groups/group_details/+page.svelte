@@ -118,18 +118,18 @@
 				<div class="md:col-span-2">
 					<label class="inline-flex items-center">
 						Grupa
-						<div class="ml-3"/>
+						<div class="ml-3" />
 						<input
 							type="checkbox"
 							name="is_formal"
 							id="is_formal"
 							class="toggle toggle-primary"
-							checked={data.group?.is_formal || false}>
-							<div class="mr-3"/>
+							checked={data.group?.is_formal || false}
+						/>
+						<div class="mr-3" />
 						Zastęp
 					</label>
 				</div>
-							
 			</div>
 		</form>
 
@@ -177,7 +177,9 @@
 										</div>
 										<div>
 											<p class="font-semibold">{capitalizeEveryWord(person.name)}</p>
-											<p class="text-xs text-gray-600 dark:text-gray-400">{person.join_year || ''}</p>
+											<p class="text-xs text-gray-600 dark:text-gray-400">
+												{person.join_year || ''}
+											</p>
 										</div>
 									</div>
 								</td>
@@ -192,7 +194,14 @@
 									<button
 										class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
 										aria-label="Edit"
-										on:click|stopPropagation={() => goto('/people/person_details?id=' + person.id+'&return='+$page.url.pathname + $page.url.search)}
+										on:click|stopPropagation={() =>
+											goto(
+												'/people/person_details?id=' +
+													person.id +
+													'&return=' +
+													$page.url.pathname +
+													$page.url.search
+											)}
 									>
 										<svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
 											<path
@@ -218,15 +227,15 @@
 						</div>
 					</div>
 
-			<div class="px-2">
-				<div class="inline-flex">
-					<button
-						on:click|preventDefault={() => goto('/groups')}
-						class="bg-gray-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
-						>Anuluj</button
-					>
-				</div>
-			</div>
+					<div class="px-2">
+						<div class="inline-flex">
+							<button
+								on:click|preventDefault={() => goto('/groups')}
+								class="bg-gray-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
+								>Anuluj</button
+							>
+						</div>
+					</div>
 
 					<div class="px-2">
 						<div class="inline-flex">
@@ -284,9 +293,12 @@
 					d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
 				/>
 			</svg>
-			<h2 class="mb-2 text-2xl font-semibold text-gray-700 dark:text-gray-200">Usuń {data.group?.is_formal ? 'zastęp' : 'grupę'}</h2>
+			<h2 class="mb-2 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+				Usuń {data.group?.is_formal ? 'zastęp' : 'grupę'}
+			</h2>
 			<p class="text-xl font-semibold text-gray-700 dark:text-gray-200">
-				Czy na pewno chcesz usunąć {data.group?.is_formal ? 'zastęp' : 'grupę'} <b>{data.group?.name}</b>?
+				Czy na pewno chcesz usunąć {data.group?.is_formal ? 'zastęp' : 'grupę'}
+				<b>{data.group?.name}</b>?
 			</p>
 			<p class="text-gray-600 text-lg font-semibold dark:text-gray-400">Tego nie można cofnąć.</p>
 			<div class="flex justify-center mt-5">
