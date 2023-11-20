@@ -91,7 +91,7 @@
 				name="amount"
 				id="amount"
 				class="block pl-11"
-				value={Math.abs(data.finance?.amount).toFixed(2) || ''}
+				value={data.finance?.amount ? Math.abs(data.finance.amount).toFixed(2) : ''}
 				placeholder="21,37"
 			/>
 		</div>

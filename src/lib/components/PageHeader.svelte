@@ -3,7 +3,7 @@
 
 	export let title: string;
 	export let subtitle: string;
-	export let gotoUrl: string | null;
+	export let gotoUrl: `` | null;
 	export let buttonName: string = '';
 </script>
 

@@ -11,7 +11,7 @@
 <MainPage
 	title="Lista składek i opłat"
 	subtitle="Lista składek rocznych i okazjonalnych opłat w jednostce"
-	gotoUrl="${$page.url}/fee_edit"
+	gotoUrl={`${$page.url}/fee_edit`}
 	buttonName="Dodaj składkę/opłatę"
 >
 	<TableView
