@@ -2,7 +2,7 @@
 	import { closeSideMenu, togglePageMenu } from '../../helpers/menu';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
-	import logo from '$lib/assets/app_logo.jpg'
+	import logo from '$lib/assets/app_logo.jpg';
 
 	const appName = 'Scout Manager';
 
@@ -14,9 +14,9 @@
 	};
 
 	$: changeLink = (link: any) => {
-		closeSideMenu()
-		goto(link.url)
-	}
+		closeSideMenu();
+		goto(link.url);
+	};
 
 	$: activeUrl = $page.url;
 
@@ -67,41 +67,41 @@
 
 <div class="py-4 text-gray-500 dark:text-gray-400">
 	{#if withTitle}
-	<div class="flex items-center">
-		<img src={logo} class="ml-6 w-11 h-11 rounded-full" alt='logo' />
-		<a class="text-lg ml-3 font-bold text-base-content" href="/">{appName}</a>
-	</div>
+		<div class="flex items-center">
+			<img src={logo} class="ml-6 w-11 h-11 rounded-full" alt="logo" />
+			<a class="text-lg ml-3 font-bold text-base-content" href="/">{appName}</a>
+		</div>
 	{/if}
 	<ul class="mt-6">
 		{#each links as link}
 			<li class="relative px-6 py-3">
 				<a
-				class="{isMainLink(link) &&
-					'text-base-content'} inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-base-content"
-				href={link.url}
-				on:click={(e) => {
-					e.preventDefault()
-					changeLink(link)
-				}}
-			>
-				{#if link.svg}
-					<svg
-						class="w-5 h-5"
-						aria-hidden="true"
-						fill="none"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						stroke-width="2"
-						viewBox="0 0 24 24"
-						stroke="currentColor"
-					>
-						{#each link.svg as s, b}
-							<path d={s} />
-						{/each}
-					</svg>
-				{/if}
-				<span class="ml-4">{link.name}</span>
-			</a>
+					class="{isMainLink(link) &&
+						'text-base-content'} inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-base-content"
+					href={link.url}
+					on:click={(e) => {
+						e.preventDefault();
+						changeLink(link);
+					}}
+				>
+					{#if link.svg}
+						<svg
+							class="w-5 h-5"
+							aria-hidden="true"
+							fill="none"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+						>
+							{#each link.svg as s, b}
+								<path d={s} />
+							{/each}
+						</svg>
+					{/if}
+					<span class="ml-4">{link.name}</span>
+				</a>
 			</li>
 		{/each}
 	</ul>

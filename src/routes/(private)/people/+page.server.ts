@@ -1,5 +1,4 @@
-import { getPicturesList } from "$lib/server/getPicturesList";
-
+import { getPicturesList } from '$lib/server/getPicturesList';
 
 export async function load({ locals: { supabase, getSession } }) {
 	const { data: people, error: db_error } = await supabase.from('people').select(`

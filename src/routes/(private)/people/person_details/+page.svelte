@@ -231,16 +231,11 @@
 		<label for="group">Zastęp</label>
 		<select name="group" id="group">
 			{#each data.streamed.groups as group}
-				<option
-					value={group.id}
-					selected={data.streamed.person?.fk_small_group_id === group.id}
-				>
+				<option value={group.id} selected={data.streamed.person?.fk_small_group_id === group.id}>
 					{group.name}
 				</option>
 			{/each}
-			<option value="" selected={!data.streamed.person?.fk_small_group_id}>
-				Brak zastępu
-			</option>
+			<option value="" selected={!data.streamed.person?.fk_small_group_id}> Brak zastępu </option>
 		</select>
 	</div>
 	<div class="md:col-span-2">

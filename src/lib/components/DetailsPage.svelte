@@ -8,13 +8,13 @@
 	/** Description of the object */
 	export let desc: string;
 
-    /** Unique ID of form - it will be used to submit form. */
-    export let formId: string;
-    export let onSubmit: (event: Event) => void;
-    /** Function that will be called when user clicks on cancel button. */
-    export let cancelAction: () => void;
-    /** Function that will be called when user clicks on delete button. */
-    export let deleteAction: () => void;
+	/** Unique ID of form - it will be used to submit form. */
+	export let formId: string;
+	export let onSubmit: (event: Event) => void;
+	/** Function that will be called when user clicks on cancel button. */
+	export let cancelAction: () => void;
+	/** Function that will be called when user clicks on delete button. */
+	export let deleteAction: () => void;
 </script>
 
 <svelte:head>
@@ -32,7 +32,7 @@
 							<p class="font-medium text-lg">{descTitle}</p>
 							<p>{desc}</p>
 						</div>
-                        <slot name="avatar-slot" />
+						<slot name="avatar-slot" />
 					</div>
 					<div class="lg:col-span-2">
 						<div class="grid gap-2">
@@ -41,7 +41,7 @@
 								class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5"
 								id={formId}
 							>
-                                <slot />
+								<slot />
 							</form>
 							<ActionButtons {deleteAction} {cancelAction} {formId} />
 						</div>

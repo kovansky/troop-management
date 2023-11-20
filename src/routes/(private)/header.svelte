@@ -40,7 +40,7 @@
 				/>
 			</svg>
 		</button>
-		<div class='w-full'>
+		<div class="w-full">
 			<ul class="flex justify-end items-center flex-shrink-0 space-x-4">
 				<div class="flex flex-col ml-2 items-end">
 					<div class="text-lg font-medium leading-none text-gray-600 dark:text-gray-300">

@@ -7,7 +7,7 @@
 	import { clickOutside } from '../../lib/ioevents/click';
 	import { keydownEscape } from '../../lib/ioevents/keydown';
 	import Header from './header.svelte';
-	import { navigating } from '$app/stores'
+	import { navigating } from '$app/stores';
 
 	import type { LayoutData } from './$types';
 	import Spinner from '$lib/components/Spinner.svelte';

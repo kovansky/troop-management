@@ -1,4 +1,4 @@
-import { getPicturesList } from "$lib/server/getPicturesList";
+import { getPicturesList } from '$lib/server/getPicturesList';
 
 export async function load({ locals: { supabase, getSession } }) {
 	const selectData = ` id, name, roles (id, name, color), degrees (id, name, color), small_groups (id, name), join_year, fk_user_id`;
