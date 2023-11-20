@@ -7,8 +7,10 @@
 	import { clickOutside } from '../../lib/ioevents/click';
 	import { keydownEscape } from '../../lib/ioevents/keydown';
 	import Header from './header.svelte';
+	import { navigating } from '$app/stores'
 
 	import type { LayoutData } from './$types';
+	import Spinner from '$lib/components/Spinner.svelte';
 
 	export let data: LayoutData;
 	$: ({ supabase, session } = data);
@@ -57,7 +59,11 @@
 			<Header {data} />
 			<main class="main-normal">
 				<div class="container grid px-6 mx-auto">
-					<slot />
+					{#if $navigating}
+						<Spinner />
+					{:else}
+						<slot />
+					{/if}
 				</div>
 			</main>
 		</div>
