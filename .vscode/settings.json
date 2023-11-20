@@ -1,4 +1,9 @@
 {
 	"cSpell.language": "en,en-GB,en-US,lorem,pl,pl-PL",
-	"cSpell.words": ["Chotomowska", "tailwindcss"]
+	"cSpell.words": [
+		"Chotomowska",
+		"emaila",
+		"supabase",
+		"tailwindcss"
+	]
 }

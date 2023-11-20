@@ -2,7 +2,7 @@
 	export let labelList: string[];
 </script>
 
-<div class="w-full overflow-x-auto">
+<div class="w-full overflow-x-auto overflow-y-hidden">
 	<table class="w-full whitespace-no-wrap table-auto">
 		<thead>
 			<tr class="tr-header">

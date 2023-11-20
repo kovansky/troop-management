@@ -83,11 +83,7 @@
 	}
 </script>
 
-<svelte:head>
-	<title>Edycja grupy</title>
-</svelte:head>
-
-<main class="main-normal">
+<div class="main-normal">
 	<div class="container grid px-6 mx-auto">
 		<h2 class="mt-6 mb-4 text-2xl font-semibold text-gray-700 dark:text-gray-200">Edycja grupy</h2>
 		<form id="group-form" on:submit|preventDefault={saveGroup}>
@@ -152,7 +148,6 @@
 								class="text-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 hover:bg-gray-100 cursor-pointer"
 								on:click={() => handleCheck(person.id)}
 							>
-								<!-- checkbox daisyui -->
 								<td>
 									<input
 										type="checkbox"
@@ -163,7 +158,6 @@
 
 								<td>
 									<div class="flex items-center text-sm">
-										<!-- Avatar with inset shadow -->
 										<div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
 											<img
 												class="object-cover w-full h-full rounded-full"
@@ -215,7 +209,6 @@
 				<div class="inline-flex float-right pt-4">
 					<div class="px-2">
 						<div class="inline-flex">
-							<!-- invoke delete -->
 							<button
 								class="bg-red-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
 								on:click|preventDefault={() => {
@@ -249,7 +242,7 @@
 			</div>
 		</div>
 	</div>
-</main>
+</div>
 
 <dialog id="delete_group_modal" class="modal">
 	<!-- svelte-ignore a11y-click-events-have-key-events -->

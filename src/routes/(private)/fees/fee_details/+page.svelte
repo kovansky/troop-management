@@ -69,7 +69,6 @@
 			>
 				<td>
 					<div class="flex items-center text-sm">
-						<!-- Avatar with inset shadow -->
 						<div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
 							{#await data.streamed.picturesList}
 								<img

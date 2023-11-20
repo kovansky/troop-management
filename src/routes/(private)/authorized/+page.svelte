@@ -72,7 +72,6 @@
 			>
 				<td>
 					<div class="flex items-center text-sm">
-						<!-- Avatar with inset shadow -->
 						<div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
 							{#await data.streamed.picturesList}
 								<img
@@ -209,7 +208,6 @@
 					Użytkownik <b>{capitalizeEveryWord(selectedPerson?.name || '')}</b> ma już dostęp do dokumentacji
 					jednostki.
 				</p>
-				<!-- decide if delete or reset password or cancel -->
 				<div class="flex justify-center mt-5">
 					<button
 						class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2 text-center mr-2"

@@ -22,7 +22,6 @@
 			>
 				<td>
 					<div class="flex items-center text-sm">
-						<!-- Avatar with inset shadow -->
 						<div class="hidden md:block mr-3">
 							<svg class="w-8 h-8 dark:fill-gray-300" viewBox="0 0 512 283.4">
 								<path

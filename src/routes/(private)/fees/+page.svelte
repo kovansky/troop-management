@@ -24,7 +24,6 @@
 			>
 				<td>
 					<div class="flex items-center text-sm">
-						<!-- Avatar with inset shadow -->
 						<div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
 							<div class="w-0 h-0 rounded-full shadow-inner scale-50">
 								<svg class="dark:fill-gray-300">

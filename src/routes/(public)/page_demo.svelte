@@ -91,7 +91,6 @@
 					required
 				/>
 			</div>
-			<!-- div with buttton and forgot text -->
 			<div class="flex items-center justify-between">
 				<button
 					class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -112,7 +111,6 @@
 	</div>
 </div>
 
-<!-- dialog -->
 <dialog id="person_modal" class="modal">
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
