@@ -7,6 +7,8 @@
 	import { onMount } from 'svelte';
 	import ColorTag from '$lib/components/ColorTag.svelte';
 	import { capitalizeEveryWord } from '$lib/utils/text-utils';
+	import PersonAvatarText from '$lib/components/PersonAvatarText.svelte';
+	import ActionButtons from '$lib/components/ActionButtons.svelte';
 	export let data: PageData;
 
 	let selected = [];
@@ -148,33 +150,14 @@
 								class="text-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 hover:bg-gray-100 cursor-pointer"
 								on:click={() => handleCheck(person.id)}
 							>
-								<td>
+								<td class="w-10">
 									<input
 										type="checkbox"
 										checked={selected.indexOf(person.id) !== -1}
 										class="checkbox checkbox-primary"
 									/>
 								</td>
-
-								<td>
-									<div class="flex items-center text-sm">
-										<div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-											<img
-												class="object-cover w-full h-full rounded-full"
-												src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-												alt=""
-												loading="lazy"
-											/>
-											<div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true" />
-										</div>
-										<div>
-											<p class="font-semibold">{capitalizeEveryWord(person.name)}</p>
-											<p class="text-xs text-gray-600 dark:text-gray-400">
-												{person.join_year || ''}
-											</p>
-										</div>
-									</div>
-								</td>
+								<PersonAvatarText picturesPromise={data.streamed.picturesList} {person} />
 								<ColorTag color={person.roles?.color} title={person.roles?.name} />
 								<td class="text-sm">{person.small_groups?.name || 'Brak zastępu'}</td>
 								<ColorTag
@@ -206,39 +189,14 @@
 						{/each}
 					</tbody>
 				</table>
-				<div class="inline-flex float-right pt-4">
-					<div class="px-2">
-						<div class="inline-flex">
-							<button
-								class="bg-red-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
-								on:click|preventDefault={() => {
-									document.getElementById('delete_group_modal').showModal();
-								}}>Usuń</button
-							>
-						</div>
-					</div>
 
-					<div class="px-2">
-						<div class="inline-flex">
-							<button
-								on:click|preventDefault={() => goto('/groups')}
-								class="bg-gray-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
-								>Anuluj</button
-							>
-						</div>
-					</div>
-
-					<div class="px-2">
-						<div class="inline-flex">
-							<button
-								type="submit"
-								form="group-form"
-								class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
-								>Zapisz</button
-							>
-						</div>
-					</div>
-				</div>
+				<ActionButtons
+					formId="group-form"
+					deleteAction={() => {
+						document.getElementById('delete_group_modal').showModal();
+					}}
+					cancelAction={() => goto('/groups')}
+				/>
 			</div>
 		</div>
 	</div>

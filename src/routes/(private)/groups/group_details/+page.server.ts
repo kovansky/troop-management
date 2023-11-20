@@ -1,3 +1,4 @@
+import { getPicturesList } from '$lib/server/getPicturesList';
 import { redirect } from '@sveltejs/kit';
 
 async function getPeople(supabase) {
@@ -26,14 +27,15 @@ async function getGroupPerson(group_id: string | null, supabase) {
 	return group_person || [];
 }
 
-export async function load({ url, locals: { supabase } }) {
+export async function load({ url, locals: { supabase, getSession } }) {
 	const group_id = url.searchParams.get('id');
 	const group = await getGroup(group_id, supabase);
 	const people = await getPeople(supabase);
 	const group_person = await getGroupPerson(group_id, supabase);
+	const picturesList = await getPicturesList(supabase, getSession);
 
 	if (!group && group_id) {
 		throw redirect(302, '/groups');
 	}
-	return { group, people, group_person };
+	return { group, people, group_person, streamed: { picturesList } };
 }
