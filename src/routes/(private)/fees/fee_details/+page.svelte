@@ -1,7 +1,5 @@
 <script lang="ts">
 	import ColorTag from '$lib/components/ColorTag.svelte';
-	import { capitalizeEveryWord } from '$lib/utils/text-utils';
-
 	import { page } from '$app/stores';
 	import { goto, invalidateAll } from '$app/navigation';
 	import Modal from '$lib/components/Modal.svelte';

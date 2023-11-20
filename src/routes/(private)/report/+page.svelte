@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import * as html2pdf from 'html2pdf.js';
 	import toast from 'svelte-french-toast';
-	import logo from './logo.png';
+	import logo from '$lib/assets/logo.png';
 
 	let data = [];
 	let loaded = false;

@@ -6,7 +6,6 @@
 	import { toast } from 'svelte-french-toast';
 	import { onMount } from 'svelte';
 	import ColorTag from '$lib/components/ColorTag.svelte';
-	import { capitalizeEveryWord } from '$lib/utils/text-utils';
 	import PersonAvatarText from '$lib/components/PersonAvatarText.svelte';
 	import ActionButtons from '$lib/components/ActionButtons.svelte';
 	export let data: PageData;

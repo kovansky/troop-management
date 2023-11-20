@@ -54,7 +54,6 @@ export const handle: Handle = async ({ event, resolve }) => {
 };
 
 (async () => {
-	// do startup tasks here.
 })().catch((reason) => {
 	console.error('startup failed: ', reason);
 });

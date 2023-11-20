@@ -1,8 +1,6 @@
 <script lang="ts">
-	import { goto, invalidateAll } from '$app/navigation';
-	import { page } from '$app/stores';
+	import { invalidateAll } from '$app/navigation';
 	import ColorTag from '$lib/components/ColorTag.svelte';
-	import Modal from '$lib/components/Modal.svelte';
 	import { capitalizeEveryWord } from '$lib/utils/text-utils';
 	import { toast } from 'svelte-french-toast';
 	import type { PageData } from './$types';

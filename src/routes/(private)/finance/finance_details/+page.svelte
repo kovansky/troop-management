@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { goto, invalidate, invalidateAll } from '$app/navigation';
+	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
-	import { capitalizeEveryWord } from '$lib/utils/text-utils';
 
 	import toast from 'svelte-french-toast';
 	import type { PageData } from './$types';

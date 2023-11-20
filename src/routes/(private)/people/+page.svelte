@@ -1,13 +1,9 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 
-	import { capitalizeEveryWord } from '../../../lib/utils/text-utils';
 	import ColorTag from '../../../lib/components/ColorTag.svelte';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
-	import { toast } from 'svelte-french-toast';
-	import { onMount } from 'svelte';
-	import { split } from 'postcss/lib/list';
 	import MainPage from '$lib/components/MainPage.svelte';
 	import TableView from '$lib/components/TableView.svelte';
 	import PersonAvatarText from '$lib/components/PersonAvatarText.svelte';
