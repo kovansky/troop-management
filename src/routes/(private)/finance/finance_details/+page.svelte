@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { goto, invalidate, invalidateAll } from '$app/navigation';
+	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
-	import { capitalizeEveryWord } from '$lib/utils/text-utils';
 
 	import toast from 'svelte-french-toast';
 	import type { PageData } from './$types';
 	import { onMount } from 'svelte';
+	import DetailsPage from '$lib/components/DetailsPage.svelte';
 	export let data: PageData;
 
 	let returnPath = '/finance';
@@ -59,139 +59,76 @@
 	}
 </script>
 
-<div class="h-screen p-6 bg-gray-100 flex items-center justify-center dark:bg-gray-900">
-	<div class="container max-w-screen-lg mx-auto">
-		<div>
-			<h2 class="font-semibold text-xl text-gray-600 pb-4 dark:text-gray-400">
-				Edytuj wpis finansowy
-			</h2>
-
-			<div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6 dark:bg-gray-800">
-				<div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
-					<div class="text-gray-600 dark:text-gray-400">
-						<p class="font-medium text-lg">Szczegóły transakcji</p>
-						<p>Wypełnij pola obowiązkowe</p>
-					</div>
-					<div class="lg:col-span-2">
-						<div class="grid gap-2">
-							<form
-								on:submit|preventDefault={saveOperation}
-								class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5"
-								id="finance-form"
-							>
-								<div class="md:col-span-5">
-									<label for="name">Nazwa</label>
-									<input
-										type="text"
-										name="name"
-										id="name"
-										value={data.finance?.name || ''}
-										placeholder="Chusty harcerskie"
-										minlength="3"
-										required
-									/>
-								</div>
-								<div class="md:col-span-2">
-									<label for="amount">Kwota</label>
-									<div class="relative">
-										<div
-											class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none"
-										>
-											PLN
-										</div>
-										<input
-											type="text"
-											name="amount"
-											id="amount"
-											class="block pl-11"
-											value={Math.abs(data.finance?.amount).toFixed(2) || ''}
-											placeholder="21,37"
-										/>
-									</div>
-								</div>
-								<div class="md:col-span-1">
-									<label for="type">Rodzaj transakcji</label>
-									<select name="type" id="type">
-										<option value="expense" selected={data.finance.amount < 0}>Wydatek</option>
-										<option value="income" selected={data.finance.amount > 0}>Przychód</option>
-									</select>
-								</div>
-								<div class="md:col-span-2">
-									<label for="category">Kategoria</label>
-									<select name="category" id="category">
-										<option value="" selected={data.finance.fk_finance_category_id === null}
-											>Brak</option
-										>
-										{#each data.categories as category}
-											<option
-												value={category.id}
-												selected={data.finance.fk_category_id === category.id}
-											>
-												{category.name}
-											</option>
-										{/each}
-									</select>
-								</div>
-								<div class="md:col-span-3">
-									<label for="doc_number">Numer dokumentu</label>
-									<input
-										type="text"
-										name="doc_number"
-										id="doc_number"
-										value={data.finance?.invoice_number || ''}
-										placeholder="FV 123/2021"
-									/>
-								</div>
-								<div class="md:col-span-2">
-									<label for="date">Data</label>
-									<input
-										type="date"
-										name="date"
-										id="date"
-										value={data.finance?.date || ''}
-										required
-									/>
-								</div>
-							</form>
-							<div class="inline-flex float-right pt-4">
-								<div class="px-2">
-									<div class="inline-flex">
-										<button
-											on:click|preventDefault={() => {
-												document.getElementById('delete_operation_modal').showModal();
-											}}
-											class="bg-red-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
-											>Usuń</button
-										>
-									</div>
-								</div>
-								<div class="px-2">
-									<div class="inline-flex">
-										<button
-											on:click|preventDefault={() => goto(returnPath)}
-											class="bg-gray-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
-											>Anuluj</button
-										>
-									</div>
-								</div>
-								<div class="px-2">
-									<div class="inline-flex">
-										<button
-											type="submit"
-											form="finance-form"
-											class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
-											>Zapisz</button
-										>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+<DetailsPage
+	title="Edytuj wpis finansowy"
+	descTitle="Szczegóły transakcji"
+	desc="Wypełnij pola obowiązkowe"
+	formId="finance-form"
+	onSubmit={saveOperation}
+	deleteAction={() => {
+		document.getElementById('delete_operation_modal').showModal();
+	}}
+	cancelAction={() => goto(returnPath)}
+>
+	<div class="md:col-span-5">
+		<label for="name">Nazwa</label>
+		<input
+			type="text"
+			name="name"
+			id="name"
+			value={data.finance?.name || ''}
+			placeholder="Chusty harcerskie"
+			minlength="3"
+			required
+		/>
+	</div>
+	<div class="md:col-span-2">
+		<label for="amount">Kwota</label>
+		<div class="relative">
+			<div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">PLN</div>
+			<input
+				type="text"
+				name="amount"
+				id="amount"
+				class="block pl-11"
+				value={Math.abs(data.finance?.amount).toFixed(2) || ''}
+				placeholder="21,37"
+			/>
 		</div>
 	</div>
-</div>
+	<div class="md:col-span-1">
+		<label for="type">Rodzaj transakcji</label>
+		<select name="type" id="type">
+			<option value="expense" selected={data.finance.amount < 0}>Wydatek</option>
+			<option value="income" selected={data.finance.amount > 0}>Przychód</option>
+		</select>
+	</div>
+	<div class="md:col-span-2">
+		<label for="category">Kategoria</label>
+		<select name="category" id="category">
+			<option value="" selected={data.finance.fk_finance_category_id === null}>Brak</option>
+			{#each data.categories as category}
+				<option value={category.id} selected={data.finance.fk_category_id === category.id}>
+					{category.name}
+				</option>
+			{/each}
+		</select>
+	</div>
+	<div class="md:col-span-3">
+		<label for="doc_number">Numer dokumentu</label>
+		<input
+			type="text"
+			name="doc_number"
+			id="doc_number"
+			value={data.finance?.invoice_number || ''}
+			placeholder="FV 123/2021"
+		/>
+	</div>
+	<div class="md:col-span-2">
+		<label for="date">Data</label>
+		<input type="date" name="date" id="date" value={data.finance?.date || ''} required />
+	</div>
+</DetailsPage>
 
 <dialog id="delete_operation_modal" class="modal">
 	<!-- svelte-ignore a11y-click-events-have-key-events -->

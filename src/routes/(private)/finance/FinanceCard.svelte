@@ -11,7 +11,7 @@
 	>
 		<div class="card-block md:p-5 p-3">
 			<div class="flex flex-wrap items-center">
-					<h4 class="{textColor} font-semibold text-2xl whitespace-nowrap">{value}</h4>
+				<h4 class="{textColor} font-semibold text-2xl whitespace-nowrap">{value}</h4>
 			</div>
 		</div>
 		<div class="py-3 md:px-6 px-3 border-t-1 border-gray-300 {baseColor}">
