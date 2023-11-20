@@ -2,6 +2,7 @@
 	import { closeSideMenu, togglePageMenu } from '../../helpers/menu';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
+	import logo from '$lib/assets/app_logo.jpg'
 
 	const appName = 'Scout Manager';
 
@@ -66,7 +67,10 @@
 
 <div class="py-4 text-gray-500 dark:text-gray-400">
 	{#if withTitle}
-		<a class="ml-6 text-lg font-bold text-base-content" href="/">{appName}</a>
+	<div class="flex items-center">
+		<img src={logo} class="ml-6 w-11 h-11 rounded-full" alt='logo' />
+		<a class="text-lg ml-3 font-bold text-base-content" href="/">{appName}</a>
+	</div>
 	{/if}
 	<ul class="mt-6">
 		{#each links as link}
