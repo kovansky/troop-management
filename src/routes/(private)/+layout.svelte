@@ -55,7 +55,7 @@
 
 		<div class="flex flex-col flex-1 w-full">
 			<Header {data} />
-			<main class="h-full pb-16 overflow-y-auto">
+			<main class="main-normal">
 				<div class="container grid px-6 mx-auto">
 					<slot />
 				</div>

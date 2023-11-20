@@ -1,11 +1,4 @@
 {
-	"deno.enablePaths": ["./supabase/functions"],
-	"deno.importMap": "./supabase/functions/import_map.json",
-	"deno.enable": true,
-	"deno.lint": true,
-	"deno.unstable": true,
 	"cSpell.language": "en,en-GB,en-US,lorem,pl,pl-PL",
-	"cSpell.words": [
-		"tailwindcss"
-	]
+	"cSpell.words": ["Chotomowska", "tailwindcss"]
 }

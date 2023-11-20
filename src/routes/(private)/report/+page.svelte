@@ -47,7 +47,7 @@
 	});
 </script>
 
-<main class="h-full pb-16 overflow-y-auto w-full flex flex-col">
+<main class="main-normal w-full flex flex-col">
 	<button
 		class="bg-green-400 hover:bg-green-500 text-white font-bold py-2 px-4 rounded"
 		on:click={printPdf}>Zapisz</button
@@ -100,9 +100,9 @@
 
 <style lang="postcss">
 	th {
-		@apply py-1 px-1 font-normal;
+		@apply font-normal;
 	}
 	td {
-		@apply py-1 px-1 font-light;
+		@apply font-light;
 	}
 </style>

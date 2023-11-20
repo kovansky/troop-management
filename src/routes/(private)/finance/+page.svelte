@@ -68,7 +68,7 @@
 <svelte:window bind:innerWidth />
 
 <svelte:head>
-	<title>Ewidencja</title>
+	<title>Książka finansowa</title>
 </svelte:head>
 
 <main class="h-full pb-16 overflow-scroll md:overflow-hidden">
@@ -135,22 +135,20 @@
 					</h4>
 					<table class="w-full whitespace-no-wrap table-auto">
 						<thead>
-							<tr
-								class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
-							>
-								<th class="px-4 py-3">Nazwa</th>
-								<th class="px-4 py-3">Data</th>
-								<th class="px-4 py-3">Kategoria</th>
-								<th class="px-4 py-3">Kwota</th>
+							<tr class="tr-header">
+								<th>Nazwa</th>
+								<th>Data</th>
+								<th>Kategoria</th>
+								<th>Kwota</th>
 							</tr>
 						</thead>
-						<tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+						<tbody class="tr-content">
 							{#each data.last_operations as operation}
 								<tr
 									class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 cursor-pointer dark:hover:bg-gray-700"
 									on:click={() => handleClick(operation)}
 								>
-									<td class="px-4 py-3">
+									<td>
 										<div class="flex items-center text-sm">
 											<div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
 												<div class="w-0 h-0 rounded-full shadow-inner scale-50">
@@ -182,14 +180,14 @@
 											</div>
 										</div>
 									</td>
-									<td class="px-4 py-3">{operation.date}</td>
+									<td>{operation.date}</td>
 									<ColorTag
 										color={operation.finance_categories?.color ||
 											(operation.fk_fee == null ? 'grey' : 'green')}
 										title={operation.finance_categories?.name ||
 											(operation.fk_fee == null ? 'Brak kategorii' : 'Składka')}
 									/>
-									<td class="px-4 py-3 text-sm"
+									<td class="text-sm"
 										>{operation.amount > 0 ? '+' : '-'} {Math.abs(operation.amount)} PLN</td
 									>
 								</tr>

@@ -34,3 +34,22 @@ select {
 		background-color: rgb(26 32 44 / var(--tw-bg-opacity));
 	}
 }
+
+th {
+	@apply py-1 px-1;
+}
+td {
+	@apply py-1 px-1;
+}
+
+.tr-header {
+	@apply text-xs font-semibold dark:hover:bg-gray-700 tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800;
+}
+
+.tr-content {
+	@apply bg-white divide-y dark:divide-gray-700 dark:bg-gray-800;
+}
+
+.main-normal {
+	@apply h-full pb-16 overflow-y-auto;
+}

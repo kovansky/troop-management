@@ -87,7 +87,7 @@
 	<title>Edycja grupy</title>
 </svelte:head>
 
-<main class="h-full pb-16 overflow-y-auto">
+<main class="main-normal">
 	<div class="container grid px-6 mx-auto">
 		<h2 class="mt-6 mb-4 text-2xl font-semibold text-gray-700 dark:text-gray-200">Edycja grupy</h2>
 		<form id="group-form" on:submit|preventDefault={saveGroup}>
@@ -137,25 +137,23 @@
 			<div class="w-full overflow-x-auto">
 				<table class="w-full whitespace-no-wrap">
 					<thead>
-						<tr
-							class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
-						>
-							<th class="px-4 py-3">Zaznaczone</th>
-							<th class="px-4 py-3">Imię i Nazwisko</th>
-							<th class="px-4 py-3">Funkcja</th>
-							<th class="px-4 py-3">Zastęp główny</th>
-							<th class="px-4 py-3">Stopień</th>
-							<th class="px-4 py-3">Akcja</th>
+						<tr class="tr-header">
+							<th>Zaznaczone</th>
+							<th>Imię i Nazwisko</th>
+							<th>Funkcja</th>
+							<th>Zastęp główny</th>
+							<th>Stopień</th>
+							<th>Akcja</th>
 						</tr>
 					</thead>
-					<tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+					<tbody class="tr-content">
 						{#each data.people as person}
 							<tr
 								class="text-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 hover:bg-gray-100 cursor-pointer"
 								on:click={() => handleCheck(person.id)}
 							>
 								<!-- checkbox daisyui -->
-								<td class="px-4 py-3">
+								<td>
 									<input
 										type="checkbox"
 										checked={selected.indexOf(person.id) !== -1}
@@ -163,7 +161,7 @@
 									/>
 								</td>
 
-								<td class="px-4 py-3">
+								<td>
 									<div class="flex items-center text-sm">
 										<!-- Avatar with inset shadow -->
 										<div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
@@ -184,13 +182,13 @@
 									</div>
 								</td>
 								<ColorTag color={person.roles?.color} title={person.roles?.name} />
-								<td class="px-4 py-3 text-sm">{person.small_groups?.name || 'Brak zastępu'}</td>
+								<td class="text-sm">{person.small_groups?.name || 'Brak zastępu'}</td>
 								<ColorTag
 									classes="pr-10"
 									color={person.degrees?.color}
 									title={person.degrees?.name ?? 'HBS'}
 								/>
-								<td class="px-4 py-3 flex items-center space-x-4 text-sm">
+								<td class="flex items-center space-x-4 text-sm">
 									<button
 										class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
 										aria-label="Edit"
