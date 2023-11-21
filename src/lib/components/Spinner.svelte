@@ -1,5 +1,6 @@
-<div class="absolute right-1/2 bottom-1/2 transform translate-x-1/2 translate-y-1/2">
-	<div
-		class="border-t-transparent border-solid animate-spin rounded-full border-blue-400 border-8 h-32 w-32"
-	></div>
+<script lang="ts" context="module">
+	import logo from '$lib/assets/app_logo.jpg';
+</script>
+<div class="flex items-center justify-center h-screen">
+	<img class="animate-pulse from-transparent to-opacity-100 rounded-full w-96" src={logo} alt="Logo" />
 </div>
