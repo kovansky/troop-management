@@ -44,7 +44,7 @@ jobs:
           SSH_HOST: ${{ secrets.HOSTNAME }}
           SSH_PORT: ${{ secrets.PORT }}
       - name: Deploy to VPS with SSH
-        run: rsync -avrzh --update --delete ./ ${{ secrets.USERNAME }}@prod_server:${{ secrets.DEPLOY_DIR }}
+        run: rsync -arzh --info=progress2 --update --delete ./ ${{ secrets.USERNAME }}@prod_server:${{ secrets.DEPLOY_DIR }}
         # git remote set-url origin git@github.com:RMaster121/scout-panel-svelte.git
       - name: Change origin to SSH
         run: git remote set-url origin git@github.com:RMaster121/scout-panel-svelte.git
