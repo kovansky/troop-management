@@ -7,7 +7,7 @@
 	import type { PageData } from './$types';
 	import { onMount } from 'svelte';
 	import DetailsPage from '$lib/components/DetailsPage.svelte';
-	import BigAvatar from '$lib/components/BigAvatar.svelte';
+	import BigAvatar from './BigAvatar.svelte';
 	export let data: PageData;
 
 	let returnPath = '/people';
@@ -138,13 +138,13 @@
 		submitAction={() => {
 			document.getElementById('file_modal').showModal();
 		}}
-		ifPlaceholder={data.streamed.picture && data.streamed.picture !== ''}
-	>
+			ifPlaceholder={!(data.streamed.picture && data.streamed.picture !== '')}
+		>
 		{#if data.streamed.picture && data.streamed.picture !== ''}
 			<img class="text-3xl" src={data.streamed.picture} alt="" />
 		{:else}
-			<span class="text-3xl">{getFirstLetters(data.streamed.person.name || '')}</span>
-		{/if}
+				<span class="text-3xl">{getFirstLetters(data.streamed.person.name || 'Jan Kowalski')}</span>
+			{/if}
 	</BigAvatar>
 
 	<div class="md:col-span-5">
