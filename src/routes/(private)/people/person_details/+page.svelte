@@ -17,6 +17,7 @@
 		if (urlParams.get('return')) {
 			returnPath = urlParams.get('return');
 		}
+		console.log(data);
 	});
 
 	const savePerson = async (event) => {
@@ -210,9 +211,9 @@
 		<label for="email">Adres email rodzica</label>
 		<input
 			type="email"
-			name="email"
+			name="parent_email"
 			id="email"
-			value={data.streamed.person?.email || ''}
+			value={data.streamed.person?.parent_email || ''}
 			placeholder="jan.kowalski@example.com"
 		/>
 	</div>
@@ -221,9 +222,9 @@
 		<label for="phone">Numer telefonu rodzica</label>
 		<input
 			type="tel"
-			name="phone"
+			name="parent_phone"
 			id="phone"
-			value={data.streamed.person?.phone || ''}
+			value={data.streamed.person?.parent_phone || ''}
 			placeholder="123456789"
 		/>
 	</div>
