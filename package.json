@@ -45,7 +45,6 @@
 		"daisyui": "^4.0.9",
 		"deno": "^0.1.1",
 		"dotenv": "^16.3.1",
-		"html2pdf.js": "^0.10.1",
 		"jimp": "^0.22.10",
 		"npm-force-resolutions": "^0.0.10",
 		"postcss-load-config": "^4.0.1",
@@ -55,7 +54,6 @@
 	},
 	"overrides": {
 		"xml2js": "^0.5.0",
-		"minimist": "^1.2.8",
-		"jpeg-js": "^0.4.4"
+		"minimist": "^1.2.8"
 	}
 }

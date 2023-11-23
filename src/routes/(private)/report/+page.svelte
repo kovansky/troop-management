@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import * as html2pdf from 'html2pdf.js';
 	import toast from 'svelte-french-toast';
 	import logo from '$lib/assets/logo.png';
 
@@ -30,16 +29,13 @@
 		loaded = true;
 	}
 
-	async function printPdf() {
-		const element = document.getElementById('html_report');
-		var opt = {
-			image: { type: 'jpg', quality: 0.98 },
-			filename: `raport_finansowy-${new Date().toLocaleDateString().replaceAll('.', '_')}.pdf`,
-			jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-			html2canvas: { useCORS: true }
-		};
-
-		html2pdf().set(opt).from(element).save();
+	function printDiv() {
+		document.getElementById('body').style.visibility = 'hidden';
+		toast.remove();
+		setTimeout(() => {
+			window.print();
+			document.getElementById('body').style.visibility = 'visible';
+		}, 50);
 	}
 
 	onMount(() => {
@@ -50,11 +46,11 @@
 <main class="main-normal w-full flex flex-col">
 	<button
 		class="bg-green-400 hover:bg-green-500 text-white font-bold py-2 px-4 rounded"
-		on:click={printPdf}>Zapisz</button
+		on:click={printDiv}>Zapisz</button
 	>
 	{#if loaded == true}
 		<div class="self-center w-[210mm] bg-white flex flex-col items-center pb-40" id="html_report">
-			<div class="w-4/5 flex flex-col">
+			<div class="w-9/10 flex flex-col">
 				<img src={logo} alt="" class="w-[45mm] self-center" />
 				<div class="flex justify-between">
 					<p class="text-xl font-medium self-start">Raport finansowy</p>
@@ -86,13 +82,16 @@
 						{/each}
 					</tbody>
 				</table>
-				<div class="flex-grow border-t border-green-400 mt-5" />
-				<p class="text-xl font-normal self-end mt-5 pb-5">
-					Aktualny budżet: &emsp; <span
-						class="font-semibold decoration-double underline underline-offset-4 decoration-2 decoration-green-400"
-						>{teamMoney} PLN</span
-					>
-				</p>
+				<div class="mt-2" id="foot" />
+				<hr class="h-0.5 bg-green-400" />
+				<div class="flex justify-between mt-2">
+					<p class="text-xl font-normal w-full text-end">
+						Aktualny budżet: &emsp; <span
+							class="font-semibold decoration-double underline underline-offset-4 decoration-2 decoration-green-400"
+							>{teamMoney} PLN</span
+						>
+					</p>
+				</div>
 			</div>
 		</div>
 	{/if}
@@ -104,5 +103,26 @@
 	}
 	td {
 		@apply font-light;
+	}
+
+	@media print {
+		#html_report {
+			width: 100%;
+			visibility: visible;
+			position: absolute;
+			left: 0;
+			top: 0;
+			margin-top: 0;
+		}
+
+		@page {
+			size: A4;
+			margin: 0;
+		}
+
+		#foot {
+			page-break-after: always;
+			margin-top: 29mm;
+		}
 	}
 </style>
