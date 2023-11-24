@@ -4,33 +4,56 @@
 @tailwind utilities;
 
 input {
-    height: 2.5rem;
-    border-width: 1px;
-    margin-top: 0.25rem;
-    border-radius: 0.25rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    width: 100%;
-    --tw-bg-opacity: 1;
-    background-color: rgb(249 250 251 / var(--tw-bg-opacity));
-    @media (prefers-color-scheme: dark) {
-        --tw-bg-opacity: 1;
-        background-color: rgb(26 32 44 / var(--tw-bg-opacity));
-    }
+	height: 2.5rem;
+	border-width: 1px;
+	margin-top: 0.25rem;
+	border-radius: 0.25rem;
+	padding-left: 1rem;
+	padding-right: 1rem;
+	width: 100%;
+	--tw-bg-opacity: 1;
+	background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+	@media (prefers-color-scheme: dark) {
+		--tw-bg-opacity: 1;
+		background-color: rgb(26 32 44 / var(--tw-bg-opacity));
+	}
 }
 
 select {
-    height: 2.5rem;
-    border-width: 1px;
-    margin-top: 0.25rem;
-    border-radius: 0.25rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    width: 100%;
-    --tw-bg-opacity: 1;
-    background-color: rgb(249 250 251 / var(--tw-bg-opacity));
-    @media (prefers-color-scheme: dark) {
-        --tw-bg-opacity: 1;
-        background-color: rgb(26 32 44 / var(--tw-bg-opacity));
-    }
+	height: 2.5rem;
+	border-width: 1px;
+	margin-top: 0.25rem;
+	border-radius: 0.25rem;
+	padding-left: 1rem;
+	padding-right: 1rem;
+	width: 100%;
+	--tw-bg-opacity: 1;
+	background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+	@media (prefers-color-scheme: dark) {
+		--tw-bg-opacity: 1;
+		background-color: rgb(26 32 44 / var(--tw-bg-opacity));
+	}
+}
+
+th {
+	@apply py-3 px-4;
+}
+td {
+	@apply py-3 px-4;
+}
+
+.tr-header {
+	@apply text-xs font-semibold dark:hover:bg-gray-700 tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800;
+}
+
+.tr-content {
+	@apply bg-white divide-y dark:divide-gray-700 dark:bg-gray-800;
+}
+
+.main-normal {
+	@apply h-full pb-16 overflow-y-auto;
+}
+
+.action-button {
+	@apply bg-red-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded;
 }
