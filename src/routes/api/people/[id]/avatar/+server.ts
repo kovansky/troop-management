@@ -1,14 +1,6 @@
-import type { SupabaseClient } from '@supabase/supabase-js';
 import { json } from '@sveltejs/kit';
 import Jimp from 'jimp';
-
-async function getPersonTeam(person_id, supabase: SupabaseClient): Promise<number | Response> {
-	const { data, error } = await supabase.from('people').select('fk_team_id').eq('id', person_id);
-	if (error) return json({ status: 400, body: 'Błąd - nie można znaleźć jednostki użytkownika' });
-	if (!data || data.length == 0)
-		return json({ status: 400, body: 'Błąd - nie można znaleźć jednostki użytkownika' });
-	return data[0].fk_team_id;
-}
+import { getPersonTeam } from '../shared';
 
 async function parseToJPG(image: Buffer): Promise<Buffer> {
 	const img = await Jimp.read(image);
