@@ -21,7 +21,7 @@
 	<title>{title}</title>
 </svelte:head>
 
-<div class="h-screen p-6 bg-gray-100 flex items-center justify-center dark:bg-gray-900">
+<div class="p-6 bg-gray-100 flex items-center justify-center dark:bg-gray-900">
 	<div class="container max-w-screen-lg mx-auto">
 		<div>
 			<h2 class="font-semibold text-xl text-gray-600 pb-4 dark:text-gray-300">{title}</h2>

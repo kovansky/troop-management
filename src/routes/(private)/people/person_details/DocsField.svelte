@@ -14,7 +14,7 @@
 			toast.error('Nie wybrano pliku!');
 			return;
 		}
-		toast.loading('Wysyłanie nowego profilowego...');
+		toast.loading('Wysyłanie dokumentu ...');
 		const res = await fetch(`/api/people/` + $page.url.searchParams.get('id') + '/docs/' + docType,  {
 			method: 'POST',
 			body: formData
@@ -34,7 +34,7 @@
 	};
 
     const deleteDocument = async () => {
-        toast.loading('Usuwanie...');
+        toast.loading('Usuwanie dokumentu...');
         const res = await fetch(`/api/people/` + $page.url.searchParams.get('id') + '/docs/' + docType, {
             method: 'DELETE'
         }).then((res) => res.json());
@@ -42,8 +42,8 @@
         toast.dismiss();
         if (status === 204) {
             toast.success('Usunięto!');
+			closeDeleteDialog();
             invalidateAll();
-            closeDeleteDialog();
         } else if (status === 400) {
             toast.error('Błędne dane! - ' + body);
         } else {
@@ -53,15 +53,15 @@
     }
 
     const downloadDocument = async () => {
-        toast.loading('Pobieranie...');
+        toast.loading('Pobieranie dokumentu...');
         const res = await fetch(`/api/people/` + $page.url.searchParams.get('id') + '/docs/' + docType, {
             method: 'GET'
         }).then((res) => res.json());
         const { status, body } = res;
         toast.dismiss();
         if (status === 200) {
-            toast.success('Pobrano!');
-            console.log(status, body);
+            toast.success('Pobrano dokument!');
+			window.open(body);			
         } else if (status === 400) {
             toast.error('Błędne dane! - ' + body);
         } else {
@@ -75,7 +75,7 @@
 	}
 
     function closeDeleteDialog() {
-		(document.getElementById('delete_docs') as HTMLFormElement).close();
+		(document.getElementById(`delete_docs_${docType}`) as HTMLFormElement).close();
 	}
 </script>
 
@@ -261,6 +261,10 @@
 			<h2 class="mb-2 text-2xl font-semibold text-gray-700 dark:text-gray-200">
 				{title}
 			</h2>
+			<!-- are you sure -->
+			<p class="text-gray-600 dark:text-gray-400 mb-4">
+				Czy na pewno chcesz usunąć ten dokument?
+			</p>
 			<div class="mt-4">
 				<form
 					on:submit|preventDefault={deleteDocument}

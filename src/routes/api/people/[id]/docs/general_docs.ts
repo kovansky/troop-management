@@ -56,10 +56,9 @@ export async function general_get({ params, locals: { supabase }, type }) {
     if (files.status) return files;
     const file = files.filter((file) => file.name.startsWith(type));
     if (file.length == 0) return { status: 404, body: 'Nie znaleziono plików' };
-    const { signedURL, error } = await supabase.storage
+    const { data, error } = await supabase.storage
     .from('personal_files')
-    .createSignedUrls(`${team_id}/${person_id}/${file[0].name}`, 60);
+    .createSignedUrl(`${team_id}/${person_id}/${file[0].name}`, 60);
     if (error) return { status: 500, body: error };
-    console.log(signedURL, `${team_id}/${person_id}/${file[0].name}`, error);
-    return { status: 200, body: {signedURL, filename: file[0].name} };
+    return { status: 200, body: data.signedUrl };
 }
