@@ -261,7 +261,6 @@
 			<h2 class="mb-2 text-2xl font-semibold text-gray-700 dark:text-gray-200">
 				{title}
 			</h2>
-			<!-- are you sure -->
 			<p class="text-gray-600 dark:text-gray-400 mb-4">
 				Czy na pewno chcesz usunąć ten dokument?
 			</p>
