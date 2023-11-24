@@ -7,7 +7,8 @@
 	import type { PageData } from './$types';
 	import { onMount } from 'svelte';
 	import DetailsPage from '$lib/components/DetailsPage.svelte';
-	import BigAvatar from '$lib/components/BigAvatar.svelte';
+	import BigAvatar from './BigAvatar.svelte';
+	import DocsField from './DocsField.svelte';
 	export let data: PageData;
 
 	let returnPath = '/people';
@@ -133,20 +134,26 @@
 	cancelAction={() => goto(returnPath)}
 	deleteAction={deletePerson}
 >
-	<BigAvatar
-		slot="avatar-slot"
-		deleteAction={deleteAvatar}
-		submitAction={() => {
-			document.getElementById('file_modal').showModal();
-		}}
-		ifPlaceholder={data.streamed.picture && data.streamed.picture !== ''}
-	>
-		{#if data.streamed.picture && data.streamed.picture !== ''}
-			<img class="text-3xl" src={data.streamed.picture} alt="" />
-		{:else}
-			<span class="text-3xl">{getFirstLetters(data.streamed.person.name || '')}</span>
-		{/if}
-	</BigAvatar>
+	<div slot="avatar-slot">
+		<BigAvatar
+			deleteAction={deleteAvatar}
+			submitAction={() => {
+				document.getElementById('file_modal').showModal();
+			}}
+			ifPlaceholder={!(data.streamed.picture && data.streamed.picture !== '')}
+		>
+			{#if data.streamed.picture && data.streamed.picture !== ''}
+				<img class="text-3xl" src={data.streamed.picture} alt="" />
+			{:else}
+				<span class="text-3xl">{getFirstLetters(data.streamed.person.name || 'Jan Kowalski')}</span>
+			{/if}
+		</BigAvatar>
+		<p class="mt-5 font-medium text-lg text-gray-600 dark:text-gray-400 mb-2">Dokumenty:</p>
+		<DocsField dataPresentBoolean={data.streamed.docs.declaration} title="Deklaracja członkowska" docType="declaration" />
+		<DocsField dataPresentBoolean={data.streamed.docs.agreement} title="Zgoda na wizerunek" docType="agreement" />
+
+		
+	</div>
 
 	<div class="md:col-span-5">
 		<label for="full_name">Imię i nazwisko</label>

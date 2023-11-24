@@ -45,7 +45,7 @@
 		</button>
 	</div>
 	<div class="avatar {!ifPlaceholder ? '' : 'placeholder'} w-3/4 z-0">
-		<div class="bg-neutral-content text-neutral-focus rounded w-full">
+		<div class="bg-neutral-content text-center text-neutral-focus rounded w-full">
 			<slot />
 		</div>
 	</div>
