@@ -53,7 +53,7 @@ async function getPicture(person_id: string | null, supabase: SupabaseClient) {
 }
 
 async function getDocs(person_id: string | null, supabase: SupabaseClient) {
-	if (!person_id) return null;
+	if (!person_id) return {declaration: false, agreement: false};
 	const team_id = await getPersonTeam(person_id, supabase);
 	const { data: files, error } = await supabase.storage
 		.from('personal_files')

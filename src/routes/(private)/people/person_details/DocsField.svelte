@@ -8,6 +8,11 @@
     export let docType: string;
 
     const uploadDocument = async (event) => {
+		if (!$page.url.searchParams.get('id')) {
+			closeDialog();
+			toast.error('Musisz najpierw zapisać harcerza!');
+			return;
+		}
 		const formData = new FormData();
 		formData.append(docType, event.target.file.files[0]);
 		if (!event.target.file.files[0]) {
