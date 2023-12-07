@@ -9,15 +9,6 @@ import { building } from '$app/environment';
 const privateRoutePrefix = '/(private)';
 
 export const handle: Handle = async ({ event, resolve }) => {
-	if (building) {
-		const response = await resolve(event);
-		return response;
-	}
-
-	if (event.route.id === null) {
-		throw error(404, 'What are you looking for?');
-	}
-
 	event.locals.supabase = createSupabaseServerClient({
 		supabaseUrl: PUBLIC_SUPABASE_URL,
 		supabaseKey: PUBLIC_SUPABASE_ANON_KEY,
@@ -43,6 +34,15 @@ export const handle: Handle = async ({ event, resolve }) => {
 		} = await event.locals.supabaseService.auth.getSession();
 		return session;
 	};
+
+	if (building) {
+		const response = await resolve(event);
+		return response;
+	}
+
+	if (event.route.id === null) {
+		throw error(404, 'What are you looking for?');
+	}
 
 	if (event.route.id.startsWith(privateRoutePrefix)) {
 		const session = await event.locals.getSession();

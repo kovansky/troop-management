@@ -14,16 +14,8 @@ declare global {
 			session: Session | null;
 		}
 		// interface Error {}
-		interface Platform {
-			env: {
-				COUNTER: DurableObjectNamespace;
-			};
-			context: {
-				waitUntil(promise: Promise): void;
-			};
-			caches: CacheStorage & { default: Cache }
-		}
+		// interface Platform {}
 	}
 }
 
-export { };
+export {};
