@@ -21,12 +21,15 @@
 			toast.error('Nie wybrano osoby!');
 			return;
 		}
+		toast.loading('Zapisywanie...');
 		form.append('id', selectedPerson.id);
 		const res = await fetch(`/api/auth/add_access`, {
 			method: 'POST',
 			body: form
 		}).then((res) => res.json());
 		const { status, body } = res;
+		toast.dismiss();
+		closeDialog();
 		if (status === 200 || status === 201) {
 			toast.success('Zapisano!');
 			invalidateAll();
@@ -37,11 +40,37 @@
 			console.log('Error:', status, body);
 		}
 	};
+
+	const revokeAccess = async () => {
+		if (!selectedPerson || !selectedPerson?.id) {
+			toast.error('Nie wybrano osoby!');
+			return;
+		}
+		toast.loading('Zapisywanie...');
+		const res = await fetch(`/api/auth/revoke_access`, {
+			method: 'POST',
+			body: JSON.stringify({ id: selectedPerson.id })
+		}).then((res) => res.json());
+		const { status, body } = res;
+		closeDialog();
+		toast.dismiss();
+		if (status === 200 || status === 201) {
+			toast.success('Zapisano!');
+			invalidateAll();
+		} else if (status === 400) {
+			toast.error('Błędne dane! - ' + body);
+		} else {
+			toast.error('Wystąpił błąd! - ' + body);
+			console.log('Error:', status, body);
+		}
+	};
+
 	const resetPassword = async () => {
 		toast.loading('Wysyłanie emaila z linkiem do resetu hasła...');
 		const { data, error } = await supabase.auth.resetPasswordForEmail(session.user.email, {
 			redirectTo: window.location.origin + '/invited'
 		});
+		closeDialog();
 		toast.dismiss();
 		if (error) {
 			console.log('Error:', error);
@@ -180,7 +209,8 @@
 				<div class="flex justify-center mt-5">
 					<button
 						class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2 text-center mr-2"
-					>
+						on:click={revokeAccess}
+						>
 						Zabierz dostęp
 					</button>
 					<button
