@@ -3,9 +3,11 @@
 	import toast from 'svelte-french-toast';
 	import logo from '$lib/assets/logo.png';
 
-	let data = [];
+	let finance_records = [];
 	let loaded = false;
 	let teamMoney;
+
+	export let data;
 
 	async function loadFinanceList() {
 		toast.loading('Ładowanie listy finansów');
@@ -23,7 +25,7 @@
 				amount: Math.abs(body[i].amount).toFixed(2).toString()
 			});
 		}
-		data = temp_data;
+		finance_records = temp_data;
 		toast.dismiss();
 		toast.success('Raport finansowy został wygenerowany');
 		loaded = true;
@@ -51,13 +53,13 @@
 	{#if loaded == true}
 		<div class="self-center w-[210mm] bg-white flex flex-col items-center pb-40" id="html_report">
 			<div class="w-9/10 flex flex-col">
-				<img src={logo} alt="" class="w-[45mm] self-center" />
+				<img src={data.team_logo_url} alt="" class="p-8 w-[45mm] self-center" />
 				<div class="flex justify-between">
 					<p class="text-xl font-medium self-start">Raport finansowy</p>
 					<p class="text-xl font-light self-end">Wygenerowano {new Date().toLocaleDateString()}</p>
 				</div>
 				<p class="text-xl font-light self-start">
-					264 Chotomowska Drużyna Harcerzy <br /> "Żagiew" im. Stefana Krasińskiego
+					{data.team_name}
 				</p>
 				<div class="flex-grow border-t border-green-400 mt-5" />
 				<table class="w-full">
@@ -71,7 +73,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						{#each data as finance}
+						{#each finance_records as finance}
 							<tr>
 								<td class="text-left">{finance.date}</td>
 								<td class="text-left">{finance.name}</td>
