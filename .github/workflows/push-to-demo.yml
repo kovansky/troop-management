@@ -15,8 +15,8 @@ jobs:
 
     - name: Rename files
       run: |
-        mv src/routes/(public)/+page.svelte src/routes/(public)/normal_page.svelte
-        mv src/routes/(public)/page_demo.svelte src/routes/(public)/+page.svelte
+        mv "src/routes/(public)/+page.svelte" "src/routes/(public)/normal_page.svelte"
+        mv "src/routes/(public)/page_demo.svelte" "src/routes/(public)/+page.svelte"
 
     - name: Push to demo
       run: |
