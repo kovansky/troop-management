@@ -1,38 +1,48 @@
-# create-svelte
+<img src="https://github.com/RMaster121/scout-panel-svelte/blob/main/src/lib/assets/app_logo.jpg?raw=true" height="64px"/>
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+# Scout Manager
+> Web app created for managing scout's team
 
-## Creating a project
+## Key Features:
+1. Management of personal records
+2. Financial management
+3. Fees management
+4. Automatically adding fees to financial records
+5. Generating financial reports
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Getting started
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+A quick introduction of the minimal setup you need to get a this app up &
+running.
 
-# create a new project in my-app
-npm create svelte@latest my-app
+### Requirements
+1. Git
+2. NPM
+3. Supabase account (supabase.com)
+
+### Clone project
+
+```shell
+git clone https://github.com/RMaster121/scout-panel-svelte.git
 ```
 
-## Developing
+### Create Supabase project
+1. Create Supabase project
+2. Execute SQL code from schema.sql file inside SQL console
+3. Prepare your local environment https://supabase.com/docs/guides/getting-started/tutorials/with-sveltekit
+4. Done :)
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+### Tokens
 
-```bash
-npm run dev
+As was was mentioned in the previous step, you need to prepare your local environment. You need to create .env file in the root directory of the project and fill it with your Supabase credentials.
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+```shell
+PUBLIC_SUPABASE_URL=your_supabase_url
+PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+PRIVATE_SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
 ```
+## Contributing
+You can contribute to this project by creating pull requests to `develop` branch. If you have any questions, feel free to contact me.
 
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
