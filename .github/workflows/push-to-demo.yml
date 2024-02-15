@@ -30,7 +30,7 @@ jobs:
 
     - name: Push to demo
       run: |
-        git checkout demo
+        git checkout -b demo
         git add .
         git commit -m "Auto push to demo"
         git push origin demo --force
