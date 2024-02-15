@@ -1,11 +1,12 @@
 import { json } from '@sveltejs/kit';
-import * as Jimp from 'jimp';
+import Jimp from "jimp";
 import { getPersonTeam } from '../shared';
 
 async function parseToJPG(image: Buffer): Promise<Buffer> {
-	const JimpObj = Jimp.default;
-	console.log(JimpObj)
-	const img = await JimpObj.read(image);
+	const img = await Jimp.read(image).catch((err) => {
+		console.error(err);
+		return null;
+	});
 	return await img.getBufferAsync(Jimp.MIME_JPEG);
 }
 
