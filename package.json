@@ -45,7 +45,7 @@
 		"chart.js": "^4.4.1",
 		"daisyui": "^4.6.1",
 		"deno": "^0.1.1",
-		"dotenv": "^16.3.1",
+		"dotenv": "^16.4.2",
 		"jimp": "^0.22.10",
 		"npm-force-resolutions": "^0.0.10",
 		"postcss-load-config": "^5.0.2",
