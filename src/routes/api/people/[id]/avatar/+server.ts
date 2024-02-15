@@ -3,6 +3,7 @@ import * as Jimp from 'jimp';
 import { getPersonTeam } from '../shared';
 
 async function parseToJPG(image: Buffer): Promise<Buffer> {
+	console.log(Jimp)
 	const img = await Jimp.read(image);
 	return await img.getBufferAsync(Jimp.MIME_JPEG);
 }
