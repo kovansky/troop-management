@@ -18,6 +18,11 @@ jobs:
         mv "src/routes/(public)/+page.svelte" "src/routes/(public)/normal_page.svelte"
         mv "src/routes/(public)/page_demo.svelte" "src/routes/(public)/+page.svelte"
 
+    - name: Checkout
+      uses: actions/checkout@v3.5.2
+      with:
+        ssh-key: ${{secrets.SECRET_DEMO_KEY}}
+
     - name: Push to demo
       run: |
         git checkout -b demo
