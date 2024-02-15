@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import Jimp from 'jimp';
+import * as Jimp from 'jimp';
 import { getPersonTeam } from '../shared';
 
 async function parseToJPG(image: Buffer): Promise<Buffer> {
