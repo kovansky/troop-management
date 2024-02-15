@@ -1,6 +1,11 @@
 import { json } from '@sveltejs/kit';
-import Jimp from "jimp";
 import { getPersonTeam } from '../shared';
+
+// For some reason, Jimp attaches to self, even in Node.
+// https://github.com/jimp-dev/jimp/issues/466
+import * as _Jimp from 'jimp';
+// @ts-expect-error For some reason, Jimp attaches to self, even in Node.
+const Jimp = (typeof self !== 'undefined') ? (self.Jimp || _Jimp) : _Jimp;
 
 async function parseToJPG(image: Buffer): Promise<Buffer> {
 	const img = await Jimp.read(image).catch((err) => {
