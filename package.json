@@ -43,7 +43,7 @@
 		"@supabase/auth-ui-svelte": "^0.2.9",
 		"@supabase/supabase-js": "^2.39.6",
 		"chart.js": "^4.4.1",
-		"daisyui": "^4.6.1",
+		"daisyui": "^4.10.1",
 		"deno": "^0.1.1",
 		"dotenv": "^16.4.2",
 		"jimp": "^0.22.10",
