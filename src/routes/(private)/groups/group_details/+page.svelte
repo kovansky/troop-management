@@ -13,8 +13,7 @@
 	let selected = [];
 
 	onMount(() => {
-		selected = data.group_person ? data.group_person.map((group_p) => group_p.fk_person_id) : [];
-	});
+		selected = Array.isArray(data.group_person) ? data.group_person.map((group_p) => group_p.fk_person_id) : [];	});
 
 	const handleCheck = (id) => {
 		if (selected.indexOf(id) === -1) {
@@ -84,120 +83,116 @@
 	}
 </script>
 
-<div class="main-normal">
-	<div class="container grid px-6 mx-auto">
-		<h2 class="mt-6 mb-4 text-2xl font-semibold text-gray-700 dark:text-gray-200">Edycja grupy</h2>
-		<form id="group-form" on:submit|preventDefault={saveGroup}>
-			<div class="grid gap-4 gap-y-2 mb-4 text-sm grid-cols-1 md:grid-cols-5">
-				<div class="md:col-span-2">
-					<label for="name">Nazwa grupy</label>
-					<input
-						type="text"
-						name="name"
-						id="name"
-						value={data.group?.name || ''}
-						placeholder="Dym"
-						minlength="3"
-						required
-					/>
-				</div>
-
-				<div class="md:col-span-3">
-					<label for="desc">Opis</label>
-					<input
-						type="text"
-						name="desc"
-						id="desc"
-						value={data.group?.description || ''}
-						placeholder="Zastęp z naboru RH2022/23"
-					/>
-				</div>
-				<div class="md:col-span-2">
-					<label class="inline-flex items-center">
-						Grupa
-						<div class="ml-3" />
-						<input
-							type="checkbox"
-							name="is_formal"
-							id="is_formal"
-							class="toggle toggle-primary"
-							checked={data.group?.is_formal || false}
-						/>
-						<div class="mr-3" />
-						Zastęp
-					</label>
-				</div>
-			</div>
-		</form>
-
-		<div class="w-full mb-8 overflow-hidden rounded-lg shadow-xs">
-			<div class="w-full overflow-x-auto">
-				<table class="w-full whitespace-no-wrap">
-					<thead>
-						<tr class="tr-header">
-							<th>Zaznaczone</th>
-							<th>Imię i Nazwisko</th>
-							<th>Funkcja</th>
-							<th>Zastęp główny</th>
-							<th>Stopień</th>
-							<th>Akcja</th>
-						</tr>
-					</thead>
-					<tbody class="tr-content">
-						{#each data.people as person}
-							<tr
-								class="text-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 hover:bg-gray-100 cursor-pointer"
-								on:click={() => handleCheck(person.id)}
-							>
-								<td class="w-10">
-									<input
-										type="checkbox"
-										checked={selected.indexOf(person.id) !== -1}
-										class="checkbox checkbox-primary"
-									/>
-								</td>
-								<PersonAvatarText picturesPromise={data.streamed.picturesList} {person} />
-								<ColorTag color={person.roles?.color} title={person.roles?.name} />
-								<td class="text-sm">{person.small_groups?.name || 'Brak zastępu'}</td>
-								<ColorTag
-									classes="pr-10"
-									color={person.degrees?.color}
-									title={person.degrees?.name ?? 'HBS'}
-								/>
-								<td class="flex items-center space-x-4 text-sm">
-									<button
-										class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-										aria-label="Edit"
-										on:click|stopPropagation={() =>
-											goto(
-												'/people/person_details?id=' +
-													person.id +
-													'&return=' +
-													$page.url.pathname +
-													$page.url.search
-											)}
-									>
-										<svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-											<path
-												d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
-											/>
-										</svg>
-									</button>
-								</td>
-							</tr>
-						{/each}
-					</tbody>
-				</table>
-
-				<ActionButtons
-					formId="group-form"
-					deleteAction={() => {
-						document.getElementById('delete_group_modal').showModal();
-					}}
-					cancelAction={() => goto('/groups')}
-				/>
-			</div>
+<h2 class="mt-6 mb-4 text-2xl font-semibold text-gray-700 dark:text-gray-200">Edycja grupy</h2>
+<form id="group-form" on:submit|preventDefault={saveGroup}>
+	<div class="grid gap-4 gap-y-2 mb-4 text-sm grid-cols-1 md:grid-cols-5">
+		<div class="md:col-span-2">
+			<label for="name">Nazwa grupy</label>
+			<input
+				type="text"
+				name="name"
+				id="name"
+				value={data.group?.name || ''}
+				placeholder="Dym"
+				minlength="3"
+				required
+			/>
 		</div>
+
+		<div class="md:col-span-3">
+			<label for="desc">Opis</label>
+			<input
+				type="text"
+				name="desc"
+				id="desc"
+				value={data.group?.description || ''}
+				placeholder="Zastęp z naboru RH2022/23"
+			/>
+		</div>
+		<div class="md:col-span-2">
+			<label class="inline-flex items-center">
+				Grupa
+				<div class="ml-3" />
+				<input
+					type="checkbox"
+					name="is_formal"
+					id="is_formal"
+					class="toggle toggle-primary"
+					checked={data.group?.is_formal || false}
+				/>
+				<div class="mr-3" />
+				Zastęp
+			</label>
+		</div>
+	</div>
+</form>
+
+<div class="w-full mb-8 overflow-hidden rounded-lg shadow-xs">
+	<div class="w-full overflow-x-auto">
+		<table class="w-full whitespace-no-wrap">
+			<thead>
+				<tr class="tr-header">
+					<th>Zaznaczone</th>
+					<th>Imię i Nazwisko</th>
+					<th>Funkcja</th>
+					<th>Zastęp główny</th>
+					<th>Stopień</th>
+					<th>Akcja</th>
+				</tr>
+			</thead>
+			<tbody class="tr-content">
+				{#each data.people as person}
+					<tr
+						class="text-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 hover:bg-gray-100 cursor-pointer"
+						on:click={() => handleCheck(person.id)}
+					>
+						<td class="w-10">
+							<input
+								type="checkbox"
+								checked={selected.indexOf(person.id) !== -1}
+								class="checkbox checkbox-primary"
+							/>
+						</td>
+						<PersonAvatarText picturesPromise={data.streamed.picturesList} {person} />
+						<ColorTag color={person.roles?.color} title={person.roles?.name} />
+						<td class="text-sm">{person.small_groups?.name || 'Brak zastępu'}</td>
+						<ColorTag
+							classes="pr-10"
+							color={person.degrees?.color}
+							title={person.degrees?.name ?? 'HBS'}
+						/>
+						<td class="flex items-center space-x-4 text-sm">
+							<button
+								class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+								aria-label="Edit"
+								on:click|stopPropagation={() =>
+									goto(
+										'/people/person_details?id=' +
+											person.id +
+											'&return=' +
+											$page.url.pathname +
+											$page.url.search
+									)}
+							>
+								<svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+									<path
+										d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
+									/>
+								</svg>
+							</button>
+						</td>
+					</tr>
+				{/each}
+			</tbody>
+		</table>
+
+		<ActionButtons
+			formId="group-form"
+			deleteAction={() => {
+				document.getElementById('delete_group_modal').showModal();
+			}}
+			cancelAction={() => goto('/groups')}
+		/>
 	</div>
 </div>
 
