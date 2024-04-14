@@ -48,7 +48,7 @@
 		"dotenv": "^16.4.2",
 		"jimp": "^0.22.12",
 		"npm-force-resolutions": "^0.0.10",
-		"postcss-load-config": "^5.0.2",
+		"postcss-load-config": "^5.0.3",
 		"svelte-french-toast": "^1.2.0",
 		"svelte-preprocess": "^5.0.4",
 		"theme-change": "^2.5.0"
